@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ADT\LinkedList.cpp" />
+    <ClCompile Include="ADT\Map.cpp" />
     <ClCompile Include="Process.cpp" />
     <ClCompile Include="Processors\FSCF.cpp" />
     <ClCompile Include="main.cpp" />
@@ -140,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADT\LinkedList.h" />
+    <ClInclude Include="ADT\Map.h" />
     <ClInclude Include="Process.h" />
     <ClInclude Include="Processors\FSCF.h" />
     <ClInclude Include="Processors\Processor.h" />
