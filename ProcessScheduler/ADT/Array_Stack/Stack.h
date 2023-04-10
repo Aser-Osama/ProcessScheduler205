@@ -5,7 +5,8 @@
 /** ADT stack: Array-based implementation.
  @file Stack.h */
 
-
+#ifndef STACK_
+#define STACK_
 
 #include "StackADT.h"
 

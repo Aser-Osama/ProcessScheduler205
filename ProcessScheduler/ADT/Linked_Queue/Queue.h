@@ -40,6 +40,8 @@ Single Node Case:
 
 */
 
+#ifndef QUEUE_
+#define QUEUE_
 
 #include "Node.h"
 #include "QueueADT.h"
