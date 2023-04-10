@@ -134,22 +134,23 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Processors\RR.cpp" />
     <ClCompile Include="Processors\SJF.cpp" />
-    <ClCompile Include="ADT\Queue.cpp" />
     <ClCompile Include="Scheduler.cpp" />
-    <ClCompile Include="ADT\Stack.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ADT\Array_Stack\Stack.h" />
+    <ClInclude Include="ADT\Array_Stack\StackADT.h" />
     <ClInclude Include="ADT\LinkedList.h" />
+    <ClInclude Include="ADT\Linked_Queue\Queue.h" />
+    <ClInclude Include="ADT\Linked_Queue\Node.h" />
+    <ClInclude Include="ADT\Linked_Queue\QueueADT.h" />
     <ClInclude Include="ADT\Map.h" />
     <ClInclude Include="Process.h" />
     <ClInclude Include="Processors\FSCF.h" />
     <ClInclude Include="Processors\Processor.h" />
     <ClInclude Include="Processors\RR.h" />
     <ClInclude Include="Processors\SJF.h" />
-    <ClInclude Include="ADT\Queue.h" />
     <ClInclude Include="Scheduler.h" />
-    <ClInclude Include="ADT\Stack.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
