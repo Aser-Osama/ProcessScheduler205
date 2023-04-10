@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ADT\LinkedList.cpp" />
     <ClCompile Include="ADT\Map.cpp" />
     <ClCompile Include="Process.cpp" />
     <ClCompile Include="Processors\FSCF.cpp" />
