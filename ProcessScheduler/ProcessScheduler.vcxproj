@@ -133,14 +133,18 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Processors\RR.cpp" />
     <ClCompile Include="Processors\SJF.cpp" />
-    <ClCompile Include="ADT\Queue.cpp" />
     <ClCompile Include="Scheduler.cpp" />
-    <ClCompile Include="ADT\Stack.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ADT\Array_Stack\Stack.h" />
+    <ClInclude Include="ADT\Array_Stack\StackADT.h" />
     <ClInclude Include="ADT\LinkedList.h" />
+    <ClInclude Include="ADT\Linked_Queue\QueueNode.h" />
+    <ClInclude Include="ADT\Linked_Queue\Queue.h" />
+    <ClInclude Include="ADT\Linked_Queue\QueueADT.h" />
     <ClInclude Include="ADT\Map.h" />
+    <ClInclude Include="ADT\Node.h" />
     <ClInclude Include="Process.h" />
     <ClInclude Include="Processors\FSCF.h" />
     <ClInclude Include="Processors\Processor.h" />
