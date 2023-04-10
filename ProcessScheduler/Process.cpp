@@ -15,6 +15,6 @@ void Process::set_TRT(){ TRT = TT - AT; } // Turn around time should be set once
 void Process::set_WT() { WT = TRT - CT; } // Wait time should be set once
 
 Process::Process(int pid, int at, int ct, Map io_r_d):PID(pid),AT(at),CT(ct),IO_R_D(io_r_d), //initializer list to use while reading from file
-													  TRT(0),WT(0),PS(NEW),TT(0) //values that are set as something initially
+													  TRT(0),WT(0),TT(0) //values that are set as something initially
 {
 }
