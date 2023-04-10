@@ -127,22 +127,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ADT\LinkedList.cpp" />
     <ClCompile Include="Process.cpp" />
     <ClCompile Include="Processors\FSCF.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Processors\Processor.cpp" />
     <ClCompile Include="Processors\RR.cpp" />
     <ClCompile Include="Processors\SJF.cpp" />
+    <ClCompile Include="ADT\Queue.cpp" />
     <ClCompile Include="Scheduler.cpp" />
+    <ClCompile Include="ADT\Stack.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ADT\LinkedList.h" />
     <ClInclude Include="Process.h" />
     <ClInclude Include="Processors\FSCF.h" />
     <ClInclude Include="Processors\Processor.h" />
     <ClInclude Include="Processors\RR.h" />
     <ClInclude Include="Processors\SJF.h" />
+    <ClInclude Include="ADT\Queue.h" />
     <ClInclude Include="Scheduler.h" />
+    <ClInclude Include="ADT\Stack.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

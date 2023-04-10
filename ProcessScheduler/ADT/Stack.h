@@ -1,6 +1,7 @@
 #pragma once
 
-class Process
+
+class Stack
 {
 };
 
