@@ -43,7 +43,7 @@ Single Node Case:
 #ifndef QUEUE_
 #define QUEUE_
 
-#include "Node.h"
+#include "QueueNode.h"
 #include "QueueADT.h"
 #include <vector>
 using namespace std;
@@ -54,8 +54,8 @@ class Queue :public QueueADT<T>
 {
 private:
 
-	Node<T>* backPtr;
-	Node<T>* frontPtr;
+	queuenode<T>* backPtr;
+	queuenode<T>* frontPtr;
 public:
 	Queue();
 	bool isEmpty() const;
@@ -111,15 +111,15 @@ Output: True if the operation is successful; otherwise false.
 template <typename T>
 bool Queue<T>::enqueue(const T& newEntry)
 {
-	Node<T>* newNodePtr = new Node<T>(newEntry);
-	// Insert the new node
-	if (isEmpty())	//special case if this is the first node to insert
-		frontPtr = newNodePtr; // The queue is empty
+	queuenode<T>* newqueuenodePtr = new queuenode<T>(newEntry);
+	// Insert the new queuenode
+	if (isEmpty())	//special case if this is the first queuenode to insert
+		frontPtr = newqueuenodePtr; // The queue is empty
 	else
-		backPtr->setNext(newNodePtr); // The queue was not empty
+		backPtr->setNext(newqueuenodePtr); // The queue was not empty
 
-	backPtr = newNodePtr;
-	// New node is the last node now
+	backPtr = newqueuenodePtr;
+	// New queuenode is the last queuenode now
 	return true;
 } // end enqueue
 
@@ -140,16 +140,16 @@ bool Queue<T>::dequeue(T& frntEntry)
 	if (isEmpty())
 		return false;
 
-	Node<T>* nodeToDeletePtr = frontPtr;
+	queuenode<T>* queuenodeToDeletePtr = frontPtr;
 	frntEntry = frontPtr->getItem();
 	frontPtr = frontPtr->getNext();
 	// Queue is not empty; remove front
-	if (nodeToDeletePtr == backPtr)	 // Special case: last node in the queue
+	if (queuenodeToDeletePtr == backPtr)	 // Special case: last queuenode in the queue
 		backPtr = nullptr;
 	else
-		delete nodeToDeletePtr;
+		delete queuenodeToDeletePtr;
 
-	// Free memory reserved for the dequeued node
+	// Free memory reserved for the dequeued queuenode
 
 	return true;
 
@@ -175,7 +175,7 @@ bool Queue<T>::peek(T& frntEntry) const
 ///////////////////////////////////////////////////////////////////////////////////
 /*
 Function: destructor
-removes all nodes from the queue by dequeuing them
+removes all queuenodes from the queue by dequeuing them
 */
 template <typename T>
 Queue<T>::~Queue()
@@ -183,9 +183,9 @@ Queue<T>::~Queue()
 	//Note that the cout statements here is just for learning purpose
 	//They should be normally removed from the destructor
 	//cout << "\nStarting Queue destructor...";
-	//cout << "\nFreeing all nodes in the queue...";
+	//cout << "\nFreeing all queuenodes in the queue...";
 
-	//Free all nodes in the queue
+	//Free all queuenodes in the queue
 	T temp;
 	while (dequeue(temp));
 
@@ -206,11 +206,11 @@ template <typename T>
 Queue<T>::Queue(const Queue<T>& LQ)
 {
 	frontPtr = backPtr = nullptr;
-	Node<T>* NodePtr = LQ.frontPtr;	//start at the front node in LQ
-	while (NodePtr)
+	queuenode<T>* queuenodePtr = LQ.frontPtr;	//start at the front queuenode in LQ
+	while (queuenodePtr)
 	{
-		enqueue(NodePtr->getItem());	//get data of each node and enqueue it in this queue 
-		NodePtr = NodePtr->getNext();
+		enqueue(queuenodePtr->getItem());	//get data of each queuenode and enqueue it in this queue 
+		queuenodePtr = queuenodePtr->getNext();
 	}
 }
 
