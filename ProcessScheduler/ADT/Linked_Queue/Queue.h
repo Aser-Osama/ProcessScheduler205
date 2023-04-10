@@ -45,7 +45,6 @@ Single Node Case:
 
 #include "QueueNode.h"
 #include "QueueADT.h"
-#include <vector>
 using namespace std;
 
 
