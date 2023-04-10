@@ -1,6 +1,36 @@
 #pragma once
 
+#include "ADT/Map.h"
+
+
 class Process
 {
+private:
+	int PID, 
+		AT,
+		RT,
+		CT,
+		TT,
+		TRT,
+		WT;
+
+	Map IO_R_D;
+
+public:
+	int get_PID();
+	int get_AT();
+	int get_RT();
+	int get_CT();
+	int get_TT();
+	int get_TRT();
+	int get_WT();
+	Map get_IO_R_D();
+
+	void set_TT(int);
+	void set_RT(int);
+	void set_TRT();
+	void set_WT();
+
+	Process(int pid, int at, int ct, Map io_r_d);
 };
 
