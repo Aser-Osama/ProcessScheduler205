@@ -7,6 +7,11 @@
 
 class Processor
 {
-
+    Process RUN;
+public:
+    virtual void SigKill(Process p) =0;
+    virtual void ScheduleAlgo() = 0; 
+    virtual int getIdleTime()=0;
+    virtual int getBusyTime()=0;
 };
 
