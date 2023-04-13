@@ -6,6 +6,9 @@
 class SJF :
     public Processor
 {
-
+    Queue<Process *> RDY;
+public:
+    void ScheduleAlgo() override; 
+    SJF();
 };
 

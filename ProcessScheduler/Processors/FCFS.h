@@ -3,12 +3,13 @@
 #include "Processor.h"
 
 
-class RR :
+class FCFS :
     public Processor
 {
     Queue<Process *> RDY;
 public:
+    void SigKill(Process* P);
     void ScheduleAlgo() override; 
-    RR(int);
+    FCFS();
 };
 
