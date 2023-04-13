@@ -128,9 +128,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ADT\Map.cpp" />
-    <ClCompile Include="PriorityQueue.cpp" />
+    <ClCompile Include="ADT\PriorityQueue.cpp" />
     <ClCompile Include="Process.cpp" />
-    <ClCompile Include="Processors\FSCF.cpp" />
+    <ClCompile Include="Processors\FCFS.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Processors\RR.cpp" />
     <ClCompile Include="Processors\SJF.cpp" />
@@ -148,7 +148,7 @@
     <ClInclude Include="ADT\Node.h" />
     <ClInclude Include="PriorityQueue.h" />
     <ClInclude Include="Process.h" />
-    <ClInclude Include="Processors\FSCF.h" />
+    <ClInclude Include="Processors\FCFS.h" />
     <ClInclude Include="Processors\Processor.h" />
     <ClInclude Include="Processors\RR.h" />
     <ClInclude Include="Processors\SJF.h" />

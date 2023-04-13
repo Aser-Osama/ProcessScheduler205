@@ -13,10 +13,10 @@ public:
 	queuenode();
 	queuenode(const t& r_item);
 	queuenode(const t& r_item, queuenode<t>* nextqueuenodeptr);
-	void setitem(const t& r_item);
-	void setnext(queuenode<t>* nextqueuenodeptr);
-	t getitem() const;
-	queuenode<t>* getnext() const;
+	void setItem(const t& r_item);
+	void setNext(queuenode<t>* nextqueuenodeptr);
+	t getItem() const;
+	queuenode<t>* getNext() const;
 }; // end queuenode
 #endif
 
@@ -40,25 +40,25 @@ queuenode<t>::queuenode(const t& r_item, queuenode<t>* nextqueuenodeptr)
 	next = nextqueuenodeptr;
 }
 template < typename t>
-void queuenode<t>::setitem(const t& r_item)
+void queuenode<t>::setItem(const t& r_item)
 {
 	item = r_item;
 }
 
 template < typename t>
-void queuenode<t>::setnext(queuenode<t>* nextqueuenodeptr)
+void queuenode<t>::setNext(queuenode<t>* nextqueuenodeptr)
 {
 	next = nextqueuenodeptr;
 }
 
 template < typename t>
-t queuenode<t>::getitem() const
+t queuenode<t>::getItem() const
 {
 	return item;
 }
 
 template < typename t>
-queuenode<t>* queuenode<t>::getnext() const
+queuenode<t>* queuenode<t>::getNext() const
 {
 	return next;
 }

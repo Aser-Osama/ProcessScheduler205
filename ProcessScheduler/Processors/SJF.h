@@ -6,10 +6,9 @@
 class SJF :
     public Processor
 {
-    Queue<Process> RDY;
+    Queue<Process *> RDY;
 public:
     void ScheduleAlgo() override; 
-    int getIdleTime() override;
-    int getBusyTime() override;
+    SJF();
 };
 

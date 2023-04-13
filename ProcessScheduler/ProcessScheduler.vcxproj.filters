@@ -21,7 +21,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Processors\FSCF.cpp">
+    <ClCompile Include="Processors\FCFS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Processors\SJF.cpp">
@@ -50,7 +50,7 @@
     <ClInclude Include="Processors\Processor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Processors\FSCF.h">
+    <ClInclude Include="Processors\FCFS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Processors\SJF.h">
@@ -98,7 +98,7 @@
     <ClInclude Include="ADT\Node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PriorityQueue.h">
+    <ClInclude Include="ADT\PriorityQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

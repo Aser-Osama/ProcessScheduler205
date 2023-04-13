@@ -6,11 +6,10 @@
 class FCFS :
     public Processor
 {
-    Queue<Process> RDY;
+    Queue<Process *> RDY;
 public:
     void SigKill(Process* P);
     void ScheduleAlgo() override; 
-    int getIdleTime() override;
-    int getBusyTime() override;
+    FCFS();
 };
 

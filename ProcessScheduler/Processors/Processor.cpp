@@ -1,5 +1,8 @@
 #include "Processor.h"
 
-Processor::Processor(){
-    
+int Processor::getBusyTime(){
+    return busyTime;
+}
+int Processor::getIdleTime(){
+    return idleTime;
 }
