@@ -6,8 +6,11 @@
 class RR :
     public Processor
 {
-    public:
+    Queue<Process> RDY;
+public:
+    void ScheduleAlgo() override; 
+    int getIdleTime() override;
+    int getBusyTime() override;
     RR(int);
-
 };
 

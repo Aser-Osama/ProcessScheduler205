@@ -1,5 +1,6 @@
 #pragma once
-
+#include <iostream>
+using namespace std;
 /*
 This is a program that implements the queue abstract data type using a linked list.
 The queue is implemented as a chain of linked nodes that has two pointers,

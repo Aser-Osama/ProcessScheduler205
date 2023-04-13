@@ -8,7 +8,12 @@
 
 class Processor
 {
-    
-
+    Process RUN;
+    int idleTime;
+    int busyTime;
+public:
+    virtual void ScheduleAlgo() = 0; 
+    virtual int getIdleTime()=0;
+    virtual int getBusyTime()=0;
 };
 
