@@ -3,7 +3,7 @@
 #include "Processor.h"
 
 
-class FSCF :
+class FCFS :
     public Processor
 {
 

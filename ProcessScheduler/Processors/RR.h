@@ -6,6 +6,8 @@
 class RR :
     public Processor
 {
+    public:
+    RR(int);
 
 };
 
