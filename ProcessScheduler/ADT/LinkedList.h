@@ -1,5 +1,8 @@
+#pragma once
+#ifndef _LINKEDLIST
+#define _LINKEDLIST
 
-#include "Node.h"
+#include "node.h"
 #include <iostream>
 using namespace std;
 
@@ -11,7 +14,7 @@ private:
 	//You can add tail pointer too (depending on your problem)
 public:
         
-        Node<T> getHead(){
+        Node<T>* getHead() const{
                 return Head;
         }
 
@@ -86,10 +89,15 @@ public:
                 Node<T> *P=Head;
                 Node<T>* NewItem =new Node<T>(data);
 
-                while (P->getNext()!=NULL){
-                        P=P->getNext();
+                if(Head){
+                        while (P->getNext()){
+                                P=P->getNext();
+                        }
+                        P->setNext(NewItem);
                 }
-                P->setNext(NewItem);
+                else{
+                        this->InsertBeg(data);
+                }
         }
 
 	//[2]Find 
@@ -99,7 +107,7 @@ public:
 
                 Node<T> *P=Head;
 
-                while (P->getNext()!=NULL){
+                while (P->getNext()){
                         P=P->getNext();
                         if (P->getItem()==data){
                                 return true;
@@ -113,10 +121,10 @@ public:
 //	//returns how many times a certain value appeared in the list
         int CountOccurance(const T & data){
                 
-                if (Head->getNext()!=NULL){
+                if (Head->getNext()){
                         Node<T> *P=Head;
                         int Occurance=0;
-                        while (P->getNext()!=NULL){
+                        while (P->getNext()){
                                 P=P->getNext();
                                 if (P->getItem()==data){
                                         Occurance++;
@@ -136,7 +144,7 @@ public:
 
         void DeleteFirst(){
                 
-                if (Head->getNext()!=NULL){
+                if (Head){
                         Node<T>* P=Head;
                         Head=Head->getNext();
                         delete P;
@@ -155,13 +163,13 @@ public:
                 Node<T> *P=Head;
                 Node<T> *N=Head->getNext();
                 
-                if (Head->getNext()!=NULL){
+                if (Head){
                         if (P->getItem()==data){
                                 DeleteFirst();
                                 return true;
                         }
         
-                        while (N->getNext()!=NULL){
+                        while (N->getNext()){
                                 P=P->getNext();
                                 N=N->getNext();
         
@@ -187,7 +195,7 @@ public:
                 Node<T> *P=Head;
                 Node<T> *N=Head->getNext();
                 bool condition=false;
-                if (Head->getNext()!=NULL){
+                if (Head->getNext()){
                         if (P->getItem()==data){
                                 P=P->getNext();
                                 N=N->getNext();
@@ -195,7 +203,7 @@ public:
                                 condition=true;
                         }
         
-                        while (N->getNext()!=NULL){
+                        while (N->getNext()){
                                 P=P->getNext();
                                 N=N->getNext();
         
@@ -244,7 +252,7 @@ public:
                 Node<T> *o=NULL;
                 
                 i->setNext(NULL);
-                while(p!=NULL){
+                while(p){
                         o=p->getNext();
                         p->setNext(i);
                         i=p;p=o;
@@ -254,3 +262,4 @@ public:
                 
         }
 };
+#endif

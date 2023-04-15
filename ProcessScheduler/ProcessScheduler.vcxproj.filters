@@ -45,6 +45,9 @@
     <ClCompile Include="ADT\PriorityQueue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pair.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Processors\Processor.h">
@@ -102,6 +105,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ADT\PriorityQueue.h">
+    <ClInclude Include="Pair.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
