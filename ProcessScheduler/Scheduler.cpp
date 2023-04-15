@@ -66,7 +66,6 @@ void Scheduler::load(string fileName){
         if (N!=0)file>>IO_R_D_unparsed;
         Map<int, int> IO_R_D;
         IO_R_D=parseIO_R_D(IO_R_D_unparsed);
-        IO_R_D.displayMap();
         Process* temp = new Process(PID,AT,CT,IO_R_D);
         NEW.enqueue(temp); 
         } 

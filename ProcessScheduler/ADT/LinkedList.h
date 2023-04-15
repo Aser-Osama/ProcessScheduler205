@@ -14,7 +14,7 @@ private:
 	//You can add tail pointer too (depending on your problem)
 public:
         
-        Node<T>* getHead(){
+        Node<T>* getHead() const{
                 return Head;
         }
 
