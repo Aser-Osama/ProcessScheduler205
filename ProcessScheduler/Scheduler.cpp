@@ -1,7 +1,5 @@
 #include "Scheduler.h"
 
-using namespace std;
-
 Scheduler::Scheduler(){}
 Scheduler::~Scheduler(){}
 
@@ -70,11 +68,9 @@ void Scheduler::load(string fileName){
         NEW.enqueue(temp); 
         } 
 
-    cout<<"test";
     while (!file.eof()){
         int time, PID;
         file>>time; file>>PID;
         SIGKILL.addPair(time,PID);
     }
-
 }

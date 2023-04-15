@@ -12,14 +12,13 @@ class Map{
         public:
 
         Map(){}
-        Map<T,U>& operator = (const Map<T,U>  & rhs ){
+        void operator = (const Map<T,U>  & rhs ){
             map.DeleteAll();
             Node<Pair<T,U>>* head=rhs.getHead();
             while(head){
                 addPair(head->getItem().getKey(),head->getItem().getValue());
                 head=head->getNext();
             }
-            return *this;
         }
 
         Map(const Map<T,U> & rhs){
@@ -32,7 +31,7 @@ class Map{
         }
 
         Node<Pair<T,U>>* getHead() const {
-            return map.getHead();
+            return this->map.getHead();
         }
         
         void addPair(T k,U v){
