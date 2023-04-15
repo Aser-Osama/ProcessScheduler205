@@ -47,7 +47,7 @@ void Scheduler::load(string fileName){
         Processors.InsertEnd(temp); 
         }
  
-    for (int i=0; i<NF; i++){ 
+    for (int i=0; i<NR; i++){ 
         RR * temp = new RR(RRSlice);
         Processors.InsertEnd(temp); 
         }
