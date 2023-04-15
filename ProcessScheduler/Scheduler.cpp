@@ -1,5 +1,10 @@
 #include "Scheduler.h"
 
+using namespace std;
+
+Scheduler::Scheduler(){}
+Scheduler::~Scheduler(){}
+
 Map<int,int> Scheduler::parseIO_R_D(string input){
     Map<int,int> output;
     bool mode=0;
@@ -9,10 +14,9 @@ Map<int,int> Scheduler::parseIO_R_D(string input){
         if (input[i]=='('){
             k="";
             v="";
-            mode=0;
         }
         else if (input[i]==','){
-            mode=1;
+            mode=!mode;
         }
         else if(input[i]==')'){
             output.addPair(stoi(k),stoi(v));
@@ -38,10 +42,9 @@ void Scheduler::load(string fileName){
     file>>NF; file>>NS; file>>NR; file>>RRSlice;
 
     for (int i=0; i<NF; i++){ 
-        FCFS * temp = new FCFS();
+        FCFS * temp = new FCFS;
         Processors.InsertEnd(temp); 
         }
-    
     for (int i=0; i<NS; i++){ 
         SJF * temp = new SJF();
         Processors.InsertEnd(temp); 
@@ -51,17 +54,18 @@ void Scheduler::load(string fileName){
         RR * temp = new RR(RRSlice);
         Processors.InsertEnd(temp); 
         }
-    
+
     file>>RTF; file>>MaxW; file>>STL; file>>forkProb;
 
     int ProcessCount;
     file>>ProcessCount;
 
     for (int i=0; i<ProcessCount; i++){ 
-
+        cout<<"test";
         int AT, PID, CT, N;
         string IO_R_D_unparsed;
-        file>>AT; file>>PID; file>>CT; file>>N; file>>IO_R_D_unparsed;
+        file>>AT; file>>PID; file>>CT; file>>N;
+        if (N!=0)file>>IO_R_D_unparsed;
         Map<int, int> IO_R_D;
         IO_R_D=parseIO_R_D(IO_R_D_unparsed);
         Process* temp = new Process(PID,AT,CT,IO_R_D);
@@ -69,6 +73,7 @@ void Scheduler::load(string fileName){
 
         } 
 
+    cout<<"test";
     while (!file.eof()){
         int time, PID;
         file>>time; file>>PID;

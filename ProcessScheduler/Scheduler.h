@@ -23,6 +23,7 @@ class Scheduler
     void save(string);
     void run(); //this is where the program is run
     Scheduler();
+    ~Scheduler();
 
 };
 
