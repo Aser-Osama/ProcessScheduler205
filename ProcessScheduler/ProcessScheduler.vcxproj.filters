@@ -1,112 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Source Files\Processors">
-      <UniqueIdentifier>{48ed309a-4bb7-4bc0-b271-63effe1bc529}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="ADT\PriorityQueue.cpp" />
+    <ClCompile Include="Process.cpp" />
+    <ClCompile Include="Processors\FCFS.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Processors\RR.cpp" />
+    <ClCompile Include="Processors\SJF.cpp" />
+    <ClCompile Include="Scheduler.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Processors\Processor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Processors\FCFS.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Processors\SJF.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Processors\RR.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Scheduler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Process.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ADT\Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ADT\PriorityQueue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Pair.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Processors\Processor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Processors\FCFS.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Processors\SJF.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Processors\RR.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scheduler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Process.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ADT\Stack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ADT\Queue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ADT\LinkedList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ADT\Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ADT\Array_Stack\Stack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ADT\Array_Stack\StackADT.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ADT\Linked_Queue\QueueNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ADT\Linked_Queue\Queue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ADT\Linked_Queue\QueueADT.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ADT\Node.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PriorityQueue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ADT\PriorityQueue.h">
-    <ClInclude Include="Pair.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="ADT\Array_Stack\Stack.h" />
+    <ClInclude Include="ADT\Array_Stack\StackADT.h" />
+    <ClInclude Include="ADT\LinkedList.h" />
+    <ClInclude Include="ADT\Linked_Queue\QueueNode.h" />
+    <ClInclude Include="ADT\Linked_Queue\Queue.h" />
+    <ClInclude Include="ADT\Map.h" />
+    <ClInclude Include="ADT\Pair.h" />
+    <ClInclude Include="ADT\Linked_Queue\QueueADT.h" />
+    <ClInclude Include="ADT\Node.h" />
+    <ClInclude Include="ADT\PriorityQueue.h" />
+    <ClInclude Include="Process.h" />
+    <ClInclude Include="Processors\FCFS.h" />
+    <ClInclude Include="Processors\Processor.h" />
+    <ClInclude Include="Processors\RR.h" />
+    <ClInclude Include="Processors\SJF.h" />
+    <ClInclude Include="ADT\Queue.h" />
+    <ClInclude Include="Scheduler.h" />
+    <ClInclude Include="ADT\Stack.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
 </Project>

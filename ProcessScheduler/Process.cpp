@@ -24,8 +24,8 @@ Process::Process(int pid, int at, int ct, Map<int,int> io_r_d):PID(pid),AT(at),C
 
 Process::Process(){}
 
-ostream& operator<<(ostream& output, const Process& prcs)
+ostream& operator<<(ostream& os, const Process& prcs)
 {
-	output << prcs.PID;
-	return output;
+	os << prcs.PID;
+	return os;
 }

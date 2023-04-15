@@ -61,6 +61,7 @@ public:
 	bool enqueue(const T& newEntry);
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
+	void Print()  const;
 	int getCount() const;
 	~Queue();
 
@@ -220,6 +221,23 @@ template <typename T>
 int Queue<T>::getCount() const
 {
 	return count;
+}
+
+template <typename T>
+void Queue<T>::Print() const
+{
+	if (isEmpty())
+		return;
+
+	
+	queuenode<T>* tmpPtr = frontPtr;
+
+	while(tmpPtr)
+	{
+		cout << tmpPtr->getItem() << "\t";
+		tmpPtr = tmpPtr->getNext();
+	}
+	cout << endl;
 }
 
 #endif

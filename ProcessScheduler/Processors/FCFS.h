@@ -10,6 +10,8 @@ class FCFS :
 public:
     void SigKill(Process* P);
     void ScheduleAlgo() override; 
+    friend ostream& operator<<(ostream& os, const FCFS& prcsr);
+
     FCFS();
 };
 

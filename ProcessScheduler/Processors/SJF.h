@@ -9,6 +9,8 @@ class SJF :
     Queue<Process *> RDY;
 public:
     void ScheduleAlgo() override; 
+    friend ostream& operator<<(ostream& os, const SJF& prcsr);
+
     SJF();
 };
 
