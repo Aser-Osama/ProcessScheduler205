@@ -12,6 +12,8 @@ private:
 		CT,
 		TT,
 		TRT,
+		FT, //THIS IS THE FIRST TIME ARRIVAL VARIABLE. SET THIS WHEN THE PROCESS FIRST ARRIVES AT A CPU 
+		LT, // THIS IS THE LEFT OVER TIME. DECREMENT THIS USING THE METHOD TO REDUCE TIME REMAINING IN CPU RUN
 		WT;
 
 	Map<int,int> IO_R_D;
@@ -27,7 +29,10 @@ public:
 	Map<int,int> get_IO_R_D();
 
 	void set_TT(int);
-	void set_RT(int);
+
+	void set_RT();
+	void set_FT(int);
+	bool sub_LT(); 
 	void set_TRT();
 	void set_WT();
 

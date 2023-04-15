@@ -42,7 +42,10 @@
     <ClCompile Include="ADT\Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PriorityQueue.cpp">
+    <ClCompile Include="ADT\PriorityQueue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Pair.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,7 +101,10 @@
     <ClInclude Include="ADT\Node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ADT\PriorityQueue.h">
+    <ClInclude Include="PriorityQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pair.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

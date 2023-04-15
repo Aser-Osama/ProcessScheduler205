@@ -10,9 +10,9 @@ class Scheduler
 {
     private:
     int timestep;
-    Map<int,int> parseIO_R_D(string);
+    Map<int,int> parseIO_R_D(string,int);
     LinkedList<Processor*> Processors;
-    PriorityQueue<Process*> NEW;
+    Queue<Process*> NEW;
 //  PlaceholderList<Process*> BLK;
 //  PlaceholderList<Process*> TRM;
     Map<int, int> SIGKILL;

@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ADT\Map.cpp" />
     <ClCompile Include="ADT\PriorityQueue.cpp" />
     <ClCompile Include="Process.cpp" />
     <ClCompile Include="Processors\FCFS.cpp" />
@@ -143,8 +142,9 @@
     <ClInclude Include="ADT\LinkedList.h" />
     <ClInclude Include="ADT\Linked_Queue\QueueNode.h" />
     <ClInclude Include="ADT\Linked_Queue\Queue.h" />
-    <ClInclude Include="ADT\Linked_Queue\QueueADT.h" />
     <ClInclude Include="ADT\Map.h" />
+    <ClInclude Include="ADT\Pair.h" />
+    <ClInclude Include="ADT\Linked_Queue\QueueADT.h" />
     <ClInclude Include="ADT\Node.h" />
     <ClInclude Include="PriorityQueue.h" />
     <ClInclude Include="Process.h" />

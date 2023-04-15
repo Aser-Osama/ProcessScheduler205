@@ -1,7 +1,30 @@
 #include "Scheduler.h"
 
-Map<int,int> Scheduler::parseIO_R_D(string input){
-    Map<int,int> output;
+Map<int,int> Scheduler::parseIO_R_D(string input, int size){
+    Map<int,int> output(size);
+    bool mode;
+    string k, v;
+
+    for (int i=0; i<input.length();i++){
+        if (input[i]=='('){
+            k="";
+            v="";
+            mode=0;
+        }
+        else if (input[i]==','){
+            mode=1;
+        }
+        else if(input[i]==')'){
+            output.addPair(stoi(k),stoi(v));
+        }
+        else{
+            if (mode)
+                v+=input[i];
+            else
+                k+=input[i];
+        }
+
+    }
 
     return output;
 }
@@ -38,18 +61,17 @@ void Scheduler::load(string fileName){
 
         int AT, PID, CT, N;
         string IO_R_D_unparsed;
-        Map<int, int> IO_R_D;
         file>>AT; file>>PID; file>>CT; file>>N; file>>IO_R_D_unparsed;
-
-        IO_R_D=parseIO_R_D(IO_R_D_unparsed);
+        Map<int, int> IO_R_D(N);
+        IO_R_D=parseIO_R_D(IO_R_D_unparsed,N);
         Process* temp = new Process(PID,AT,CT,IO_R_D);
-//      NEW.Enqueue(temp); 
+        NEW.enqueue(temp); 
         } 
     
     while (!file.eof()){
         int time, PID;
         file>>time; file>>PID;
-//      SIGKILL.insertend(time,PID);
+        SIGKILL.addPair(time,PID);
     }
 
 }
