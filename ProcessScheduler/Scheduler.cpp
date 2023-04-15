@@ -32,7 +32,7 @@ Map<int,int> Scheduler::parseIO_R_D(string input){
 
 void Scheduler::Simulator(string fileName)
 {
-
+    bool flag = false;
     Node<Processor*>* temp = Processors.getHead();
     Node<Processor*>* FirstNode = Processors.getHead();
     load(fileName);
@@ -47,8 +47,12 @@ void Scheduler::Simulator(string fileName)
         }
         else
         {
+            if (!flag)
+            {
+                temp->setNext(FirstNode);
+                flag = true;
+            } 
             temp->getItem()->MoveToRDY(process);
-            temp->setNext(FirstNode);
         }
     }
 
