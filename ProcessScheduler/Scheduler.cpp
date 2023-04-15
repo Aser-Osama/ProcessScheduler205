@@ -2,7 +2,7 @@
 
 Map<int,int> Scheduler::parseIO_R_D(string input, int size){
     Map<int,int> output(size);
-    bool mode;
+    bool mode=0;
     string k, v;
 
     for (int i=0; i<input.length();i++){
@@ -66,12 +66,17 @@ void Scheduler::load(string fileName){
         IO_R_D=parseIO_R_D(IO_R_D_unparsed,N);
         Process* temp = new Process(PID,AT,CT,IO_R_D);
         NEW.enqueue(temp); 
+
         } 
-    
+
+    int sigkill; 
+    file>>sigkill;
     while (!file.eof()){
         int time, PID;
         file>>time; file>>PID;
-        SIGKILL.addPair(time,PID);
+        Map<int,int> temp(sigkill);
+        temp.addPair(time,PID);
+        SIGKILL=temp;
     }
 
 }
