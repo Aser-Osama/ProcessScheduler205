@@ -10,6 +10,8 @@ class FCFS :
 public:
     void SigKill(Process* P);
     void ScheduleAlgo() override; 
+    void MoveToRDY(Process* NewProcess) override;
+
     FCFS();
 };
 

@@ -13,6 +13,7 @@ class Processor
     int busyTime;
 public:
     virtual void ScheduleAlgo() = 0; 
+    virtual void MoveToRDY(Process* NewProcess) = 0; 
     int getIdleTime();
     int getBusyTime();
 };

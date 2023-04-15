@@ -30,6 +30,39 @@ Map<int,int> Scheduler::parseIO_R_D(string input){
     return output;
 }
 
+void Scheduler::Simulator(string fileName)
+{
+    FCFS* FCFS1 = new FCFS();
+    SJF* SFJ1 = new SJF();
+    RR* RR1 = new RR(2);
+
+    Processor* arr[3] = { FCFS1, SFJ1, RR1 };
+    int counter = 0;
+    load(fileName);
+    while (!NEW.isEmpty())
+    {
+        Process* process;
+        NEW.dequeue(process);
+        if (counter == 0)
+        {
+            arr[0]->MoveToRDY(process);
+            counter++;
+        }
+        else if (counter == 1)
+        {
+            arr[1]->MoveToRDY(process);
+            counter++;
+        }
+        else if (counter == 2)
+        {
+            arr[2]->MoveToRDY(process);
+            counter = 0;
+        }
+
+
+    }
+
+}
 
 
 void Scheduler::load(string fileName){

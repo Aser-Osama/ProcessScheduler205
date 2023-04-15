@@ -12,3 +12,8 @@ void FCFS::ScheduleAlgo(){
 FCFS::FCFS(){
 
 }
+
+void FCFS::MoveToRDY(Process* NewProcess)
+{
+    RDY.enqueue(NewProcess);
+}

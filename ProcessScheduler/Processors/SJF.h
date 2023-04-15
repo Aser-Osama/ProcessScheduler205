@@ -9,6 +9,7 @@ class SJF :
     Queue<Process *> RDY;
 public:
     void ScheduleAlgo() override; 
+    void MoveToRDY(Process* NewProcess) override;
     SJF();
 };
 
