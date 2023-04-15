@@ -29,7 +29,6 @@ Map<int,int> Scheduler::parseIO_R_D(string input){
         }
 
     }
-
     return output;
 }
 
@@ -61,16 +60,15 @@ void Scheduler::load(string fileName){
     file>>ProcessCount;
 
     for (int i=0; i<ProcessCount; i++){ 
-        cout<<"test";
         int AT, PID, CT, N;
         string IO_R_D_unparsed;
         file>>AT; file>>PID; file>>CT; file>>N;
         if (N!=0)file>>IO_R_D_unparsed;
         Map<int, int> IO_R_D;
         IO_R_D=parseIO_R_D(IO_R_D_unparsed);
+        IO_R_D.displayMap();
         Process* temp = new Process(PID,AT,CT,IO_R_D);
         NEW.enqueue(temp); 
-
         } 
 
     cout<<"test";

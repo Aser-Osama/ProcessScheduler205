@@ -10,12 +10,17 @@ template<class T, class U>
 class Map{
         LinkedList<Pair<T,U>> map;
         public:
+
         Map(){}
+        void operator = (const Map<T,U>  & rhs ){}
+        Map(const Map<T,U> & rhs){}
+
         void addPair(T k,U v){
             Pair<T,U> pair;
             pair.setPair(k,v);
             map.InsertEnd(pair);
         }
+
         bool getValue(T k,U& v){
             Node<Pair<T,U>>* head=map.getHead(); 
             while (head){
