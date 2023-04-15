@@ -9,7 +9,7 @@
 #define STACK_
 
 #include "StackADT.h"
-
+#include <iostream>
  //Unless spesificed by the stack user, the default size is 100
 template<typename T>
 class Stack : public StackADT<T>
@@ -58,6 +58,17 @@ public:
 		return true;
 	}  // end peek
 
+	void print() override 
+	{
+
+		for each (T item in items)
+		{
+			cout << item;
+		}
+	}
+	int count() override {
+		return top + 1;
+	}
 }; // end Stack
 
 #endif

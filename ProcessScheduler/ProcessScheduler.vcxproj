@@ -146,6 +146,7 @@
     <ClInclude Include="ADT\Linked_Queue\QueueADT.h" />
     <ClInclude Include="ADT\Map.h" />
     <ClInclude Include="ADT\Node.h" />
+    <ClInclude Include="ADT\PriorityQueue.h" />
     <ClInclude Include="PriorityQueue.h" />
     <ClInclude Include="Process.h" />
     <ClInclude Include="Processors\FCFS.h" />

@@ -1,8 +1,9 @@
 #pragma once
 
 #include "ADT/Map.h"
-
-
+#include <iostream>
+#include <ostream>
+using namespace std;
 class Process
 {
 private:
@@ -30,6 +31,8 @@ public:
 	void set_RT(int);
 	void set_TRT();
 	void set_WT();
+	friend ostream& operator<<(ostream& output, const Process& prcs);
+
 
 	Process(int pid, int at, int ct, Map<int,int> io_r_d);
 };

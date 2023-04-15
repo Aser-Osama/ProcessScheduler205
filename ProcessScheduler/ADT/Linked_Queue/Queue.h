@@ -52,7 +52,7 @@ template <typename T>
 class Queue :public QueueADT<T>
 {
 private:
-
+	int count;
 	queuenode<T>* backPtr;
 	queuenode<T>* frontPtr;
 public:
@@ -61,6 +61,7 @@ public:
 	bool enqueue(const T& newEntry);
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
+	int getCount() const;
 	~Queue();
 
 	Queue(const Queue<T>& LQ);
@@ -81,6 +82,7 @@ Queue<T>::Queue()
 {
 	backPtr = nullptr;
 	frontPtr = nullptr;
+	count = 0;
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -118,6 +120,7 @@ bool Queue<T>::enqueue(const T& newEntry)
 		backPtr->setNext(newqueuenodePtr); // The queue was not empty
 
 	backPtr = newqueuenodePtr;
+	count++;
 	// New queuenode is the last queuenode now
 	return true;
 } // end enqueue
@@ -149,7 +152,7 @@ bool Queue<T>::dequeue(T& frntEntry)
 		delete queuenodeToDeletePtr;
 
 	// Free memory reserved for the dequeued queuenode
-
+	count--;
 	return true;
 
 }
@@ -211,6 +214,12 @@ Queue<T>::Queue(const Queue<T>& LQ)
 		enqueue(queuenodePtr->getItem());	//get data of each queuenode and enqueue it in this queue 
 		queuenodePtr = queuenodePtr->getNext();
 	}
+}
+
+template <typename T>
+int Queue<T>::getCount() const
+{
+	return count;
 }
 
 #endif

@@ -18,3 +18,9 @@ Process::Process(int pid, int at, int ct, Map<int,int> io_r_d):PID(pid),AT(at),C
 													  TRT(0),WT(0),TT(0),RT(0) //values that are set as something initially
 {
 }
+
+ostream& operator<<(ostream& output, const Process& prcs)
+{
+	output << prcs.PID;
+	return output;
+}
