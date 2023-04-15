@@ -1,3 +1,4 @@
+#pragma once
 
 #include "Node.h"
 #include <iostream>
@@ -86,7 +87,7 @@ public:
                 Node<T> *P=Head;
                 Node<T>* NewItem =new Node<T>(data);
 
-                while (P->getNext()!=NULL){
+                while (P){
                         P=P->getNext();
                 }
                 P->setNext(NewItem);
@@ -99,7 +100,7 @@ public:
 
                 Node<T> *P=Head;
 
-                while (P->getNext()!=NULL){
+                while (P){
                         P=P->getNext();
                         if (P->getItem()==data){
                                 return true;
@@ -113,10 +114,10 @@ public:
 //	//returns how many times a certain value appeared in the list
         int CountOccurance(const T & data){
                 
-                if (Head->getNext()!=NULL){
+                if (Head){
                         Node<T> *P=Head;
                         int Occurance=0;
-                        while (P->getNext()!=NULL){
+                        while (P){
                                 P=P->getNext();
                                 if (P->getItem()==data){
                                         Occurance++;
@@ -136,7 +137,7 @@ public:
 
         void DeleteFirst(){
                 
-                if (Head->getNext()!=NULL){
+                if (Head){
                         Node<T>* P=Head;
                         Head=Head->getNext();
                         delete P;
@@ -155,13 +156,13 @@ public:
                 Node<T> *P=Head;
                 Node<T> *N=Head->getNext();
                 
-                if (Head->getNext()!=NULL){
+                if (Head){
                         if (P->getItem()==data){
                                 DeleteFirst();
                                 return true;
                         }
         
-                        while (N->getNext()!=NULL){
+                        while (N){
                                 P=P->getNext();
                                 N=N->getNext();
         
@@ -187,7 +188,7 @@ public:
                 Node<T> *P=Head;
                 Node<T> *N=Head->getNext();
                 bool condition=false;
-                if (Head->getNext()!=NULL){
+                if (Head){
                         if (P->getItem()==data){
                                 P=P->getNext();
                                 N=N->getNext();
@@ -195,7 +196,7 @@ public:
                                 condition=true;
                         }
         
-                        while (N->getNext()!=NULL){
+                        while (N){
                                 P=P->getNext();
                                 N=N->getNext();
         
@@ -222,8 +223,8 @@ public:
 //        //
         void Merge(LinkedList<T>* List){
                 Node<T> * P=Head; 
-                if(!Head && !(List->getHead())){
-                        while (P->getNext()!=NULL){
+                if(Head && (List->getHead())){
+                        while (P){
                                 P=P->getNext();
                         }
                         P->setNext(List->getHead());
@@ -244,7 +245,7 @@ public:
                 Node<T> *o=NULL;
                 
                 i->setNext(NULL);
-                while(p!=NULL){
+                while(p){
                         o=p->getNext();
                         p->setNext(i);
                         i=p;p=o;

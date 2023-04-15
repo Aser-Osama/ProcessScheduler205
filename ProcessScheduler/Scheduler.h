@@ -10,7 +10,7 @@ class Scheduler
 {
     private:
     int timestep;
-    Map<int,int> parseIO_R_D(string,int);
+    Map<int,int> parseIO_R_D(string);
     LinkedList<Processor*> Processors;
     Queue<Process*> NEW;
 //  PlaceholderList<Process*> BLK;
@@ -20,7 +20,7 @@ class Scheduler
 
     public:
     void load(string); //will be called 
-    void output(string);
+    void save(string);
     void run(); //this is where the program is run
     Scheduler();
 

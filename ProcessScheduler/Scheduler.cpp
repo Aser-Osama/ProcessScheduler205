@@ -1,7 +1,7 @@
 #include "Scheduler.h"
 
-Map<int,int> Scheduler::parseIO_R_D(string input, int size){
-    Map<int,int> output(size);
+Map<int,int> Scheduler::parseIO_R_D(string input){
+    Map<int,int> output;
     bool mode=0;
     string k, v;
 
@@ -62,21 +62,17 @@ void Scheduler::load(string fileName){
         int AT, PID, CT, N;
         string IO_R_D_unparsed;
         file>>AT; file>>PID; file>>CT; file>>N; file>>IO_R_D_unparsed;
-        Map<int, int> IO_R_D(N);
-        IO_R_D=parseIO_R_D(IO_R_D_unparsed,N);
+        Map<int, int> IO_R_D;
+        IO_R_D=parseIO_R_D(IO_R_D_unparsed);
         Process* temp = new Process(PID,AT,CT,IO_R_D);
         NEW.enqueue(temp); 
 
         } 
 
-    int sigkill; 
-    file>>sigkill;
     while (!file.eof()){
         int time, PID;
         file>>time; file>>PID;
-        Map<int,int> temp(sigkill);
-        temp.addPair(time,PID);
-        SIGKILL=temp;
+        SIGKILL.addPair(time,PID);
     }
 
 }

@@ -1,68 +1,65 @@
 #pragma once
 
 #include "Pair.h"
+#include "LinkedList.h"
 #include <iostream>
 
 using namespace std;
 
 template<class T, class U>
 class Map{
-        Pair<T,U> *map;
-        int count=0;
-        int size;
+        LinkedList<Pair<T,U>> map;
         public:
-        Map(int s):size(s){
-            map= new Pair<T,U>[size];
-        }
+        Map(){}
         void addPair(T k,U v){
-            if (count!=size){
-                Pair<T,U> kv;
-                kv.setPair(k,v);
-                map[count]=kv;count++;
-            }
+            Pair<T,U> pair;
+            pair.setPair(k,v);
+            map.InsertEnd(pair);
         }
-
         bool getValue(T k,U& v){
-                for (int i=0;i<count;i++){
-                        if (map[i].getKey()==k){
-                                v=map[i].getValue();
-                                return true;
-                        }
-                        else{
-                                return false;
-                        }
+            Node<Pair<T,U>>* head=map.getHead(); 
+            while (head){
+                if (head->getItem().getKey()==k){
+                    v=head->getItem().getValue();
+                    return true;
+                }
+                else{
+                    return false;
+                    }
+                head=head->getNext();
                 }
                 return false;
         }
 
-        int getcount(){return count;}
-
         bool updateValue(T k,U v){
-                for (int i=0;i<count;i++){
-                        if (map[i].getKey()==k){
-                                map[i].setValue(v);
+            Node<Pair<T,U>>* head=map.getHead(); 
+            while (head){
+                        if (head->getItem().getKey()==k){
+                                head->getItem().setValue(v);
                                 return true;
                                 }
                         else{
                                 return false;
                                 }
+                head=head->getNext();
                 }
                 return false;
  
         }
 
         void displayMap(){
-                for (int i=0;i<count;i++){
-                        cout<<"("<<map[i].getKey()<<","<<map[i].getValue()<<")"<<" ";
+                Node<Pair<T,U>>* head=map.getHead(); 
+                while (head){
+                        cout<<"("<<head->getItem().getKey()<<","<<head->getItem().getValue()<<")"<<" ";
+                        head=head->getNext();
                 }
                 cout<<endl;
         }
 
-        void deletePair(T k, U v){
-                for (int i=0;i<count;i++){
-                        if (map[i].getKey()==k && map[i].getValue()==v){
-                                map[i]=Pair<T,U>();
-                        }
-                }
+        bool deletePair(T k, U v){
+            Pair<T,U> pair;
+            pair.setPair(k,v);
+            return map.DeleteNode(pair);
         }
+
 };
