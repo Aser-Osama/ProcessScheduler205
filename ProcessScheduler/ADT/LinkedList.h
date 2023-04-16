@@ -1,10 +1,11 @@
 #pragma once
 #ifndef _LINKEDLIST
 #define _LINKEDLIST
-
 #include "node.h"
 #include <iostream>
 using namespace std;
+class Process;
+
 
 template <typename T>
 class LinkedList
@@ -49,19 +50,7 @@ public:
 	* Function: PrintList.
 	* prints the values of all nodes in a linked list.
 	*/
-	void PrintList()	const
-	{
-		cout<<"\nprinting list contents:\n\n";
-		Node<T> *p = Head;
-
-		while(p)
-		{
-			cout << "[ " << p->getItem() << " ]";
-			cout << "--->";
-			p = p->getNext();
-		}
-		cout << "*\n";
-	}
+    void PrintList() const;
 	
 	/*
 	* Function: InsertBeg.
@@ -285,6 +274,11 @@ public:
                 }
                 
         }
+
 };
+
+
+
+
 #endif
 

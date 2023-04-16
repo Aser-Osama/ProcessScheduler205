@@ -44,5 +44,7 @@ public:
 
 	Process(int pid, int at, int ct, Map<int,int> io_r_d);
 	Process();
+	Process(int pid) : PID(pid) {}
+
 };
 
