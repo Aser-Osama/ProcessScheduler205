@@ -131,6 +131,7 @@
     <ClCompile Include="Process.cpp" />
     <ClCompile Include="Processors\FCFS.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Processors\Processor.cpp" />
     <ClCompile Include="Processors\RR.cpp" />
     <ClCompile Include="Processors\SJF.cpp" />
     <ClCompile Include="Scheduler.cpp" />
@@ -146,7 +147,7 @@
     <ClInclude Include="ADT\Pair.h" />
     <ClInclude Include="ADT\Linked_Queue\QueueADT.h" />
     <ClInclude Include="ADT\Node.h" />
-    <ClInclude Include="PriorityQueue.h" />
+    <ClInclude Include="ADT\PriorityQueue.h" />
     <ClInclude Include="Process.h" />
     <ClInclude Include="Processors\FCFS.h" />
     <ClInclude Include="Processors\Processor.h" />

@@ -21,3 +21,11 @@ Process::Process(int pid, int at, int ct, Map<int,int> io_r_d):PID(pid),AT(at),C
 													  TRT(0),WT(0),TT(0),RT(0),cpu_arrival_time(0),remaining_time(ct) //values that are set as something initially
 {
 }
+
+Process::Process(){}
+
+ostream& operator<<(ostream& os, const Process& prcs)
+{
+	os << prcs.PID;
+	return os;
+}
