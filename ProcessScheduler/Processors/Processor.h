@@ -15,8 +15,9 @@ public:
     virtual void ScheduleAlgo() = 0; 
     int getIdleTime();
     int getBusyTime();
-    bool isBusy() { return !(RUN == nullptr); }
-    Process* getRun() { return RUN; }
+    bool isBusy(); 
+    Process* getRun();
+    Process* clearRun();
     
 
 };  
