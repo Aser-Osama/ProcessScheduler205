@@ -29,12 +29,12 @@ public:
 	{
 		DeleteAll();
 	}
-    int getCount(){
+    int getCount()const{
         return count;
     }
     LinkedList(const LinkedList& RHS)
     {
-        count=RHS->getCount();
+        count=RHS.getCount();
         Head = nullptr;
         Node<T>* tmpptr = RHS.Head;
         while (tmpptr)
