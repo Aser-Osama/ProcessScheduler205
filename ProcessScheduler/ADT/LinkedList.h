@@ -10,6 +10,7 @@ template <typename T>
 class LinkedList
 {
 private:
+        int count=0;
 	Node<T> *Head;	//Pointer to the head of the list
 	//You can add tail pointer too (depending on your problem)
 public:
@@ -28,9 +29,12 @@ public:
 	{
 		DeleteAll();
 	}
-	
+    int getCount()const{
+        return count;
+    }
     LinkedList(const LinkedList& RHS)
     {
+        count=RHS.getCount();
         Head = nullptr;
         Node<T>* tmpptr = RHS.Head;
         while (tmpptr)
@@ -71,6 +75,7 @@ public:
 		Node<T> *R = new Node<T>(data);
 		R->setNext(Head);
 		Head = R;
+                count++;
 	}
 	
 	/*
@@ -86,6 +91,7 @@ public:
 			delete Head;
 			Head = P;
 		}
+                count=0;
 	}
 
 	////////////////     Requirements   ///////////////////
@@ -110,6 +116,7 @@ public:
                 else{
                         this->InsertBeg(data);
                 }
+                count++;
         }
 
 	//[2]Find 
@@ -162,6 +169,7 @@ public:
                         delete P;
                         
                 }
+                count--;
         }
 
 //
@@ -194,6 +202,7 @@ public:
                         }
                         
                 }
+                count--;
                 return false;
         }
 
@@ -213,6 +222,7 @@ public:
                                 N=N->getNext();
                                 DeleteFirst();
                                 condition=true;
+                                count--;
                         }
         
                         while (N->getNext()){
@@ -224,6 +234,7 @@ public:
                                         delete N;
                                         N=P->getNext();
                                         condition=true;
+                                        count--;
                                 }
         
                         }
@@ -247,6 +258,7 @@ public:
                                 P=P->getNext();
                         }
                         P->setNext(List->getHead());
+                        count+=List->getCount();
                         
                         }
         }
@@ -272,17 +284,6 @@ public:
                 Head=i;cout<<"i did this";
                 }
                 
-        }
-
-        int getCount() {
-            int count = 0;
-            if (!Head) return 0;
-            
-            Node<T>* tmp = Head;
-            while (tmp) {
-                count++;
-            }
-            return count;
         }
 };
 #endif
