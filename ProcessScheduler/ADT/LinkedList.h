@@ -4,7 +4,6 @@
 #include "node.h"
 #include <iostream>
 using namespace std;
-class Process;
 
 
 template <typename T>
