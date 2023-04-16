@@ -15,7 +15,7 @@ FCFS::FCFS(){
 
 void FCFS::MoveToRDY(Process* NewProcess)
 {
-    RDY.enqueue(NewProcess);
+//    RDY.enqueue(NewProcess);
 }
 
 ostream& operator<<(ostream& os, const FCFS& prcsr)
