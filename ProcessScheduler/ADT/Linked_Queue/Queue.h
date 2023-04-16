@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "../../Process.h"
 using namespace std;
 /*
 This is a program that implements the queue abstract data type using a linked list.
@@ -52,7 +53,7 @@ template <typename T>
 class Queue :public QueueADT<T>
 {
 private:
-
+	int count = 0;
 	queuenode<T>* backPtr;
 	queuenode<T>* frontPtr;
 public:
@@ -61,6 +62,8 @@ public:
 	bool enqueue(const T& newEntry);
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
+	virtual void Print()  const;
+	int getCount() const;
 	~Queue();
 
 	Queue(const Queue<T>& LQ);
@@ -81,6 +84,7 @@ Queue<T>::Queue()
 {
 	backPtr = nullptr;
 	frontPtr = nullptr;
+	count = 0;
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -118,6 +122,7 @@ bool Queue<T>::enqueue(const T& newEntry)
 		backPtr->setNext(newqueuenodePtr); // The queue was not empty
 
 	backPtr = newqueuenodePtr;
+	count++;
 	// New queuenode is the last queuenode now
 	return true;
 } // end enqueue
@@ -149,7 +154,7 @@ bool Queue<T>::dequeue(T& frntEntry)
 		delete queuenodeToDeletePtr;
 
 	// Free memory reserved for the dequeued queuenode
-
+	count--;
 	return true;
 
 }
@@ -212,5 +217,49 @@ Queue<T>::Queue(const Queue<T>& LQ)
 		queuenodePtr = queuenodePtr->getNext();
 	}
 }
+
+template <typename T>
+int Queue<T>::getCount() const
+{
+	return count;
+}
+
+template<>
+inline void Queue<Process*>::Print() const
+{
+	if (isEmpty())
+		return;
+
+
+	queuenode<Process*>* tmpPtr = frontPtr;
+
+	while (tmpPtr)
+	{
+		cout << *(tmpPtr->getItem()) << ",\t";
+		tmpPtr = tmpPtr->getNext();
+	}
+	cout << endl;
+}
+
+template <typename T>
+void Queue<T>::Print() const
+{
+	if (isEmpty())
+		return;
+
+	
+	queuenode<T>* tmpPtr = frontPtr;
+
+	while(tmpPtr)
+	{
+		cout << tmpPtr->getItem() << ",\t";
+		tmpPtr = tmpPtr->getNext();
+	}
+	cout << endl;
+}
+
+
+
+
 
 #endif

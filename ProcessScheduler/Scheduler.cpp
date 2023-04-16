@@ -51,7 +51,6 @@ void Scheduler::load(string fileName){
         RR * temp = new RR(RRSlice);
         Processors.InsertEnd(temp); 
         }
-
     file>>RTF; file>>MaxW; file>>STL; file>>forkProb;
 
     int ProcessCount;

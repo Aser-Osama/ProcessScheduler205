@@ -8,7 +8,9 @@ class RR :
 {
     Queue<Process *> RDY;
 public:
-    void ScheduleAlgo() override; 
+    void ScheduleAlgo() override;
+    friend ostream& operator<<(ostream& os, const RR& prcsr);
     RR(int);
+
 };
 
