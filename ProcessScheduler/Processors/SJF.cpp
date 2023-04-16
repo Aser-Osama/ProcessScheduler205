@@ -9,7 +9,6 @@ SJF::SJF(){
 	
 }
 
-}
 
 void SJF::MoveToRDY(Process* NewProcess)
 {

@@ -11,7 +11,6 @@ public:
     void ScheduleAlgo() override; 
     void MoveToRDY(Process* NewProcess) override;
 
-    void ScheduleAlgo() override;
     friend ostream& operator<<(ostream& os, const RR& prcsr);
     RR(int);
 
