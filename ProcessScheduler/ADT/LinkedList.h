@@ -274,3 +274,19 @@ public:
         }
 };
 #endif
+
+/*
+
+template <typename T>
+Queue<T>::Queue(const Queue<T>& LQ)
+{
+    frontPtr = backPtr = nullptr;
+    queuenode<T>* queuenodePtr = LQ.frontPtr;	//start at the front queuenode in LQ
+    while (queuenodePtr)
+    {
+        enqueue(queuenodePtr->getItem());	//get data of each queuenode and enqueue it in this queue
+        queuenodePtr = queuenodePtr->getNext();
+    }
+}
+
+*/

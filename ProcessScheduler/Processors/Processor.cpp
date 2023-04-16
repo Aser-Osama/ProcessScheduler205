@@ -6,3 +6,4 @@ int Processor::getBusyTime(){
 int Processor::getIdleTime(){
     return idleTime;
 }
+

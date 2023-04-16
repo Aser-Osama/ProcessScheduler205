@@ -20,7 +20,19 @@ void UI::general_template(int c_ts, LinkedList<Processor*>processors, Queue<Proc
 	Node<Processor*>* tmp_p = processors.getHead();
 	while (tmp_p)
 	{
-		cout << "Processor " << i << tmp_p->getItem();
+		FCFS* FCFSPtr = dynamic_cast<FCFS*>(tmp_p->getItem());  
+		SJF* SJFPtr = dynamic_cast<SJF*>(tmp_p->getItem()); 
+		RR* RRPtr = dynamic_cast<RR*>(tmp_p->getItem());  
+		if (FCFSPtr) {
+			cout << "Processor " << i << ": \t" << *(FCFSPtr) << endl;
+		}
+		else if (SJFPtr) {
+			cout << "Processor " << i << ": \t" << *(SJFPtr) << endl;
+		}
+		else if (RRPtr) {
+			cout << "Processor " << i << ": \t" << *(RRPtr) << endl;
+		}
+
 		i++;
 		tmp_p = tmp_p->getNext();
 	}
@@ -62,6 +74,6 @@ void UI::general_template(int c_ts, LinkedList<Processor*>processors, Queue<Proc
 	cout << "\n";
 
 	cout << "----------------- TRM processes ----------------" << endl;
-	cout << TRM.getCount() << "\t";
+	cout << TRM.getCount() << " TRM:" << "\t";
 	TRM.Print();
 }

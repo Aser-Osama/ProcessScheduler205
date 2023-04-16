@@ -12,5 +12,7 @@ public:
     friend ostream& operator<<(ostream& os, const SJF& prcsr);
 
     SJF();
+    SJF(Queue<Process*> rdy) : RDY(rdy) {} //HERE FOR TESTING ONLY
+
 };
 

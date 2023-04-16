@@ -17,5 +17,6 @@ public:
     int getBusyTime();
     bool isBusy() { return !(RUN == nullptr); }
     Process* getRun() { return RUN; }
-};
+    
 
+};  

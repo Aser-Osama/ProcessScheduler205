@@ -52,7 +52,7 @@ template <typename T>
 class Queue :public QueueADT<T>
 {
 private:
-	int count;
+	int count = 0;
 	queuenode<T>* backPtr;
 	queuenode<T>* frontPtr;
 public:
@@ -234,10 +234,28 @@ void Queue<T>::Print() const
 
 	while(tmpPtr)
 	{
-		cout << tmpPtr->getItem() << "\t";
+		cout << tmpPtr->getItem() << ",\t";
 		tmpPtr = tmpPtr->getNext();
 	}
 	cout << endl;
 }
+
+template<>
+void Queue<Process*>::Print() const
+{
+	if (isEmpty())
+		return;
+
+
+	queuenode<Process*>* tmpPtr = frontPtr;
+
+	while (tmpPtr)
+	{
+		cout << *(tmpPtr->getItem()) << ",\t";
+		tmpPtr = tmpPtr->getNext();
+	}
+	cout << endl;
+}
+
 
 #endif
