@@ -12,6 +12,5 @@ public:
     friend ostream& operator<<(ostream& os, const SJF& prcsr);
     
     SJF();
-    SJF(Queue<Process*> RDY) :RDY(RDY) {}
 };
 
