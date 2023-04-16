@@ -274,17 +274,7 @@ public:
                 }
                 
         }
-        public:
-        int getCount() const {
-            int count = 0;
-            if (!Head) return 0;
-            
-            Node<T>* tmp = Head;
-            while (tmp) {
-                count++;
-            }
-            return count;
-        }
+
 };
 
 
