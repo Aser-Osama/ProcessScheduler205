@@ -2,7 +2,7 @@
 
 
 void SJF::ScheduleAlgo(){
-
+    
 }
 
 SJF::SJF(){
