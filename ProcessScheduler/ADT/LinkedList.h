@@ -29,6 +29,18 @@ public:
 		DeleteAll();
 	}
 	
+    LinkedList(const LinkedList& RHS)
+    {
+        Head = nullptr;
+        Node<T>* tmpptr = RHS.Head;
+        while (tmpptr)
+        {
+            this->InsertEnd(tmpptr->getItem());
+            tmpptr = tmpptr->getNext();
+        }
+    }
+
+
 	/*
 	* Function: PrintList.
 	* prints the values of all nodes in a linked list.
@@ -261,5 +273,17 @@ public:
                 }
                 
         }
+
+        int getCount() {
+            int count = 0;
+            if (!Head) return 0;
+            
+            Node<T>* tmp = Head;
+            while (tmp) {
+                count++;
+            }
+            return count;
+        }
 };
 #endif
+

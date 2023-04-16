@@ -16,5 +16,8 @@ public:
     virtual void MoveToRDY(Process* NewProcess) = 0; 
     int getIdleTime();
     int getBusyTime();
-};
+    bool isBusy() { return !(RUN == nullptr); }
+    Process* getRun() { return RUN; }
+    
 
+};  
