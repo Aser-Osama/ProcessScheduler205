@@ -12,7 +12,6 @@ public:
     void ScheduleAlgo() override; 
 
     FCFS();
-    FCFS(LinkedList<Process*> rdy) : RDY(rdy){} //HERE FOR TESTING ONLY
     friend ostream& operator<<(ostream& os, const FCFS& prcsr);
 };
 
