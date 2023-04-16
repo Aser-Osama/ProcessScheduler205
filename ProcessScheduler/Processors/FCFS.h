@@ -12,8 +12,6 @@ public:
     void ScheduleAlgo() override; 
     void MoveToRDY(Process* NewProcess) override;
     friend ostream& operator<<(ostream& os, const FCFS& prcsr);
-
     FCFS();
-    FCFS(Queue<Process*> rdy) : RDY(rdy){} //HERE FOR TESTING ONLY
 };
 

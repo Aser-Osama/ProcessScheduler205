@@ -66,7 +66,7 @@ void Scheduler::load(string fileName){
     file>>NF; file>>NS; file>>NR; file>>RRSlice;
 
     for (int i=0; i<NF; i++){ 
-        FCFS * temp = new FCFS;
+        FCFS * temp = new FCFS();
         Processors.InsertEnd(temp); 
         }
     for (int i=0; i<NS; i++){ 
