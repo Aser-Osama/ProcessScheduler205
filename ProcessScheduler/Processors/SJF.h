@@ -10,7 +10,6 @@ class SJF :
 public:
     void ScheduleAlgo() override; 
     friend ostream& operator<<(ostream& os, const SJF& prcsr);
-    
     SJF();
 };
 
