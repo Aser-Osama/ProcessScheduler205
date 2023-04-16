@@ -1,12 +1,7 @@
 #include "Scheduler.h"
 #include "ADT/Linked_Queue/Queue.h"
 
-#include "Process.h"
-#include "ADT/LinkedList.h"
-#include "UI.h"
-#include "Processors/Processor.h"
-#include "Processors/FCFS.h"
-#include "Processors/SJF.h"
+
 using namespace std;
 
 void test_print();
@@ -25,6 +20,13 @@ int main() {
 	return 0;
 }
 
+
+#include "Process.h"
+#include "ADT/LinkedList.h"
+#include "UI.h"
+#include "Processors/Processor.h"
+#include "Processors/FCFS.h"
+#include "Processors/SJF.h"
 void test_print() {
 
 	Queue<Process*> rdy1;
@@ -38,9 +40,9 @@ void test_print() {
 	rdy1.enqueue(&p3);
 	rdy1.enqueue(&p3);
 
-	Process p11(1);
-	Process p12(2);
-	Process p13(3);
+	Process p11(11);
+	Process p12(22);
+	Process p13(33);
 	rdy2.enqueue(&p11);
 	rdy2.enqueue(&p12);
 	rdy2.enqueue(&p13);
@@ -90,11 +92,25 @@ void test_print() {
 
 
 	UI ui;
+	cout << "testing interactive\n";
 	for (int i = 0; i < 10; i++)
 	{
+
 		ui.print_interactive(i, lst, blk, trm);
+		trm.enqueue(p9);
+		blk.enqueue(p4);
+		blk.enqueue(p5);
 
 	}
+	cout << "testing 1secdel\n";
 
+	for (int i = 0; i < 10; i++)
+	{
 
+		ui.print_sbs(i, lst, blk, trm);
+		trm.enqueue(p9);
+		blk.enqueue(p4);
+		blk.enqueue(p5);
+
+	}
 }

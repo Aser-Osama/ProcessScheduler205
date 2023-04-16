@@ -10,7 +10,6 @@
     <ClCompile Include="Scheduler.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Processors\Processor.cpp" />
-    <ClCompile Include="ADT\Linked_Queue\Queue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADT\Array_Stack\Stack.h" />

@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "../../Process.h"
 using namespace std;
 /*
 This is a program that implements the queue abstract data type using a linked list.
@@ -61,7 +62,7 @@ public:
 	bool enqueue(const T& newEntry);
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
-	void Print()  const;
+	virtual void Print()  const;
 	int getCount() const;
 	~Queue();
 
@@ -223,6 +224,23 @@ int Queue<T>::getCount() const
 	return count;
 }
 
+template<>
+inline void Queue<Process*>::Print() const
+{
+	if (isEmpty())
+		return;
+
+
+	queuenode<Process*>* tmpPtr = frontPtr;
+
+	while (tmpPtr)
+	{
+		cout << *(tmpPtr->getItem()) << ",\t";
+		tmpPtr = tmpPtr->getNext();
+	}
+	cout << endl;
+}
+
 template <typename T>
 void Queue<T>::Print() const
 {
@@ -240,22 +258,8 @@ void Queue<T>::Print() const
 	cout << endl;
 }
 
-template<>
-void Queue<Process*>::Print() const
-{
-	if (isEmpty())
-		return;
 
 
-	queuenode<Process*>* tmpPtr = frontPtr;
-
-	while (tmpPtr)
-	{
-		cout << *(tmpPtr->getItem()) << ",\t";
-		tmpPtr = tmpPtr->getNext();
-	}
-	cout << endl;
-}
 
 
 #endif

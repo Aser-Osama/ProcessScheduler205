@@ -29,6 +29,18 @@ public:
 		DeleteAll();
 	}
 	
+    LinkedList(const LinkedList& RHS)
+    {
+        Head = nullptr;
+        Node<T>* tmpptr = RHS.Head;
+        while (tmpptr)
+        {
+            this->InsertEnd(tmpptr->getItem());
+            tmpptr = tmpptr->getNext();
+        }
+    }
+
+
 	/*
 	* Function: PrintList.
 	* prints the values of all nodes in a linked list.
@@ -275,18 +287,3 @@ public:
 };
 #endif
 
-/*
-
-template <typename T>
-Queue<T>::Queue(const Queue<T>& LQ)
-{
-    frontPtr = backPtr = nullptr;
-    queuenode<T>* queuenodePtr = LQ.frontPtr;	//start at the front queuenode in LQ
-    while (queuenodePtr)
-    {
-        enqueue(queuenodePtr->getItem());	//get data of each queuenode and enqueue it in this queue
-        queuenodePtr = queuenodePtr->getNext();
-    }
-}
-
-*/

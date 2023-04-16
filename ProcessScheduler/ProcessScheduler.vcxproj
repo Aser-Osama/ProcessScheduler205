@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ADT\Linked_Queue\Queue.cpp" />
     <ClCompile Include="ADT\PriorityQueue.cpp" />
     <ClCompile Include="Process.cpp" />
     <ClCompile Include="Processors\FCFS.cpp" />
