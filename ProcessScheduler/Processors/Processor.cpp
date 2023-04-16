@@ -15,9 +15,5 @@ Process* Processor::getRun(){
     return RUN;
 }
 
-Process* Processor::clearRun(){
-    Process* temp = RUN;
-    RUN=nullptr;
-    return temp;
-}
+
 
