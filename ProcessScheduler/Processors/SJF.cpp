@@ -2,12 +2,11 @@
 
 
 void SJF::ScheduleAlgo(){
-    /*Process* nR;
-    RDY.dequeue(nR);
-    setRUN(nR);
-    RDY.enqueue(nR);
-    untill PQ implemenation is done*/
-
+    Process* nR;
+    if (RDY.dequeue(nR)) setRUN(nR);
+    else {
+        setRUN(NULL);
+    }
 }
 
 
