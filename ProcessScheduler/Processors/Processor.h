@@ -18,6 +18,6 @@ public:
     bool isBusy(); 
     Process* getRun();
     Process* clearRun();
-    
+    virtual void add_to_RDY(Process* const &p) = 0;
 
 };  

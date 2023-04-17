@@ -5,6 +5,11 @@ void RR::ScheduleAlgo(){
 
 }
 
+void RR::add_to_RDY(Process* const &prcs)
+{
+    RDY.enqueue(prcs);
+}
+
 RR::RR(int RRnum){
 
 }

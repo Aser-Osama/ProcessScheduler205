@@ -8,7 +8,7 @@ class Process
 {
 private:
 	int PID, 
-		childPID,
+		childPID, //should be -1 for childless process
 		AT,
 		RT,
 		CT,
@@ -38,6 +38,7 @@ public:
 	bool subRemainingTime(); 
 	void setTRT();
 	void setWT();
+	bool find_by_pid(int pid);
 
 	friend ostream& operator<<(ostream& os, const Process& prcs);
 	bool operator==(const Process &);
