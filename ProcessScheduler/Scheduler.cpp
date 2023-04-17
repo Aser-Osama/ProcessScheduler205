@@ -65,7 +65,6 @@ void Scheduler::simulator()
 		this->Initialize_RDY();
 		Process* tmp_prcs;
 		Processor* cpu_ptr = CPU_node->getItem();
-
 		flag = (cpu_ptr)->Execute(tmp_prcs, timestep, t);
 		if (flag && tmp_prcs) this->BLK.enqueue(tmp_prcs);
 		if (!flag && tmp_prcs) this->TRM.enqueue(tmp_prcs);
@@ -96,22 +95,18 @@ void Scheduler::randomizeRUN(Processor* const& prcsr)
 	//rdy wont be left empty a whole cycle in case the
 	//function activates.
 	int rnum = (rand() % 100) + 1;
-	if (rnum >= 1 && rnum <= 15)
-	{
-		Process* ptr = prcsr->clearRUN();
-		if (ptr) { BLK.enqueue(ptr); cout << "BLK"; }
-	}
-	else if (rnum >= 20 && rnum <= 30)
-	{
-		Process* ptr = prcsr->clearRUN();
-		if (ptr) { prcsr->moveToRDY(prcsr->clearRUN()); cout << "???"; }
-		
-	}
-	else if (rnum >= 50 && rnum <= 60)
-	{
-		Process* ptr = prcsr->clearRUN();
-		if (ptr) { TRM.enqueue(ptr); cout << "TRM"; }
-	}
+	Process* ptr = prcsr->clearRUN();
+	if (rnum >= 1 && rnum <= 15&& ptr)
+
+		BLK.enqueue(ptr);
+
+	else if (rnum >= 20 && rnum <= 30 && ptr)
+
+		prcsr->moveToRDY(ptr);
+
+	else if (rnum >= 50 && rnum <= 60 && ptr)
+
+		TRM.enqueue(ptr);
 }
 
 void Scheduler::randomKill(Processor* const& prcsr)
@@ -122,7 +117,7 @@ void Scheduler::randomKill(Processor* const& prcsr)
 	int rnum = (rand() % total_nprocess) + 1;
 	Process* tmp = fcfs_ptr->removeFromReady(rnum);
 
-	if (tmp) TRM.enqueue(tmp);
+	if (tmp) TRM.enqueue(tmp);cout<<"im enqueing through random kill;";
 }
 
 void Scheduler::randomizeBLK(Processor* const& prcsr)

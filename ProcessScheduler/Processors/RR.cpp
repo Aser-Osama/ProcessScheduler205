@@ -2,15 +2,17 @@
 
 
 void RR::ScheduleAlgo(){
-    Process* nR;
-    if (RDY.dequeue(nR)) {
-        setRUN(nR);
-        RDY.enqueue(nR);
-    }
-    else {
-        setRUN(nullptr);
-    }
-    
+//    cout<<"this is RR schedule algo";
+//    Process* nR;
+//    if (RDY.dequeue(nR)) {
+//        cout<<*nR<<"this is a process";
+//        setRUN(nR);
+//        RDY.enqueue(nR);
+//    }
+//    else {
+//        setRUN(nullptr);
+//    }
+//    
 }
 
 

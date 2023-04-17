@@ -6,10 +6,10 @@ void FCFS::SigKill(Process* P){
 }
 
 void FCFS::ScheduleAlgo(){
-    Process* nR;
-    nR = RDY.getHead()->getItem();
+    Node<Process*>* nR;
+    nR = RDY.getHead();
     if (nR) {
-        setRUN(nR);
+        setRUN(nR->getItem());
         RDY.DeleteFirst();
     }
     else {

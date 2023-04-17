@@ -71,6 +71,7 @@ public:
 
 	bool extractMin(T& root)
 	{
+		cout<<"im inside heap";
 		if (heap_size == 0)
 			return false;
 		else if (heap_size == 1)

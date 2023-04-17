@@ -3,7 +3,7 @@
 
 void SJF::ScheduleAlgo(){
     Process* nR;
-    if (RDY.dequeue(nR)) setRUN(nR);
+    if (RDY.dequeue(nR)) {setRUN(nR);}
     else {
         setRUN(nullptr);
     }

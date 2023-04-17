@@ -140,12 +140,10 @@ public:
 		//Deletes the first node in the list
 
 	void DeleteFirst() {
-
 		if (Head) {
 			Node<T>* P = Head;
 			Head = Head->getNext();
 			delete P;
-
 		}
 		if(count>0)count--;
 	}
