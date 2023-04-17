@@ -12,7 +12,8 @@ public:
     void MoveToRDY(Process* NewProcess) override;
 
     friend ostream& operator<<(ostream& os, const RR& prcsr);
-    RR(int);
+    void add_to_RDY(Process* const &prcs) override;
 
+    RR(int);
 };
 

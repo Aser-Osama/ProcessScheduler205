@@ -10,16 +10,21 @@ class Scheduler
 {
     private:
     int timestep;
+    int total_nprocess;
     Map<int,int> parseIO_R_D(string);
     LinkedList<Processor*> Processors;
     Queue<Process*> NEW;
-//  PlaceholderList<Process*> BLK;
-//  PlaceholderList<Process*> TRM;
+    Queue<Process*> BLK;
+    Queue<Process*> TRM;
     Map<int, int> SIGKILL;
     int RTF, MaxW, STL, forkProb;
 
     public:
-    void Simulator(string fileName);
+    void simulator(string fileName);
+
+    void randomizeRUN(Processor* const &prcsr);
+    void randomKill(Processor* const& prcsr);
+    void randomizeBLK(Processor* const& prcsr);
     void load(string); //will be called 
     void save(string);
     void run(); //this is where the program is run

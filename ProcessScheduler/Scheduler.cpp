@@ -58,6 +58,43 @@ void Scheduler::Simulator(string fileName)
 
 }
 
+void Scheduler::randomize_RUN(Processor* const &prcsr)
+{ //should be run before the SCHEDULINGALGO function so 
+    //rdy wont be left empty a whole cycle in case the
+    //function activates.
+    int rnum = (rand() % 100) + 1;
+    if (rnum >=1 and rnum <= 15)
+    {
+        BLK.enqueue(prcsr->clearRun());
+    }
+    else if (rnum >= 20 and rnum <= 30)
+    {
+        prcsr->add_to_RDY(prcsr->clearRun());
+    }
+    else if (rnum >= 50 and rnum <= 60)
+    {
+        TRM.enqueue(prcsr->clearRun());
+    }
+}
+
+void Scheduler::random_kill(Processor* const& prcsr)
+{
+    FCFS* fcfs_ptr = dynamic_cast<FCFS*>(prcsr);
+    if (!fcfs_ptr) return;
+    
+    int rnum = (rand() % total_nprocess) + 1;
+    fcfs_ptr->remove_from_rdy(rnum);
+}
+
+void Scheduler::randomize_BLK(Processor* const& prcsr)
+{
+    int rnum = (rand() % 100) + 1;
+    if (rnum > 10) return;
+
+    Process* first_elm;
+    bool dequed = TRM.dequeue(first_elm);
+    if (dequed) { prcsr->add_to_RDY(first_elm); }
+}
 
 void Scheduler::load(string fileName){
     ifstream file;
@@ -99,4 +136,6 @@ void Scheduler::load(string fileName){
         file>>time; file>>PID;
         SIGKILL.addPair(time,PID);
     }
+
+    total_nprocess = NEW.getCount();
 }
