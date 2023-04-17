@@ -7,12 +7,15 @@ void FCFS::SigKill(Process* P){
 
 void FCFS::ScheduleAlgo(){
     Node<Process*>* nR;
+    cout<<"FCFS schedule algorithm";
     nR = RDY.getHead();
     if (nR) {
+        cout<<"FCFS set as item";
         setRUN(nR->getItem());
         RDY.DeleteFirst();
     }
     else {
+        cout<<"FCFS set as null";
         setRUN(nullptr);
     }
 }
