@@ -1,3 +1,4 @@
+
 #pragma once
 #ifndef _LINKEDLIST
 #define _LINKEDLIST
@@ -125,20 +126,20 @@ public:
         }
 
 //
-//	//[3]CountOccurance
+//	//[3]CountOccurrence
 //	//returns how many times a certain value appeared in the list
-        int CountOccurance(const T & data){
+        int CountOccurrence(const T & data){
                 
                 if (Head->getNext()){
                         Node<T> *P=Head;
-                        int Occurance=0;
+                        int Occurrence =0;
                         while (P->getNext()){
                                 P=P->getNext();
                                 if (P->getItem()==data){
-                                        Occurance++;
+                                    Occurrence++;
                                 }
                         }
-                        return Occurance;
+                        return Occurrence;
                         
                 }
                 return 0;

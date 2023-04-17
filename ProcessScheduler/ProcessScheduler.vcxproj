@@ -149,6 +149,9 @@
     <ClInclude Include="ADT\Linked_Queue\QueueADT.h" />
     <ClInclude Include="ADT\Node.h" />
     <ClInclude Include="ADT\PriorityQueue.h" />
+    <ClInclude Include="ADT\PriorityQueue\MinHeapSpecialization.h" />
+    <ClInclude Include="ADT\PriorityQueue\PriorityQueue.h" />
+    <ClInclude Include="ADT\PriorityQueue\MinHeap.h" />
     <ClInclude Include="Process.h" />
     <ClInclude Include="Processors\FCFS.h" />
     <ClInclude Include="Processors\Processor.h" />

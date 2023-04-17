@@ -10,13 +10,13 @@
 
 #include "StackADT.h"
 #include <iostream>
- //Unless spesificed by the stack user, the default size is 100
+ //Unless specified by the stack user, the default size is 100
 template<typename T>
 class Stack : public StackADT<T>
 {
 private:
 	T* items;		// Array of stack items
-	int      top;                   // Index to top of stack
+	int  top;            // Index to top of stack
 	const int STACK_SIZE;
 
 public:
