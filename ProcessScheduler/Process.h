@@ -41,6 +41,8 @@ public:
 
 	friend ostream& operator<<(ostream& os, const Process& prcs);
 	bool operator==(const Process &);
+	bool operator< (const Process& other) const;
+	bool operator> (const Process& other) const;
 
 	Process(int pid, int at, int ct, Map<int,int> io_r_d);
 	Process();

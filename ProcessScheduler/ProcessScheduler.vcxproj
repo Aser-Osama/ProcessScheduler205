@@ -128,7 +128,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ADT\LinkedList.cpp" />
-    <ClCompile Include="ADT\PriorityQueue.cpp" />
     <ClCompile Include="Process.cpp" />
     <ClCompile Include="Processors\FCFS.cpp" />
     <ClCompile Include="main.cpp" />
@@ -148,7 +147,7 @@
     <ClInclude Include="ADT\Pair.h" />
     <ClInclude Include="ADT\Linked_Queue\QueueADT.h" />
     <ClInclude Include="ADT\Node.h" />
-    <ClInclude Include="ADT\PriorityQueue.h" />
+    <ClInclude Include="ADT\MinHeap.h" />
     <ClInclude Include="Process.h" />
     <ClInclude Include="Processors\FCFS.h" />
     <ClInclude Include="Processors\Processor.h" />
@@ -156,7 +155,6 @@
     <ClInclude Include="Processors\SJF.h" />
     <ClInclude Include="ADT\Queue.h" />
     <ClInclude Include="Scheduler.h" />
-    <ClInclude Include="ADT\Stack.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

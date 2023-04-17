@@ -1,5 +1,5 @@
 #include "Scheduler.h"
-
+#include "ADT/PriorityQueue.h"
 
 int main() {
 	Scheduler ProcessScheduler;

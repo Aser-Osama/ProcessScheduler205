@@ -16,6 +16,11 @@ FCFS::FCFS(){
 
 }
 
+void FCFS::MoveToRDY(Process* NewProcess)
+{
+//    RDY.enqueue(NewProcess);
+}
+
 ostream& operator<<(ostream& os, const FCFS& prcsr)
 {
     os << "[FCFS]: " << "prcsr.RDY.getCount()" << "RDY: ";

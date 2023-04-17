@@ -30,6 +30,33 @@ Map<int,int> Scheduler::parseIO_R_D(string input){
     return output;
 }
 
+void Scheduler::Simulator(string fileName)
+{
+    bool flag = false;
+    Node<Processor*>* temp = Processors.getHead();
+    Node<Processor*>* FirstNode = Processors.getHead();
+    load(fileName);
+    while (!NEW.isEmpty())
+    {
+        Process* process;
+        NEW.dequeue(process);
+        if (temp->getNext() != nullptr)
+        {
+            temp->getItem()->MoveToRDY(process);
+            temp = temp->getNext();
+        }
+        else
+        {
+            if (!flag)
+            {
+                temp->setNext(FirstNode);
+                flag = true;
+            } 
+            temp->getItem()->MoveToRDY(process);
+        }
+    }
+
+}
 
 
 void Scheduler::load(string fileName){
