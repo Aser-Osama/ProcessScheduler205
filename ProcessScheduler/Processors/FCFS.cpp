@@ -17,7 +17,7 @@ void FCFS::ScheduleAlgo(){
 
   
 
-void FCFS::removeFromReady(int pid)
+Process* FCFS::removeFromReady(int pid)
 {
     Node<Process*>* head = RDY.getHead();
     Process* to_remove;
@@ -28,13 +28,14 @@ void FCFS::removeFromReady(int pid)
         {
             to_remove = head->getItem();
             RDY.DeleteNode(to_remove);
-            return; //assuming 2 processes cant have the same pid
+            return to_remove; //assuming 2 processes cant have the same pid
         }
         else 
         {
             head = head->getNext();
         }
     }
+    return nullptr;
     
 }
 

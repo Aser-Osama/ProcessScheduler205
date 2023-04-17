@@ -13,7 +13,7 @@ public:
     void moveToRDY(Process* const &NewProcess) override;
     friend ostream& operator<<(ostream& os, const FCFS& prcsr);
 
-    void removeFromReady(int pid);
+    Process* removeFromReady(int pid);
     friend ostream& operator<<(ostream& os, const FCFS& prcsr);
     
     FCFS();

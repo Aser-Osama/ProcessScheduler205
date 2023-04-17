@@ -143,6 +143,13 @@ public:
 	}
 };
 
+template<>
+inline void MinHeap<Process*>::Print() const {
+	for (int i = 0; i < heap_size; i++)
+	{
+		cout << *(Array[i]) << "\t";
+	}
+}
 
 
 

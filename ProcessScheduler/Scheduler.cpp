@@ -12,7 +12,7 @@ void Scheduler::Initialize_RDY()
 	Node<Processor*>* cur_CPU = Processors.getHead();
 	Node<Processor*>* fir_CPU = Processors.getHead();
 	int iter = 0; 
-	int tot = total_nprocess;
+	static int tot = total_nprocess;
 	while (!NEW.isEmpty() && iter <= tot)
 	{
 		Process* process;
@@ -76,13 +76,14 @@ void Scheduler::simulator()
 		this->randomKill(CPU_node->getItem());
 
 		MAINUI.print_interactive(timestep, Processors, BLK, TRM);
-
+		cout << "\n";
+		NEW.Print();
+		cout << "\n";
 		if (c != 10) {
 			CPU_node = CPU_node->getNext();
 			c++;
 		}
 		else {
-			cout << "REACHED ELSE";
 			CPU_node = Processors.getHead();
 			c = 0;
 		}
@@ -99,7 +100,7 @@ void Scheduler::randomizeRUN(Processor* const& prcsr)
 	if (rnum >= 1 && rnum <= 15)
 	{
 		Process* ptr = prcsr->clearRUN();
-		if (ptr) BLK.enqueue(ptr);
+		if (ptr) { BLK.enqueue(ptr); cout << "BLK"; }
 	}
 	else if (rnum >= 20 && rnum <= 30)
 	{
@@ -109,7 +110,7 @@ void Scheduler::randomizeRUN(Processor* const& prcsr)
 	else if (rnum >= 50 && rnum <= 60)
 	{
 		Process* ptr = prcsr->clearRUN();
-		if (ptr) TRM.enqueue(ptr);
+		if (ptr) { TRM.enqueue(ptr); cout << "TRM"; }
 	}
 }
 
@@ -119,7 +120,9 @@ void Scheduler::randomKill(Processor* const& prcsr)
 	if (!fcfs_ptr) return;
 
 	int rnum = (rand() % total_nprocess) + 1;
-	fcfs_ptr->removeFromReady(rnum);
+	Process* tmp = fcfs_ptr->removeFromReady(rnum);
+
+	if (tmp) TRM.enqueue(tmp);
 }
 
 void Scheduler::randomizeBLK(Processor* const& prcsr)
@@ -128,7 +131,7 @@ void Scheduler::randomizeBLK(Processor* const& prcsr)
 	if (rnum > 10) return;
 
 	Process* first_elm;
-	bool dequed = TRM.dequeue(first_elm);
+	bool dequed = BLK.dequeue(first_elm);
 	if (dequed) { prcsr->moveToRDY(first_elm); }
 }
 
