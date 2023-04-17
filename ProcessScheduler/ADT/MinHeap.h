@@ -13,11 +13,11 @@ private:
 
 	int heap_size; // current number of elements in min heap
 public:
-	MinHeap(int NumberOfElements)
+	MinHeap()
 	{
 		heap_size = 0;
-		capacity = NumberOfElements;
-		Array = new T[NumberOfElements];
+		capacity = 30;
+		Array = new T[capacity];
 	}
 	~MinHeap()
 	{
@@ -47,10 +47,13 @@ public:
 
 	bool insertKey(const T& key)
 	{
+		// reallocates a new array to insert more keys
+
 		if (heap_size == capacity)
-			return false;
+			resizeArray(Array, heap_size, capacity);
 
 		// inserts the new key at the end
+
 		heap_size++;
 		int index = heap_size - 1;
 		Array[index] = key;
@@ -122,8 +125,19 @@ public:
 		frontElement = Array[0];
 		return true;
 	}
+	void resizeArray(T*& arr, int& size, int& capacity) {
+		capacity += 20;
+		T* temp = new T[capacity];
+		for (int i = 0; i < size; i++) {
+			temp[i] = arr[i];
+		}
+		delete[] arr;
+		arr = temp;
+	}
 
 };
+
+
 
 
 
@@ -136,11 +150,11 @@ private:
 
 	int heap_size; // current number of elements in min heap
 public:
-	MinHeap(int NumberOfElements)
+	MinHeap()
 	{
 		heap_size = 0;
-		capacity = NumberOfElements;
-		Array = new Process*[NumberOfElements];
+		capacity = 30; // intially, it has 30 elements  
+		Array = new Process * [capacity];
 	}
 	~MinHeap()
 	{
@@ -229,5 +243,4 @@ public:
 			MinHeapify(smallest); // reconstructing the heap recursively
 		}
 	}
-	
 };

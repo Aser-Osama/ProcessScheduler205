@@ -6,7 +6,7 @@ template<typename T>
 class PriorityQueue
 {
 public:
-	PriorityQueue(int size) : Heap(size)
+	PriorityQueue()
 	{}
 	bool Enqueue(T newElement)
 	{
