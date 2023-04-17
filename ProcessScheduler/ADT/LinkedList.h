@@ -101,11 +101,11 @@ public:
 				P = P->getNext();
 			}
 			P->setNext(NewItem);
+			count++;
 		}
 		else {
 			this->InsertBeg(data);
 		}
-		count++;
 	}
 
 	//[2]Find 
@@ -147,7 +147,7 @@ public:
 			delete P;
 
 		}
-		count--;
+		if(count>0)count--;
 	}
 
 	//
@@ -180,7 +180,7 @@ public:
 			}
 
 		}
-		count--;
+		if(count>0)count--;
 		return false;
 	}
 
@@ -200,7 +200,7 @@ public:
 				N = N->getNext();
 				DeleteFirst();
 				condition = true;
-				count--;
+				if(count>0)count--;
 			}
 
 			while (N->getNext()) {
@@ -212,7 +212,7 @@ public:
 					delete N;
 					N = P->getNext();
 					condition = true;
-					count--;
+					if(count>0)count--;
 				}
 
 			}
