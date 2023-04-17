@@ -128,7 +128,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ADT\LinkedList.cpp" />
-    <ClCompile Include="ADT\PriorityQueue.cpp" />
     <ClCompile Include="Process.cpp" />
     <ClCompile Include="Processors\FCFS.cpp" />
     <ClCompile Include="main.cpp" />
@@ -148,10 +147,7 @@
     <ClInclude Include="ADT\Pair.h" />
     <ClInclude Include="ADT\Linked_Queue\QueueADT.h" />
     <ClInclude Include="ADT\Node.h" />
-    <ClInclude Include="ADT\PriorityQueue.h" />
-    <ClInclude Include="ADT\PriorityQueue\MinHeapSpecialization.h" />
-    <ClInclude Include="ADT\PriorityQueue\PriorityQueue.h" />
-    <ClInclude Include="ADT\PriorityQueue\MinHeap.h" />
+    <ClInclude Include="ADT\MinHeap.h" />
     <ClInclude Include="Process.h" />
     <ClInclude Include="Processors\FCFS.h" />
     <ClInclude Include="Processors\Processor.h" />

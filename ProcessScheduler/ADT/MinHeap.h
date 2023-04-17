@@ -123,13 +123,6 @@ public:
 		return true;
 	}
 
-	void printHeap()
-	{
-		for (int i = 0; i < heap_size; i++)
-		{
-			cout << Array[i] << ' ';
-		}
-	}
 };
 
 
@@ -155,11 +148,6 @@ public:
 			delete[] Array[i]; // free memory for each pointer
 		}
 		delete[] Array;
-	}
-
-	int height()
-	{
-		return ceil(log2(heap_size + 1)) - 1;
 	}
 
 	int parent(int index)
@@ -241,19 +229,5 @@ public:
 			MinHeapify(smallest); // reconstructing the heap recursively
 		}
 	}
-
-	bool isEmpty() const
-	{
-		return heap_size == 0;
-	}
-
-	bool peek(Process*& frontElement) const
-	{
-		if (isEmpty())
-			return false;
-		frontElement = Array[0];
-		return true;
-	}
-
 	
 };

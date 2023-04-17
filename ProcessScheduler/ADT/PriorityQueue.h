@@ -25,11 +25,6 @@ public:
 		return Heap.isEmpty();
 	}
 
-	void print()
-	{
-		return Heap.printHeap();
-	}
-
 private:
 	MinHeap<T> Heap;
 };
