@@ -148,6 +148,7 @@
     <ClInclude Include="ADT\Linked_Queue\QueueADT.h" />
     <ClInclude Include="ADT\Node.h" />
     <ClInclude Include="ADT\MinHeap.h" />
+    <ClInclude Include="ADT\PriorityQueue.h" />
     <ClInclude Include="Process.h" />
     <ClInclude Include="Processors\FCFS.h" />
     <ClInclude Include="Processors\Processor.h" />
@@ -155,6 +156,9 @@
     <ClInclude Include="Processors\SJF.h" />
     <ClInclude Include="Scheduler.h" />
     <ClInclude Include="UI.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="testfile" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,5 @@
 #pragma once
 
-
 template<typename T>
 class Node
 {
@@ -40,4 +39,11 @@ public :
 	{
 		return next;
 	}
-}; // end Node
+}; // end 
+
+//template<>
+//inline Processor* Node<Processor*>::getItem() const
+//{
+//	if (item) return item;
+//	else return nullptr;
+//}

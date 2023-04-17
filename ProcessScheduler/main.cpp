@@ -2,8 +2,8 @@
 #include "ADT/PriorityQueue.h"
 
 int main() {
-	Scheduler ProcessScheduler;
-	ProcessScheduler.load("testfile");
+	Scheduler ProcessScheduler("testfile");
+	ProcessScheduler.simulator();
 	//	ProcessScheduler.run();
 	//	ProcessScheduler.save();
 

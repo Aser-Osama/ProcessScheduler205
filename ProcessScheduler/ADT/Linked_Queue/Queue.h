@@ -238,7 +238,6 @@ inline void Queue<Process*>::Print() const
 		cout << *(tmpPtr->getItem()) << ",\t";
 		tmpPtr = tmpPtr->getNext();
 	}
-	cout << endl;
 }
 
 template <typename T>
@@ -255,7 +254,6 @@ void Queue<T>::Print() const
 		cout << tmpPtr->getItem() << ",\t";
 		tmpPtr = tmpPtr->getNext();
 	}
-	cout << endl;
 }
 
 
