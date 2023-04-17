@@ -8,9 +8,9 @@ class PriorityQueue
 public:
 	PriorityQueue()
 	{}
-	bool Enqueue(T newElement)
+	void Enqueue(T newElement)
 	{
-		return Heap.insertKey(newElement);
+		Heap.insertKey(newElement);
 	}
 	bool Dequeue(T& removedElement)
 	{

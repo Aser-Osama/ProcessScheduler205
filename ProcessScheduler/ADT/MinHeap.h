@@ -45,7 +45,7 @@ public:
 		return (2 * index + 2);
 	}
 
-	bool insertKey(const T& key)
+	void insertKey(const T& key)
 	{
 		// reallocates a new array to insert more keys
 
@@ -68,7 +68,7 @@ public:
 			Array[index] = temp;
 			index = parent(index); // updating the parent
 		}
-		return true;
+		
 	}
 
 	bool extractMin(T& root)
