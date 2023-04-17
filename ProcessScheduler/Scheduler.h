@@ -17,18 +17,19 @@ class Scheduler
     Queue<Process*> BLK;
     Queue<Process*> TRM;
     Map<int, int> SIGKILL;
+    UI MAINUI;
     int RTF, MaxW, STL, forkProb;
 
     public:
-    void simulator(string fileName);
-
+    void Initialize_RDY();
+    void simulator();
     void randomizeRUN(Processor* const &prcsr);
     void randomKill(Processor* const& prcsr);
     void randomizeBLK(Processor* const& prcsr);
     void load(string); //will be called 
     void save(string);
     void run(); //this is where the program is run
-    Scheduler();
+    Scheduler(string);
     ~Scheduler();
 
 };

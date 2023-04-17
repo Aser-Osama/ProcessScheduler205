@@ -40,9 +40,9 @@ FCFS::FCFS(){
 
 }
 
-void FCFS::moveToRDY(Process* NewProcess)
+void FCFS::moveToRDY(Process* const& NewProcess)
 {
-//    RDY.enqueue(NewProcess);
+    RDY.InsertEnd(NewProcess);
 }
 
 ostream& operator<<(ostream& os, const FCFS& prcsr)

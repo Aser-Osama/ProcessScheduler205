@@ -41,7 +41,7 @@ bool Processor::Execute(Process*& P, int crnt_ts, int& io_length) {
     }
     else //if this is not the last time step for the process and it does not ask for I/O
     {
-        P = NULL; //returns NULL to the Scheduler because no process will be moved
+        P = nullptr; //returns NULL to the Scheduler because no process will be moved
         return false; ////informs the Scheduler that the process did not ask for I/O 
     }
 }

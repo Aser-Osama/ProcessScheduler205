@@ -16,7 +16,7 @@ SJF::SJF(){
 }
 
 
-void SJF::moveToRDY(Process* NewProcess)
+void SJF::moveToRDY(Process* const& NewProcess)
 {
     RDY.enqueue(NewProcess);
 }

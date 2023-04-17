@@ -1,33 +1,60 @@
 #include "Scheduler.h"
 
-Scheduler::Scheduler(){}
+Scheduler::Scheduler(string filename){
+    this->load(filename);
+}
 Scheduler::~Scheduler(){}
 
 
-void Scheduler::simulator(string fileName)
+void Scheduler::Initialize_RDY()
 {
     bool flag = false;
-    Node<Processor*>* temp = Processors.getHead();
-    Node<Processor*>* FirstNode = Processors.getHead();
-    load(fileName);
+    Node<Processor*>* cur_CPU = Processors.getHead();
+    Node<Processor*>* fir_CPU = Processors.getHead();
     while (!NEW.isEmpty())
     {
         Process* process;
         NEW.dequeue(process);
-        if (temp->getNext() != nullptr)
+        if (cur_CPU->getNext() != nullptr)
         {
-            temp->getItem()->moveToRDY(process);
-            temp = temp->getNext();
+            cur_CPU->getItem()->moveToRDY(process);
+            cur_CPU = cur_CPU->getNext();
         }
         else
         {
             if (!flag)
             {
-                temp->setNext(FirstNode);
+                cur_CPU->setNext(fir_CPU);
                 flag = true;
             } 
-            temp->getItem()->moveToRDY(process);
+            cur_CPU->getItem()->moveToRDY(process);
+            cur_CPU = cur_CPU->getNext();
         }
+    }
+
+}
+
+void Scheduler::simulator()
+{
+    int t;
+    this->Initialize_RDY();
+    Node<Processor*>* CPU_ptr = Processors.getHead();
+    bool flag;
+    while (CPU_ptr)
+    {
+        Process* tmp_prcs;
+        flag = CPU_ptr->getItem()->Execute(tmp_prcs, timestep, t);
+        if (flag && tmp_prcs) this->BLK.enqueue(tmp_prcs);
+        if (!flag && tmp_prcs) this->TRM.enqueue(tmp_prcs);
+        
+        this->randomizeRUN(CPU_ptr->getItem());
+        this->randomizeBLK(CPU_ptr->getItem());
+        this->randomKill(CPU_ptr->getItem());
+
+        MAINUI.print_interactive(timestep, Processors, BLK, TRM);
+
+        CPU_ptr = CPU_ptr->getNext();
+        timestep++;
     }
 
 }
@@ -39,15 +66,18 @@ void Scheduler::randomizeRUN(Processor* const &prcsr)
     int rnum = (rand() % 100) + 1;
     if (rnum >=1 && rnum <= 15)
     {
-        BLK.enqueue(prcsr->clearRUN());
+        Process* ptr = prcsr->clearRUN();
+        if (ptr) BLK.enqueue(ptr);
     }
     else if (rnum >= 20 && rnum <= 30)
     {
-        prcsr->moveToRDY(prcsr->clearRUN());
+        Process* ptr = prcsr->clearRUN();
+        if (ptr) prcsr->moveToRDY(prcsr->clearRUN());
     }
     else if (rnum >= 50 && rnum <= 60)
     {
-        TRM.enqueue(prcsr->clearRUN());
+        Process* ptr = prcsr->clearRUN();
+        if (ptr) TRM.enqueue(ptr);
     }
 }
 

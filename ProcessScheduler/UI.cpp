@@ -1,13 +1,13 @@
 #include "UI.h"
 
-void UI::print_interactive(int c_ts, LinkedList<Processor*> processors, Queue<Process> BLK, Queue<Process> TRM)
+void UI::print_interactive(int c_ts, LinkedList<Processor*> processors, Queue<Process*> BLK, Queue<Process*> TRM)
 {
 	general_template(c_ts, processors, BLK, TRM);
 	system("pause");
 	system("cls");
 }
 
-void UI::print_sbs(int c_ts, LinkedList<Processor*> processors, Queue<Process> BLK, Queue<Process> TRM)
+void UI::print_sbs(int c_ts, LinkedList<Processor*> processors, Queue<Process*> BLK, Queue<Process*> TRM)
 {
 	general_template(c_ts, processors, BLK, TRM);
 	Sleep(1000);
@@ -15,7 +15,7 @@ void UI::print_sbs(int c_ts, LinkedList<Processor*> processors, Queue<Process> B
 	
 }
 
-void UI::general_template(int c_ts, LinkedList<Processor*>processors, Queue<Process> BLK, Queue<Process> TRM)
+void UI::general_template(int c_ts, LinkedList<Processor*>processors, Queue<Process*> BLK, Queue<Process*> TRM)
 {	
 	cout << "Current Timestep: " << c_ts << endl;
 	cout << "----------------- RDY processes ----------------" << endl;
