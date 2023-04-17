@@ -2,12 +2,8 @@
 #include "ADT/PriorityQueue.h"
 
 int main() {
-//	Scheduler ProcessScheduler;
-//	ProcessScheduler.load("testfile");
-	LinkedList<int> test;
-	test.DeleteFirst();
-	cout<<test.getCount();
-
+	//	Scheduler ProcessScheduler;
+	//	ProcessScheduler.load("testfile");
 	//	ProcessScheduler.save();
 
 	return 0;
