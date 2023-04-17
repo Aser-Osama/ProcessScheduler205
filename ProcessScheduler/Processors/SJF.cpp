@@ -22,7 +22,7 @@ void SJF::moveToRDY(Process* const& NewProcess)
 
 ostream& operator<<(ostream& os, const SJF& prcsr)
 {
-    //os << "[SJF]: " << prcsr.RDY.getCount() << "RDY: ";
-    //prcsr.RDY.Print();
+    os << "[SJF]: " << prcsr.RDY.getCount() << " RDY: ";
+    prcsr.RDY.Print();
     return os;
 }

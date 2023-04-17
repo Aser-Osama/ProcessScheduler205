@@ -19,6 +19,7 @@ class Scheduler
     Map<int, int> SIGKILL;
     UI MAINUI;
     int RTF, MaxW, STL, forkProb;
+    int ncpu;
 
     public:
     void Initialize_RDY();

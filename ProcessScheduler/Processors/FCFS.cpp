@@ -8,8 +8,10 @@ void FCFS::SigKill(Process* P){
 void FCFS::ScheduleAlgo(){
     Process* nR;
     nR = RDY.getHead()->getItem();
-    setRUN(nR);
-    RDY.DeleteFirst();
+    if (nR){
+        setRUN(nR);
+        RDY.DeleteFirst();
+    }
 }
 
 
@@ -47,7 +49,7 @@ void FCFS::moveToRDY(Process* const& NewProcess)
 
 ostream& operator<<(ostream& os, const FCFS& prcsr)
 {
-    os << "[FCFS]: " << "prcsr.RDY.getCount()" << "RDY: ";
+    os << "[FCFS]: " << prcsr.RDY.getCount() << " RDY: ";
     prcsr.RDY.PrintList();
     return os;
 }

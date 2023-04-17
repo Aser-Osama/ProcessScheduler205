@@ -29,6 +29,7 @@
     <ClInclude Include="Scheduler.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="ADT\MinHeap.h" />
+    <ClInclude Include="ADT\PriorityQueue.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="testfile" />
