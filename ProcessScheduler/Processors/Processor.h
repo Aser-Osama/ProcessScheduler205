@@ -18,7 +18,8 @@ public:
     int getBusyTime();
     bool isBusy(); 
     Process* getRun();
-    Process* clearRun();
+    void setRUN(Process*);
+    bool Execute(Process*&, int, int&);
     
 
 };  

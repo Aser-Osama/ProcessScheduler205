@@ -13,6 +13,7 @@ public:
     void MoveToRDY(Process* NewProcess) override;
     friend ostream& operator<<(ostream& os, const FCFS& prcsr);
 
+    
     FCFS();
     friend ostream& operator<<(ostream& os, const FCFS& prcsr);
 };

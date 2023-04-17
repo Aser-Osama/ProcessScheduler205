@@ -2,7 +2,10 @@
 
 
 void RR::ScheduleAlgo(){
-
+    Process* nR;
+    RDY.dequeue(nR);
+    setRUN(nR);
+    RDY.enqueue(nR);
 }
 
 RR::RR(int RRnum){

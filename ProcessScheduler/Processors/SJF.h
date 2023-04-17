@@ -6,12 +6,11 @@
 class SJF :
     public Processor
 {
-    Queue<Process *> RDY;
+    PriorityQueue<Process *> RDY;
 public:
     void ScheduleAlgo() override; 
     void MoveToRDY(Process* NewProcess) override;
     friend ostream& operator<<(ostream& os, const SJF& prcsr);
-    
     SJF();
 };
 
