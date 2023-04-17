@@ -8,10 +8,11 @@ void RR::ScheduleAlgo(){
     RDY.enqueue(nR);
 }
 
+
 RR::RR(int RRnum){
 }
 
-void RR::MoveToRDY(Process* NewProcess)
+void RR::moveToRDY(Process* NewProcess)
 {
     RDY.enqueue(NewProcess);
 }
