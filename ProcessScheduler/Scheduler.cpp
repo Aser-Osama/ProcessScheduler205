@@ -12,8 +12,8 @@ void Scheduler::Initialize_RDY()
 	Node<Processor*>* cur_CPU = Processors.getHead();
 	Node<Processor*>* fir_CPU = Processors.getHead();
 	int iter = 0; 
-	static int tot = total_nprocess;
-	while (!NEW.isEmpty() && iter <= tot)
+	int tot = total_nprocess;
+	while (!NEW.isEmpty() && iter < tot)
 	{
 		Process* process;
 		NEW.dequeue(process);
@@ -22,7 +22,6 @@ void Scheduler::Initialize_RDY()
 			if (process->getAT() == timestep)
 			{
 				cur_CPU->getItem()->moveToRDY(process);
-				tot--;
 			}
 			else
 			{
@@ -40,7 +39,7 @@ void Scheduler::Initialize_RDY()
 			if (process->getAT() == timestep)
 			{
 				cur_CPU->getItem()->moveToRDY(process);
-				tot--;
+				
 			}
 			else
 			{
@@ -105,7 +104,8 @@ void Scheduler::randomizeRUN(Processor* const& prcsr)
 	else if (rnum >= 20 && rnum <= 30)
 	{
 		Process* ptr = prcsr->clearRUN();
-		if (ptr) prcsr->moveToRDY(prcsr->clearRUN());
+		if (ptr) { prcsr->moveToRDY(prcsr->clearRUN()); cout << "???"; }
+		
 	}
 	else if (rnum >= 50 && rnum <= 60)
 	{
