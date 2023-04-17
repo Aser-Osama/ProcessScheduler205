@@ -68,7 +68,7 @@ void UI::general_template(int c_ts, LinkedList<Processor*>processors, Queue<Proc
 	{
 		if (tmp_p->getItem()->isBusy())
 		{
-			cout << tmp_p->getItem()->getRun() << "(P" << i << ")" << "\t";
+			cout << tmp_p->getItem()->getRUN() << "(P" << i << ")" << "\t";
 
 		}
 		i++;

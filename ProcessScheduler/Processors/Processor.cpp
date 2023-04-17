@@ -11,7 +11,7 @@ bool Processor::isBusy(){
     return !(RUN == nullptr);
 }
 
-Process* Processor::getRun(){
+Process* Processor::getRUN(){
     return RUN;
 }
 
@@ -22,7 +22,7 @@ void Processor::setRUN(Process* P){
 Process* Processor::clearRUN(){
     Process* temp = RUN;
     RUN = nullptr;
-    return RUN;
+    return temp;
 }
 
 

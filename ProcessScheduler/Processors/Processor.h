@@ -17,7 +17,7 @@ public:
     int getIdleTime();
     int getBusyTime();
     bool isBusy(); 
-    Process* getRun();
+    Process* getRUN();
     void setRUN(Process*);
     bool Execute(Process*&, int, int&);
     

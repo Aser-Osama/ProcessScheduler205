@@ -153,7 +153,6 @@
     <ClInclude Include="Processors\Processor.h" />
     <ClInclude Include="Processors\RR.h" />
     <ClInclude Include="Processors\SJF.h" />
-    <ClInclude Include="ADT\Queue.h" />
     <ClInclude Include="Scheduler.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
