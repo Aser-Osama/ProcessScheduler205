@@ -1,20 +1,37 @@
 #include "RR.h"
 
 
-void RR::ScheduleAlgo(){
-//    cout<<"this is RR schedule algo";
-//    Process* nR;
-//    if (RDY.dequeue(nR)) {
-//        cout<<*nR<<"this is a process";
-//        setRUN(nR);
-//        RDY.enqueue(nR);
-//    }
-//    else {
-//        setRUN(nullptr);
-//    }
-//    
-}
+//void RR::ScheduleAlgo(){
+////    cout<<"this is RR schedule algo";
+////    Process* nR;
+////    if (RDY.dequeue(nR)) {
+////        cout<<*nR<<"this is a process";
+////        setRUN(nR);
+////        RDY.enqueue(nR);
+////    }
+////    else {
+////        setRUN(nullptr);
+////    }
+////    
+//
+//}
 
+void RR::ScheduleAlgo() {
+    Process* nR;
+    if (RDY.dequeue(nR)) //if a there is a process* to dequeue from RDY into nR
+    {
+        if (nR->getRemainingTime() <0) {
+            setRUN(nR); //sets the RUN to the dequeued process*
+            RDY.enqueue(nR); //enqueues the process* again
+        }
+        else if (nR->getRemainingTime() == 0) {
+            setRUN(nR); //sets the RUN to the dequeued process* without enqueuing
+        }
+    }
+    else {
+        setRUN(nullptr);
+    }
+}
 
 RR::RR(int RRnum){
 }
