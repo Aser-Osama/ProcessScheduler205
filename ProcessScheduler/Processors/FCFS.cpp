@@ -6,11 +6,19 @@ void FCFS::SigKill(Process* P){
 }
 
 void FCFS::ScheduleAlgo(){
-
+    Process* nR;
+    nR = RDY.getHead()->getItem();
+    setRUN(nR);
+    RDY.DeleteFirst();
 }
 
 FCFS::FCFS(){
 
+}
+
+void FCFS::MoveToRDY(Process* NewProcess)
+{
+//    RDY.enqueue(NewProcess);
 }
 
 ostream& operator<<(ostream& os, const FCFS& prcsr)

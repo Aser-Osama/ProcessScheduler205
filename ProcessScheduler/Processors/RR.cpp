@@ -2,11 +2,18 @@
 
 
 void RR::ScheduleAlgo(){
-
+    Process* nR;
+    RDY.dequeue(nR);
+    setRUN(nR);
+    RDY.enqueue(nR);
 }
 
 RR::RR(int RRnum){
+}
 
+void RR::MoveToRDY(Process* NewProcess)
+{
+    RDY.enqueue(NewProcess);
 }
 
 ostream& operator<<(ostream& os, const RR& prcsr)

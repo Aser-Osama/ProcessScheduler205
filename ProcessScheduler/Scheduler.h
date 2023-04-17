@@ -19,6 +19,7 @@ class Scheduler
     int RTF, MaxW, STL, forkProb;
 
     public:
+    void Simulator(string fileName);
     void load(string); //will be called 
     void save(string);
     void run(); //this is where the program is run

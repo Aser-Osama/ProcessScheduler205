@@ -38,3 +38,10 @@ bool Process::operator==(const Process & p){
 		return false;
 }
 
+bool Process::operator<(const Process& Process) const {
+	return this->CT > Process.getCT();
+}
+
+bool Process::operator>(const Process& Process) const {
+	return this->CT < Process.getCT();
+}
