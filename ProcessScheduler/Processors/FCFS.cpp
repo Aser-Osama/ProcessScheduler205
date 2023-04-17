@@ -8,9 +8,12 @@ void FCFS::SigKill(Process* P){
 void FCFS::ScheduleAlgo(){
     Process* nR;
     nR = RDY.getHead()->getItem();
-    if (nR){
+    if (nR) {
         setRUN(nR);
         RDY.DeleteFirst();
+    }
+    else {
+        setRUN(nullptr);
     }
 }
 
