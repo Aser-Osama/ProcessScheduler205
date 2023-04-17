@@ -16,6 +16,7 @@ class Scheduler
     Queue<Process*> NEW;
     Queue<Process*> BLK;
     Queue<Process*> TRM;
+    Node<Processor*>* StartingPoint;
     Map<int, int> SIGKILL;
     UI MAINUI;
     int RTF, MaxW, STL, forkProb;

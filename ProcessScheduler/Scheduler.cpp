@@ -78,7 +78,7 @@ void Scheduler::simulator()
 		cout << "\n";
 		NEW.Print();
 		cout << "\n";
-		if (c != 10) {
+		if (c != ncpu-2) {
 			CPU_node = CPU_node->getNext();
 			c++;
 		}
