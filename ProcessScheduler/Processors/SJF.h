@@ -6,7 +6,7 @@
 class SJF :
     public Processor
 {
-//    PriorityQueue<Process *> RDY;
+    PriorityQueue<Process *> RDY;
 public:
     void ScheduleAlgo() override; 
     void MoveToRDY(Process* NewProcess) override;

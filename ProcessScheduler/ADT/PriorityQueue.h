@@ -8,11 +8,11 @@ class PriorityQueue
 public:
 	PriorityQueue()
 	{}
-	void Enqueue(T newElement)
+	void enqueue(T newElement)
 	{
 		Heap.insertKey(newElement);
 	}
-	bool Dequeue(T& removedElement)
+	bool dequeue(T& removedElement)
 	{
 		return Heap.extractMin(removedElement);
 	}

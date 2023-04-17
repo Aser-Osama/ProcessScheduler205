@@ -155,7 +155,6 @@
     <ClInclude Include="Processors\SJF.h" />
     <ClInclude Include="ADT\Queue.h" />
     <ClInclude Include="Scheduler.h" />
-    <ClInclude Include="ADT\Stack.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
