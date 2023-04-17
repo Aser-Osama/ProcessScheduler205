@@ -4,8 +4,14 @@
 void RR::ScheduleAlgo(){
     Process* nR;
     RDY.dequeue(nR);
-    setRUN(nR);
-    RDY.enqueue(nR);
+    if (RDY.dequeue(nR)) {
+        setRUN(nR);
+        RDY.enqueue(nR);
+    }
+    else {
+        setRUN(NULL);
+    }
+    
 }
 
 
