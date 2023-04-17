@@ -10,17 +10,13 @@ void SJF::ScheduleAlgo(){
 
 }
 
-void SJF::add_to_RDY(Process* const &prcs)
-{
-    RDY.enqueue(prcs);
-}
 
 SJF::SJF(){
 	
 }
 
 
-void SJF::MoveToRDY(Process* NewProcess)
+void SJF::moveToRDY(Process* NewProcess)
 {
     RDY.enqueue(NewProcess);
 }

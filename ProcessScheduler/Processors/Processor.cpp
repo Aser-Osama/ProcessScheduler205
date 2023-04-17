@@ -19,6 +19,13 @@ void Processor::setRUN(Process* P){
     RUN = P;
 }
 
+Process* Processor::clearRUN(){
+    Process* temp = RUN;
+    RUN = nullptr;
+    return RUN;
+}
+
+
 bool Processor::Execute(Process*& P, int crnt_ts, int& io_length) {
     if (RUN->getIO_R_D().getValue(crnt_ts, io_length)) //if this is the time step when the process asks for I/O
     {

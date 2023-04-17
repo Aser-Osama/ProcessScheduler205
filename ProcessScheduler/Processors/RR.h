@@ -9,10 +9,9 @@ class RR :
     Queue<Process *> RDY;
 public:
     void ScheduleAlgo() override; 
-    void MoveToRDY(Process* NewProcess) override;
+    void moveToRDY(Process* NewProcess) override;
 
     friend ostream& operator<<(ostream& os, const RR& prcsr);
-    void add_to_RDY(Process* const &prcs) override;
 
     RR(int);
 };

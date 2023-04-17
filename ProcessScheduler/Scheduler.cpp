@@ -3,6 +3,73 @@
 Scheduler::Scheduler(){}
 Scheduler::~Scheduler(){}
 
+
+void Scheduler::simulator(string fileName)
+{
+    bool flag = false;
+    Node<Processor*>* temp = Processors.getHead();
+    Node<Processor*>* FirstNode = Processors.getHead();
+    load(fileName);
+    while (!NEW.isEmpty())
+    {
+        Process* process;
+        NEW.dequeue(process);
+        if (temp->getNext() != nullptr)
+        {
+            temp->getItem()->moveToRDY(process);
+            temp = temp->getNext();
+        }
+        else
+        {
+            if (!flag)
+            {
+                temp->setNext(FirstNode);
+                flag = true;
+            } 
+            temp->getItem()->moveToRDY(process);
+        }
+    }
+
+}
+
+void Scheduler::randomizeRUN(Processor* const &prcsr)
+{ //should be run before the SCHEDULINGALGO function so 
+    //rdy wont be left empty a whole cycle in case the
+    //function activates.
+    int rnum = (rand() % 100) + 1;
+    if (rnum >=1 && rnum <= 15)
+    {
+        BLK.enqueue(prcsr->clearRUN());
+    }
+    else if (rnum >= 20 && rnum <= 30)
+    {
+        prcsr->moveToRDY(prcsr->clearRUN());
+    }
+    else if (rnum >= 50 && rnum <= 60)
+    {
+        TRM.enqueue(prcsr->clearRUN());
+    }
+}
+
+void Scheduler::randomKill(Processor* const& prcsr)
+{
+    FCFS* fcfs_ptr = dynamic_cast<FCFS*>(prcsr);
+    if (!fcfs_ptr) return;
+    
+    int rnum = (rand() % total_nprocess) + 1;
+    fcfs_ptr->removeFromReady(rnum);
+}
+
+void Scheduler::randomizeBLK(Processor* const& prcsr)
+{
+    int rnum = (rand() % 100) + 1;
+    if (rnum > 10) return;
+
+    Process* first_elm;
+    bool dequed = TRM.dequeue(first_elm);
+    if (dequed) { prcsr->moveToRDY(first_elm); }
+}
+
 Map<int,int> Scheduler::parseIO_R_D(string input){
     Map<int,int> output;
     bool mode=0;
@@ -28,72 +95,6 @@ Map<int,int> Scheduler::parseIO_R_D(string input){
 
     }
     return output;
-}
-
-void Scheduler::Simulator(string fileName)
-{
-    bool flag = false;
-    Node<Processor*>* temp = Processors.getHead();
-    Node<Processor*>* FirstNode = Processors.getHead();
-    load(fileName);
-    while (!NEW.isEmpty())
-    {
-        Process* process;
-        NEW.dequeue(process);
-        if (temp->getNext() != nullptr)
-        {
-            temp->getItem()->MoveToRDY(process);
-            temp = temp->getNext();
-        }
-        else
-        {
-            if (!flag)
-            {
-                temp->setNext(FirstNode);
-                flag = true;
-            } 
-            temp->getItem()->MoveToRDY(process);
-        }
-    }
-
-}
-
-void Scheduler::randomize_RUN(Processor* const &prcsr)
-{ //should be run before the SCHEDULINGALGO function so 
-    //rdy wont be left empty a whole cycle in case the
-    //function activates.
-    int rnum = (rand() % 100) + 1;
-    if (rnum >=1 and rnum <= 15)
-    {
-        BLK.enqueue(prcsr->clearRun());
-    }
-    else if (rnum >= 20 and rnum <= 30)
-    {
-        prcsr->add_to_RDY(prcsr->clearRun());
-    }
-    else if (rnum >= 50 and rnum <= 60)
-    {
-        TRM.enqueue(prcsr->clearRun());
-    }
-}
-
-void Scheduler::random_kill(Processor* const& prcsr)
-{
-    FCFS* fcfs_ptr = dynamic_cast<FCFS*>(prcsr);
-    if (!fcfs_ptr) return;
-    
-    int rnum = (rand() % total_nprocess) + 1;
-    fcfs_ptr->remove_from_rdy(rnum);
-}
-
-void Scheduler::randomize_BLK(Processor* const& prcsr)
-{
-    int rnum = (rand() % 100) + 1;
-    if (rnum > 10) return;
-
-    Process* first_elm;
-    bool dequed = TRM.dequeue(first_elm);
-    if (dequed) { prcsr->add_to_RDY(first_elm); }
 }
 
 void Scheduler::load(string fileName){

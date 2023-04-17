@@ -12,14 +12,10 @@ void FCFS::ScheduleAlgo(){
     RDY.DeleteFirst();
 }
 
-void FCFS::add_to_RDY(Process* const &prcs)
-{
-    RDY.InsertEnd(prcs);
-}
 
   
 
-void FCFS::remove_from_rdy(int pid)
+void FCFS::removeFromReady(int pid)
 {
     Node<Process*>* head = RDY.getHead();
     Process* to_remove;
@@ -28,7 +24,7 @@ void FCFS::remove_from_rdy(int pid)
     {
         if (head->getItem()->find_by_pid(pid))
         {
-            Process* to_remove = head->getItem();
+            to_remove = head->getItem();
             RDY.DeleteNode(to_remove);
             return; //assuming 2 processes cant have the same pid
         }
@@ -44,7 +40,7 @@ FCFS::FCFS(){
 
 }
 
-void FCFS::MoveToRDY(Process* NewProcess)
+void FCFS::moveToRDY(Process* NewProcess)
 {
 //    RDY.enqueue(NewProcess);
 }
