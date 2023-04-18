@@ -136,12 +136,6 @@ public:
 	int getCount() const {
 		return heap_size;
 	}
-	void Print() const {
-		for(int i = 0; i < heap_size; i++)
-		{
-			cout << Array[i] << "\t";
-		}
-	}
 };
 
 
@@ -199,7 +193,7 @@ public:
 		 //ensures that a min heap property is not violated.
 		 //every parent of a subtree is smaller than all of its descendants 
 
-		while (index != 0 && Array[parent(index)] > Array[index])
+		while (index != 0 && Array[parent(index)]->getCT() > Array[index]->getCT())
 		{
 			Process* temp = Array[parent(index)];
 			Array[parent(index)] = Array[index];
@@ -232,11 +226,11 @@ public:
 		int left_element = left(i);
 		int right_element = right(i);
 		int smallest = i;
-		if (left_element < heap_size && Array[left_element] < Array[i])
+		if (left_element < heap_size && Array[left_element]->getCT() < Array[i]->getCT())
 		{
 			smallest = left_element;
 		}
-		if (right_element < heap_size && Array[right_element] < Array[smallest])
+		if (right_element < heap_size && Array[right_element]->getCT() < Array[smallest]->getCT())
 		{
 			smallest = right_element;
 		}
