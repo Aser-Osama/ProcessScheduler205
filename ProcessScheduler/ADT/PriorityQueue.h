@@ -24,6 +24,14 @@ public:
 	{
 		return Heap.isEmpty();
 	}
+	int getCount() const
+	{
+		return Heap.getCount();
+	}
+	void Print() const
+	{
+		Heap.Print();
+	}
 
 private:
 	MinHeap<T> Heap;

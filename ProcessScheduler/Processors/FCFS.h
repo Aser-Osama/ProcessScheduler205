@@ -10,10 +10,10 @@ class FCFS :
 public:
     void SigKill(Process* P);
     void ScheduleAlgo() override; 
-    void moveToRDY(Process* NewProcess) override;
+    void moveToRDY(Process* const &NewProcess) override;
     friend ostream& operator<<(ostream& os, const FCFS& prcsr);
 
-    void removeFromReady(int pid);
+    Process* removeFromReady(int pid);
     friend ostream& operator<<(ostream& os, const FCFS& prcsr);
     
     FCFS();

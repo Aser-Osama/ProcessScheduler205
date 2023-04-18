@@ -8,18 +8,19 @@
 
 class Processor
 {
+    protected:
     Process* RUN;
     int idleTime;
     int busyTime;
 public:
     virtual void ScheduleAlgo() = 0; 
-    virtual void moveToRDY(Process* NewProcess) = 0; 
+    virtual void moveToRDY(Process* const& NewProcess) = 0;
     int getIdleTime();
     int getBusyTime();
     bool isBusy(); 
     Process* getRUN();
     void setRUN(Process*);
-    bool Execute(Process*&, int, int&);
+    virtual bool Execute(Process*&, int, int&);
     
     Process* clearRUN();
 

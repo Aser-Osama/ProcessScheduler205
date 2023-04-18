@@ -1,6 +1,5 @@
 #pragma once
 
-
 template<typename T>
 class Node
 {
@@ -40,4 +39,4 @@ public :
 	{
 		return next;
 	}
-}; // end Node
+}; // end 

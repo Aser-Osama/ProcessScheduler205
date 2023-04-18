@@ -15,7 +15,20 @@ void Process::setTT(int tt) { TT = tt; } // Termination Time should be set once
 void Process::setTRT(){ TRT = TT - AT; } // Turn around time should be set once
 void Process::setWT() { WT = TRT - CT; } // Wait time should be set once
 bool Process::find_by_pid(int pid) { return this->PID == pid; }
-bool Process::subRemainingTime() { if (remainingTime> 0) { remainingTime--; return 1; } else return 0; } // subtract from left over time. This returns false to show you when process is done
+int Process::getRemainingTime() const
+{
+	{ return remainingTime; };
+}
+bool Process::subRemainingTime()
+{
+	if (this->CT > 0) {
+		this->CT--;
+		return true;
+	}
+	else {
+		return false;
+	}
+} // subtract from left over time. This returns false to show you when process is done
 void Process::setCpuArrivalTime(int ft) { cpuArrivalTime=ft; } // first time should be set during scheduler loop
 
 
@@ -28,7 +41,7 @@ Process::Process(){}
 
 ostream& operator<<(ostream& os, const Process& prcs)
 {
-	os << prcs.PID;
+	os << prcs.PID <<"[" << prcs.CT << "]" << "  ";
 	return os;
 }
 

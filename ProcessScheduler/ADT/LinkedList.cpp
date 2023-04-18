@@ -21,10 +21,9 @@ template<>
 
     while (p)
     {
-        cout << *(p->getItem()) << "\t";
+        cout << *(p->getItem()) << ", \t";
         p = p->getNext();
     }
-    cout << "\n";
 }
 
  template<typename T>

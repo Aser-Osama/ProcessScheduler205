@@ -101,11 +101,11 @@ public:
 				P = P->getNext();
 			}
 			P->setNext(NewItem);
+			count++;
 		}
 		else {
 			this->InsertBeg(data);
 		}
-		count++;
 	}
 
 	//[2]Find 
@@ -140,14 +140,12 @@ public:
 		//Deletes the first node in the list
 
 	void DeleteFirst() {
-
 		if (Head) {
 			Node<T>* P = Head;
 			Head = Head->getNext();
 			delete P;
-
 		}
-		count--;
+		if(count>0)count--;
 	}
 
 	//
@@ -174,13 +172,13 @@ public:
 				if (N->getItem() == data) {
 					P->setNext(N->getNext());
 					delete N;
+					if (count > 0)count--;
 					return true;
 				}
 
 			}
 
 		}
-		count--;
 		return false;
 	}
 
@@ -200,7 +198,7 @@ public:
 				N = N->getNext();
 				DeleteFirst();
 				condition = true;
-				count--;
+				if(count>0)count--;
 			}
 
 			while (N->getNext()) {
@@ -212,7 +210,7 @@ public:
 					delete N;
 					N = P->getNext();
 					condition = true;
-					count--;
+					if(count>0)count--;
 				}
 
 			}
