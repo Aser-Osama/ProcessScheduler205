@@ -43,7 +43,7 @@ void RR::ScheduleAlgo() {
 }
 
 RR::RR(int RRnum){
-    RR_SLICE = RRnum;
+    RR_SLICE = RRnum - 1;
 }
 
 void RR::moveToRDY(Process* const& NewProcess)
