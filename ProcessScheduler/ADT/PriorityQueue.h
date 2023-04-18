@@ -14,7 +14,6 @@ public:
 	}
 	bool dequeue(T& removedElement)
 	{
-		cout<<"im inside dqqueue";
 		return Heap.extractMin(removedElement);
 	}
 	bool peek(T& frontElement) const

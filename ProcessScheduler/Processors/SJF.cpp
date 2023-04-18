@@ -3,10 +3,9 @@
 
 void SJF::ScheduleAlgo(){
     Process* nR;
-    cout<<"inside sjf schedule algo";
-    if (RDY.dequeue(nR)) {cout<<"being set in schedule algo sjf";setRUN(nR);}
+    if (RDY.dequeue(nR)) {setRUN(nR);}
     else {
-        setRUN(nullptr);cout<<"being set as null";
+        setRUN(nullptr);
     }
 }
 

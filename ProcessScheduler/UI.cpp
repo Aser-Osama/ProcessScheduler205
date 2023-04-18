@@ -1,17 +1,17 @@
 #include "UI.h"
 
-void UI::print_interactive(int c_ts, LinkedList<Processor*>& processors, Queue<Process*>& BLK, Queue<Process*>& TRM)
+void UI::print_interactive(bool clr_scrn,int c_ts, LinkedList<Processor*>& processors, Queue<Process*>& BLK, Queue<Process*>& TRM)
 {
 	general_template(c_ts, processors, BLK, TRM);
 	system("pause");
-	system("cls");
+	if (clr_scrn) system("cls");
 }
 
-void UI::print_sbs(int c_ts, LinkedList<Processor*>& processors, Queue<Process*>& BLK, Queue<Process*>& TRM)
+void UI::print_sbs(bool clr_scrn, int c_ts, LinkedList<Processor*>& processors, Queue<Process*>& BLK, Queue<Process*>& TRM)
 {
 	general_template(c_ts, processors, BLK, TRM);
 	Sleep(1000);
-	system("cls");
+	if (clr_scrn) system("cls");
 	
 }
 

@@ -50,47 +50,6 @@ void Scheduler::Fill_Rdy()
 }
 
 
-
-void Scheduler::simulator()
-{
-	int t = 0;
-	int c = 0;
-	Node<Processor*>* CPU_node = Processors.getHead();
-	Node<Processor*>* HEAD_Node = Processors.getHead();
-
-	bool flag;
-	while (1)
-	{
-		this->Fill_Rdy();
-
-		Process* tmp_prcs;
-		Processor* cpu_ptr = CPU_node->getItem();
-
-		//this->randomizeRUN(CPU_node->getItem());
-		//this->randomizeBLK(CPU_node->getItem());
-		//this->randomKill(CPU_node->getItem());
-
-		flag = (cpu_ptr)->Execute(tmp_prcs, timestep, t);
-		if (flag && tmp_prcs) this->BLK.enqueue(tmp_prcs);
-		if (!flag && tmp_prcs) this->TRM.enqueue(tmp_prcs);
-
-		MAIN_UI.print_interactive(timestep, Processors, BLK, TRM);
-		cout << "\n";
-		NEW.Print();
-		cout << "\n";
-		if (c != ncpu - 2) {
-			CPU_node = CPU_node->getNext();
-			c++;
-		}
-		else {
-			CPU_node = Processors.getHead();
-			c = 0;
-		}
-		timestep++;
-	}
-
-}
-
 void Scheduler::randomizeRUN(Processor* const& prcsr)
 { //should be run before the SCHEDULINGALGO function so 
 	//rdy wont be left empty a whole cycle in case the
@@ -219,7 +178,7 @@ void Scheduler::run()
 	bool proccess_complete;
 	Process* tmp_prcs;
 	int io_time = -1; //there is no io in this phase
-	while (1) //will be "while all not in trm"
+	while (TRM.getCount() < total_nprocess) //will be "while all not in trm"
 	{
 		Node<Processor*>* CPU_node = Processors.getHead();
 		this->Fill_Rdy();
@@ -229,8 +188,8 @@ void Scheduler::run()
 			if (proccess_complete && tmp_prcs) this->TRM.enqueue(tmp_prcs);
 			if (!proccess_complete && tmp_prcs) this->BLK.enqueue(tmp_prcs);
 
-			//this->randomizeRUN(CPU_node->getItem());
-			//this->randomizeBLK(CPU_node->getItem());
+			this->randomizeRUN(CPU_node->getItem());
+			this->randomizeBLK(CPU_node->getItem());
 			this->randomKill(CPU_node->getItem());
 
 			CPU_node = CPU_node->getNext();
@@ -238,11 +197,10 @@ void Scheduler::run()
 
 
 
-		MAIN_UI.print_interactive(timestep, Processors, BLK, TRM); // the print type will be based on user choice in phase 2
-		cout << "\n";
-		NEW.Print();
-		cout << "\n";
+		MAIN_UI.print_interactive(true,timestep, Processors, BLK, TRM); // the print type will be based on user choice in phase 2
 		timestep++;
 
 	}
+	MAIN_UI.print_interactive(false, timestep, Processors, BLK, TRM); // the print type will be based on user choice in phase 2
+
 }

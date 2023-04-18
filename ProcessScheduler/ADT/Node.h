@@ -40,10 +40,3 @@ public :
 		return next;
 	}
 }; // end 
-
-//template<>
-//inline Processor* Node<Processor*>::getItem() const
-//{
-//	if (item) return item;
-//	else return nullptr;
-//}

@@ -7,15 +7,12 @@ void FCFS::SigKill(Process* P){
 
 void FCFS::ScheduleAlgo(){
     Node<Process*>* nR;
-    cout<<"FCFS schedule algorithm";
     nR = RDY.getHead();
     if (nR) {
-        cout<<"FCFS set as item";
         setRUN(nR->getItem());
         RDY.DeleteFirst();
     }
     else {
-        cout<<"FCFS set as null";
         setRUN(nullptr);
     }
 }
@@ -27,8 +24,9 @@ Process* FCFS::removeFromReady(int pid)
 {
     Node<Process*>* head = RDY.getHead();
     Process* to_remove;
+    if (!head) return nullptr;
 
-    while (head)
+    while (head->getNext())
     {
         if (head->getItem()->find_by_pid(pid))
         {
