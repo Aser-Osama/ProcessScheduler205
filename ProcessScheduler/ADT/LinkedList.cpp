@@ -24,7 +24,6 @@ template<>
         cout << *(p->getItem()) << ", \t";
         p = p->getNext();
     }
-    cout << "\n";
 }
 
  template<typename T>

@@ -41,7 +41,7 @@ Process::Process(){}
 
 ostream& operator<<(ostream& os, const Process& prcs)
 {
-	os << prcs.PID <<"[" << prcs.CT << "]";
+	os << prcs.PID <<"[" << prcs.CT << "]" << "  ";
 	return os;
 }
 

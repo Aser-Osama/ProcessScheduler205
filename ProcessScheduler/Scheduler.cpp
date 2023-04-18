@@ -10,43 +10,43 @@ Scheduler::~Scheduler() {}
 
 void Scheduler::Fill_Rdy()
 {
-    Queue<Process*> Arrived;
-    if (NEW.isEmpty()) return;
+	Queue<Process*> Arrived;
+	if (NEW.isEmpty()) return;
 
-    for (int i = 0; i < total_nprocess; i++)
-    {
-        Process* tmp;
-        if (NEW.dequeue(tmp))
-        {
-            if (tmp->getAT() == timestep)
-            {
-                Arrived.enqueue(tmp);
-            }
-            else 
-            {
-                NEW.enqueue(tmp);
-            }
-        }       
-    }
+	for (int i = 0; i < total_nprocess; i++)
+	{
+		Process* tmp;
+		if (NEW.dequeue(tmp))
+		{
+			if (tmp->getAT() == timestep)
+			{
+				Arrived.enqueue(tmp);
+			}
+			else
+			{
+				NEW.enqueue(tmp);
+			}
+		}
+	}
 
-    Node<Processor*>* CPU_NODE = StartingPoint;
-    while (!Arrived.isEmpty())
-    {
-        Process* tmp;
-        Arrived.dequeue(tmp);
-        if (tmp)
-            (CPU_NODE->getItem())->moveToRDY(tmp);
+	Node<Processor*>* CPU_NODE = StartingPoint;
+	while (!Arrived.isEmpty())
+	{
+		Process* tmp;
+		Arrived.dequeue(tmp);
+		if (tmp)
+			(CPU_NODE->getItem())->moveToRDY(tmp);
 
-        if (CPU_NODE->getNext())
-        {
-            CPU_NODE = CPU_NODE->getNext();
-        }
-        else // If there is no next node, set the node to the head of the list
-        {
-            CPU_NODE = Processors.getHead();
-        }
-    }
-    StartingPoint = CPU_NODE;
+		if (CPU_NODE->getNext())
+		{
+			CPU_NODE = CPU_NODE->getNext();
+		}
+		else // If there is no next node, set the node to the head of the list
+		{
+			CPU_NODE = Processors.getHead();
+		}
+	}
+	StartingPoint = CPU_NODE;
 }
 
 
@@ -78,7 +78,7 @@ void Scheduler::simulator()
 		cout << "\n";
 		NEW.Print();
 		cout << "\n";
-		if (c != ncpu-2) {
+		if (c != ncpu - 2) {
 			CPU_node = CPU_node->getNext();
 			c++;
 		}
@@ -96,18 +96,29 @@ void Scheduler::randomizeRUN(Processor* const& prcsr)
 	//rdy wont be left empty a whole cycle in case the
 	//function activates.
 	int rnum = (rand() % 100) + 1;
-	Process* ptr = prcsr->clearRUN();
-	if (rnum >= 1 && rnum <= 15&& ptr)
-
-		BLK.enqueue(ptr);
-
-	else if (rnum >= 20 && rnum <= 30 && ptr)
-
-		prcsr->moveToRDY(ptr);
-
-	else if (rnum >= 50 && rnum <= 60 && ptr)
-
-		TRM.enqueue(ptr);
+	if (rnum >= 1 && rnum <= 15)
+	{
+		Process* ptr = prcsr->clearRUN();
+		if (ptr)
+		{
+			BLK.enqueue(ptr);
+		}
+	}
+	else if (rnum >= 20 && rnum <= 30)
+	{
+		Process* ptr = prcsr->clearRUN();
+		if (ptr) {
+			prcsr->moveToRDY(ptr);
+		}
+	}
+	else if (rnum >= 50 && rnum <= 60)
+	{
+		Process* ptr = prcsr->clearRUN();
+		if (ptr)
+		{
+			TRM.enqueue(ptr);
+		}
+	}
 }
 
 void Scheduler::randomKill(Processor* const& prcsr)
@@ -118,7 +129,7 @@ void Scheduler::randomKill(Processor* const& prcsr)
 	int rnum = (rand() % total_nprocess) + 1;
 	Process* tmp = fcfs_ptr->removeFromReady(rnum);
 
-	if (tmp) TRM.enqueue(tmp);cout<<"im enqueing through random kill;";
+	if (tmp) TRM.enqueue(tmp);
 }
 
 void Scheduler::randomizeBLK(Processor* const& prcsr)
@@ -203,7 +214,7 @@ void Scheduler::load(string fileName) {
 	ncpu = NR + NF + NS;
 }
 
-void Scheduler::run() 
+void Scheduler::run()
 {
 	bool proccess_complete;
 	Process* tmp_prcs;
@@ -218,9 +229,9 @@ void Scheduler::run()
 			if (proccess_complete && tmp_prcs) this->TRM.enqueue(tmp_prcs);
 			if (!proccess_complete && tmp_prcs) this->BLK.enqueue(tmp_prcs);
 
-			this->randomizeRUN(CPU_node->getItem());
+			//this->randomizeRUN(CPU_node->getItem());
 			//this->randomizeBLK(CPU_node->getItem());
-			//this->randomKill(CPU_node->getItem());
+			this->randomKill(CPU_node->getItem());
 
 			CPU_node = CPU_node->getNext();
 		}

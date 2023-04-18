@@ -172,13 +172,13 @@ public:
 				if (N->getItem() == data) {
 					P->setNext(N->getNext());
 					delete N;
+					if (count > 0)count--;
 					return true;
 				}
 
 			}
 
 		}
-		if(count>0)count--;
 		return false;
 	}
 
