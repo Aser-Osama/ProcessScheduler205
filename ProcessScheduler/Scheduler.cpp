@@ -74,7 +74,7 @@ void Scheduler::simulator()
 		if (flag && tmp_prcs) this->BLK.enqueue(tmp_prcs);
 		if (!flag && tmp_prcs) this->TRM.enqueue(tmp_prcs);
 
-		MAINUI.print_interactive(timestep, Processors, BLK, TRM);
+		MAIN_UI.print_interactive(timestep, Processors, BLK, TRM);
 		cout << "\n";
 		NEW.Print();
 		cout << "\n";
@@ -201,4 +201,37 @@ void Scheduler::load(string fileName) {
 
 	total_nprocess = NEW.getCount();
 	ncpu = NR + NF + NS;
+}
+
+void Scheduler::run() 
+{
+	bool proccess_complete;
+	Process* tmp_prcs;
+	int io_time = -1; //there is no io in this phase
+	while (1) //will be "while all not in trm"
+	{
+		Node<Processor*>* CPU_node = Processors.getHead();
+		this->Fill_Rdy();
+		while (CPU_node)
+		{
+			proccess_complete = (CPU_node->getItem())->Execute(tmp_prcs, timestep, io_time);
+			if (proccess_complete && tmp_prcs) this->TRM.enqueue(tmp_prcs);
+			if (!proccess_complete && tmp_prcs) this->BLK.enqueue(tmp_prcs);
+
+			this->randomizeRUN(CPU_node->getItem());
+			//this->randomizeBLK(CPU_node->getItem());
+			//this->randomKill(CPU_node->getItem());
+
+			CPU_node = CPU_node->getNext();
+		}
+
+
+
+		MAIN_UI.print_interactive(timestep, Processors, BLK, TRM); // the print type will be based on user choice in phase 2
+		cout << "\n";
+		NEW.Print();
+		cout << "\n";
+		timestep++;
+
+	}
 }

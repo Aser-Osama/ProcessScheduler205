@@ -28,35 +28,73 @@ Process* Processor::clearRUN() {
 
 
 bool Processor::Execute(Process*& P, int crnt_ts, int& io_length) {
-	cout<<"Execute function";
-	if (RUN) {
-		cout<<"Inside the Run condition in executre function";
+	/*
+		C1)True & PTR -> TRM (process done)
+		C2)False & PTR -> TRM (IO request)
+		C3)False & NULLPTR -> still excuting
+		ScheduleAlgo fills the RUN in case its being cleared out or is already empty
+	*/
+
+	if (RUN) 
+	{
 		if (RUN->getIO_R_D().getValue(crnt_ts, io_length)) //if this is the time step when the process asks for I/O
 		{
-		cout<<"Inside the Run condition in executre function 2";
 			P = RUN; //returns the pointer the process for the scheduler to recieve and move to BLK
 			ScheduleAlgo(); //calls the scheduling algorithim for the processor 
-			return true; //informs the Scheduler that the process asked for I/O so it should be moved to BLK
+			return false; //informs the Scheduler that the process asked for I/O so it should be moved to BLK //C2 (move to blk, io req)
 		}
-		else if (!RUN->subRemainingTime()) //if this is the last time step for the process
+		else 
 		{
-		cout<<"Inside the Run condition in executre function 3";
-			P = RUN; //returns the pointer the finished process for the scheduler to recieve and move to TRM
-			ScheduleAlgo(); //calls the scheduling algorithim for the processor 
-			return false; //informs the Scheduler that the process did not ask for I/O 
-		}
-		else //if this is not the last time step for the process and it does not ask for I/O
-		{
-		cout<<"Inside the Run condition in executre function 4";
-			P = nullptr; //returns NULL to the Scheduler because no process will be moved
-			return false; ////informs the Scheduler that the process did not ask for I/O 
+			bool isDone = !(RUN->subRemainingTime());
+			if (isDone)
+			{
+				P = RUN;
+				ScheduleAlgo();
+				return true;//C1 (complete Process, move to TRM)
+			}
+			else
+			{
+				P = nullptr;
+				return false; //C3 (still excuting)
+			}
 		}
 	}
-	else
+	else //no process currently running
 	{
-		cout<<"Inside the Run condition in executre else";
-		ScheduleAlgo(); //calls the scheduling algorithim for the processor 
-		P = nullptr; 
-		return false;
+		P = nullptr;
+		ScheduleAlgo();
+		return false; //C3 (edge case)
 	}
+
+	//cout<<"Execute function";
+	//if (RUN) {
+	//	cout<<"Inside the Run condition in executre function";
+	//	if (RUN->getIO_R_D().getValue(crnt_ts, io_length)) //if this is the time step when the process asks for I/O
+	//	{
+	//	cout<<"Inside the Run condition in executre function 2";
+	//		P = RUN; //returns the pointer the process for the scheduler to recieve and move to BLK
+	//		ScheduleAlgo(); //calls the scheduling algorithim for the processor 
+	//		return true; //informs the Scheduler that the process asked for I/O so it should be moved to BLK
+	//	}
+	//	else if (!RUN->subRemainingTime()) //if this is the last time step for the process
+	//	{
+	//	cout<<"Inside the Run condition in executre function 3";
+	//		P = RUN; //returns the pointer the finished process for the scheduler to recieve and move to TRM
+	//		ScheduleAlgo(); //calls the scheduling algorithim for the processor 
+	//		return false; //informs the Scheduler that the process did not ask for I/O 
+	//	}
+	//	else //if this is not the last time step for the process and it does not ask for I/O
+	//	{
+	//	cout<<"Inside the Run condition in executre function 4";
+	//		P = nullptr; //returns NULL to the Scheduler because no process will be moved
+	//		return false; ////informs the Scheduler that the process did not ask for I/O 
+	//	}
+	//}
+	//else
+	//{
+	//	cout<<"Inside the Run condition in executre else";
+	//	ScheduleAlgo(); //calls the scheduling algorithim for the processor 
+	//	P = nullptr; 
+	//	return false;
+	//}
 }

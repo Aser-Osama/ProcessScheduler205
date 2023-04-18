@@ -3,7 +3,7 @@
 
 int main() {
 	Scheduler ProcessScheduler("testfile");
-	ProcessScheduler.simulator();
+	ProcessScheduler.run();
 	//	ProcessScheduler.run();
 	//	ProcessScheduler.save();
 

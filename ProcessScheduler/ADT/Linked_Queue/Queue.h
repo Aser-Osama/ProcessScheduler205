@@ -235,7 +235,7 @@ inline void Queue<Process*>::Print() const
 
 	while (tmpPtr)
 	{
-		cout << *(tmpPtr->getItem()) << ",\t";
+		cout << *(tmpPtr->getItem()) << ", \t";
 		tmpPtr = tmpPtr->getNext();
 	}
 }
