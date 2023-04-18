@@ -17,19 +17,28 @@
 //}
 
 void RR::ScheduleAlgo() {
+    //Process* nR;
+    //if (RDY.dequeue(nR)) //if a there is a process* to dequeue from RDY into nR
+    //{
+    //    if (nR->getRemainingTime() <0) {
+    //        setRUN(nR); //sets the RUN to the dequeued process*
+    //        RDY.enqueue(nR); //enqueues the process* again
+    //        cout << "\n1\n";
+    //    }
+    //    else if (nR->getRemainingTime() == 0) {
+    //        setRUN(nR); //sets the RUN to the dequeued process* without enqueuing
+    //        cout << "\n2\n";
+    //    }
+    //}
+    //else {
+    //    setRUN(nullptr);
+    //    cout << "\n3\n";
+    //}
     Process* nR;
-    if (RDY.dequeue(nR)) //if a there is a process* to dequeue from RDY into nR
-    {
-        if (nR->getRemainingTime() <0) {
-            setRUN(nR); //sets the RUN to the dequeued process*
-            RDY.enqueue(nR); //enqueues the process* again
-        }
-        else if (nR->getRemainingTime() == 0) {
-            setRUN(nR); //sets the RUN to the dequeued process* without enqueuing
-        }
-    }
+    cout << "inside sjf schedule algo";
+    if (RDY.dequeue(nR)) { cout << "being set in schedule algo sjf"; setRUN(nR); }
     else {
-        setRUN(nullptr);
+        setRUN(nullptr); cout << "being set as null";
     }
 }
 

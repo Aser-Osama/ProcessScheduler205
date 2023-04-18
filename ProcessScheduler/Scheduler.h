@@ -25,6 +25,7 @@ class Scheduler
     public:
     void Initialize_RDY();
     void simulator();
+    void Fill_Rdy();
     void randomizeRUN(Processor* const &prcsr);
     void randomKill(Processor* const& prcsr);
     void randomizeBLK(Processor* const& prcsr);

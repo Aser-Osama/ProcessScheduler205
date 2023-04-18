@@ -2,55 +2,54 @@
 
 Scheduler::Scheduler(string filename) {
 	this->load(filename);
+	StartingPoint = Processors.getHead();
 }
 Scheduler::~Scheduler() {}
 
 
-void Scheduler::Initialize_RDY()
-{
-	bool flag = false;
-	Node<Processor*>* cur_CPU = Processors.getHead();
-	Node<Processor*>* fir_CPU = Processors.getHead();
-	int iter = 0; 
-	int tot = total_nprocess;
-	while (!NEW.isEmpty() && iter < tot)
-	{
-		Process* process;
-		NEW.dequeue(process);
-		if (cur_CPU->getNext() != nullptr)
-		{
-			if (process->getAT() == timestep)
-			{
-				cur_CPU->getItem()->moveToRDY(process);
-			}
-			else
-			{
-				NEW.enqueue(process);
-			}
-			cur_CPU = cur_CPU->getNext();
-		}
-		else
-		{
-			if (!flag)
-			{
-				cur_CPU->setNext(fir_CPU);
-				flag = true;
-			}
-			if (process->getAT() == timestep)
-			{
-				cur_CPU->getItem()->moveToRDY(process);
-				
-			}
-			else
-			{
-				NEW.enqueue(process);
-			}
-			cur_CPU = cur_CPU->getNext();
-		}
-		iter++;
-	}
 
+void Scheduler::Fill_Rdy()
+{
+    Queue<Process*> Arrived;
+    if (NEW.isEmpty()) return;
+
+    for (int i = 0; i < total_nprocess; i++)
+    {
+        Process* tmp;
+        if (NEW.dequeue(tmp))
+        {
+            if (tmp->getAT() == timestep)
+            {
+                Arrived.enqueue(tmp);
+            }
+            else 
+            {
+                NEW.enqueue(tmp);
+            }
+        }       
+    }
+
+    Node<Processor*>* CPU_NODE = StartingPoint;
+    while (!Arrived.isEmpty())
+    {
+        Process* tmp;
+        Arrived.dequeue(tmp);
+        if (tmp)
+            (CPU_NODE->getItem())->moveToRDY(tmp);
+
+        if (CPU_NODE->getNext())
+        {
+            CPU_NODE = CPU_NODE->getNext();
+        }
+        else // If there is no next node, set the node to the head of the list
+        {
+            CPU_NODE = Processors.getHead();
+        }
+    }
+    StartingPoint = CPU_NODE;
 }
+
+
 
 void Scheduler::simulator()
 {
@@ -60,18 +59,20 @@ void Scheduler::simulator()
 	Node<Processor*>* HEAD_Node = Processors.getHead();
 
 	bool flag;
-	while (CPU_node->getNext()->getItem())
+	while (1)
 	{
-		this->Initialize_RDY();
+		this->Fill_Rdy();
+
 		Process* tmp_prcs;
 		Processor* cpu_ptr = CPU_node->getItem();
+
+		//this->randomizeRUN(CPU_node->getItem());
+		//this->randomizeBLK(CPU_node->getItem());
+		//this->randomKill(CPU_node->getItem());
+
 		flag = (cpu_ptr)->Execute(tmp_prcs, timestep, t);
 		if (flag && tmp_prcs) this->BLK.enqueue(tmp_prcs);
 		if (!flag && tmp_prcs) this->TRM.enqueue(tmp_prcs);
-
-		this->randomizeRUN(CPU_node->getItem());
-		this->randomizeBLK(CPU_node->getItem());
-		this->randomKill(CPU_node->getItem());
 
 		MAINUI.print_interactive(timestep, Processors, BLK, TRM);
 		cout << "\n";
