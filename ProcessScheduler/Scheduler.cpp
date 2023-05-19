@@ -231,8 +231,10 @@ void Scheduler::run()
 	MAIN_UI.print_interactive(false, timestep, Processors, BLK, TRM); // the print type will be based on user choice in phase 2
 }
 
-void Scheduler::stealTask()
+void Scheduler::stealTask() //Function will be called every timestep
 {
+	if (timestep % STL != 0) {return;}
+	
     Node<Processor *> *cpuNode = Processors.getHead();
     int maxTime = -1;
     int minTime = (std::numeric_limits<int>::max)();
