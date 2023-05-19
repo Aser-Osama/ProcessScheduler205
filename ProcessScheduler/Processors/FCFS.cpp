@@ -49,6 +49,7 @@ FCFS::FCFS(){
 
 void FCFS::moveToRDY(Process* const& NewProcess)
 {
+    this->currentBusyTime += NewProcess->getCT();
     RDY.InsertEnd(NewProcess);
 }
 
@@ -58,3 +59,12 @@ ostream& operator<<(ostream& os, const FCFS& prcsr)
     prcsr.RDY.PrintList();
     return os;
 }
+
+Process* FCFS::getTopElem() 
+{
+    Process* first = RDY.getHead()->getItem();
+    this->currentBusyTime =- first->getCT();
+    RDY.DeleteFirst();
+    return first; 
+}
+

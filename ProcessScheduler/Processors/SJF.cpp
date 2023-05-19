@@ -17,6 +17,7 @@ SJF::SJF(){
 
 void SJF::moveToRDY(Process* const& NewProcess)
 {
+    this->currentBusyTime += NewProcess->getCT();
     RDY.enqueue(NewProcess);
 }
 
@@ -25,4 +26,12 @@ ostream& operator<<(ostream& os, const SJF& prcsr)
     os << "[SJF]: " << prcsr.RDY.getCount() << " RDY: ";
     prcsr.RDY.Print();
     return os;
+}
+
+Process* SJF::getTopElem()
+{
+	Process* top;
+	RDY.dequeue(top);
+    this->currentBusyTime =- top->getCT();
+	return top;
 }

@@ -6,13 +6,13 @@
 class FCFS :
     public Processor
 {
-    LinkedList<Process *> RDY;
+    LinkedList<Process*> RDY;
 public:
     void SigKill(Process* P);
     void ScheduleAlgo() override; 
     void moveToRDY(Process* const &NewProcess) override;
     friend ostream& operator<<(ostream& os, const FCFS& prcsr);
-
+    Process* getTopElem() override; 
     Process* removeFromReady(int pid);
     friend ostream& operator<<(ostream& os, const FCFS& prcsr);
     

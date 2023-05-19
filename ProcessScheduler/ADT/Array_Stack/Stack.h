@@ -57,15 +57,14 @@ public:
 		TopEntry = items[top];
 		return true;
 	}  // end peek
-
 	void print() override 
 	{
-
-		for each (T item in items)
+		for (const auto& item : items)
 		{
-			cout << item;
+			std::cout << item;
 		}
 	}
+
 	int count() override {
 		return top + 1;
 	}
