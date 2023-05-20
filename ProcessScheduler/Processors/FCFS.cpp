@@ -26,7 +26,8 @@ void FCFS::killOrphans(Process* P) {
             SigKill(Head->getItem());
             Head = R;
         } //kills all the children of the same parent
-        // killOrphans should be always be called at sigKill to ensure that children, grandchildren,... are all killed
+        //killOrphans should be called whenever any process is about to terminate
+        // killOrphans should be always be called at sigKill to ensure that children, grandchildren,... are all killed recursively
 }
 
 
