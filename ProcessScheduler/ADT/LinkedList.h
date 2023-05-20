@@ -148,6 +148,13 @@ public:
 		if(count>0)count--;
 	}
 
+	void RemoveFirst() {
+		if (Head) {
+			Node<T>* P = Head;
+			Head = Head->getNext();
+		}
+		if (count > 0) count--;
+	}
 	//
 	//	//[6] DeleteNode
 	//

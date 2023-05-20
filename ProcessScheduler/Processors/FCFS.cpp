@@ -1,5 +1,5 @@
 #include "FCFS.h"
-
+#include "../Scheduler.h"
 void FCFS::SigKill(Process* P){
     //search for the the process in  the RUN or RDY list then move it TRM 
     //then calculate the statistics of the process like CT, etc.
@@ -8,7 +8,14 @@ void FCFS::SigKill(Process* P){
 void FCFS::ScheduleAlgo(){
     Node<Process*>* nR;
     nR = RDY.getHead();
-    if (nR) {
+    if (nR) 
+    {
+        while (sch->migratedMaxW(nR->getItem()))
+        {
+            RDY.DeleteFirst();
+            nR = RDY.getHead();
+            if (!nR) {setRUN(nullptr); return;}
+        }
         setRUN(nR->getItem());
         RDY.DeleteFirst();
     }
@@ -63,7 +70,8 @@ ostream& operator<<(ostream& os, const FCFS& prcsr)
 Process* FCFS::getTopElem() 
 {
     Process* first = RDY.getHead()->getItem();
-    this->currentBusyTime =- first->getCT();
+    if (!first) { return nullptr; }
+    this->currentBusyTime -= first->getCT();
     RDY.DeleteFirst();
     return first; 
 }

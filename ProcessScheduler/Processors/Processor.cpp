@@ -1,5 +1,5 @@
 #include "Processor.h"
-
+#include "..\Scheduler.h"
 int Processor::getBusyTime() {
 	return this->totalBusyTime;
 }
@@ -24,6 +24,8 @@ Process* Processor::clearRUN() {
 	RUN = nullptr;
 	return temp;
 }
+
+
 
 
 bool Processor::Execute(Process*& P, int crnt_ts, int& io_length) {
@@ -70,4 +72,11 @@ bool Processor::Execute(Process*& P, int crnt_ts, int& io_length) {
 
 int Processor::getCurrentTime() {
 	return this->currentBusyTime;
+}
+
+Scheduler* Processor::sch = new Scheduler("./testfile");
+
+Scheduler* Processor::getScheduler()
+{
+	return sch;
 }

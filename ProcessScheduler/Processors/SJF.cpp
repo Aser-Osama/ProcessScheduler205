@@ -3,7 +3,9 @@
 
 void SJF::ScheduleAlgo(){
     Process* nR;
-    if (RDY.dequeue(nR)) {setRUN(nR);}
+    if (RDY.dequeue(nR)) {
+        setRUN(nR);
+    }
     else {
         setRUN(nullptr);
     }
@@ -31,7 +33,7 @@ ostream& operator<<(ostream& os, const SJF& prcsr)
 Process* SJF::getTopElem()
 {
 	Process* top;
-	RDY.dequeue(top);
-    this->currentBusyTime =- top->getCT();
+    if (!RDY.dequeue(top)) { return nullptr; }
+    this->currentBusyTime -= top->getCT();
 	return top;
 }

@@ -1,12 +1,26 @@
 #include "RR.h"
+#include "../Scheduler.h"
 
 void RR::ScheduleAlgo() {
-    Process* nR;
-    if (RDY.dequeue(nR)) { setRUN(nR); }
-    else {
-        setRUN(nullptr); 
-    }
+	Process* nR;
+	if (RDY.dequeue(nR))
+	{
+		while (sch->migratedRTF(nR))
+		{
+			if (!RDY.dequeue(nR))
+			{
+				setRUN(nullptr);
+				return;
+			}
+		}
+		setRUN(nR);
+	}
+	else {
+		setRUN(nullptr);
+	}
 }
+
+
 
 RR::RR(int RRnum){
     RR_SLICE = RRnum - 1;
@@ -84,8 +98,10 @@ Process* RR::getTopElem()
 {
 
 	Process* top;
-	RDY.dequeue(top);
-	this->currentBusyTime =- top->getCT();
+	
+	if (!RDY.dequeue(top)) { return nullptr; }
+
+	this->currentBusyTime -= top->getCT();
 
 	return top;
 }

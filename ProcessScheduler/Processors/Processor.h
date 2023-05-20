@@ -6,11 +6,14 @@
 #include "../ADT/PriorityQueue.h"
 #include "../Process.h"
 
+class Scheduler;
+
 class Processor
 {
     protected:
+    static Scheduler* sch;
     Process* RUN;
-    int currentBusyTime;
+    int currentBusyTime = 0;
     int totalIdleTime;
     int totalBusyTime;
 public:
@@ -25,4 +28,5 @@ public:
     virtual bool Execute(Process*&, int, int&);
     virtual int getCurrentTime();
     Process* clearRUN();
+    static Scheduler* getScheduler();
 };  

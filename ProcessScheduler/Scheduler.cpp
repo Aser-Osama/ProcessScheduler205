@@ -7,6 +7,7 @@ Scheduler::Scheduler(string filename)
 }
 Scheduler::~Scheduler() {}
 
+
 void Scheduler::Fill_Rdy()
 {
 	Queue<Process *> Arrived;
@@ -148,7 +149,7 @@ void Scheduler::load(string fileName)
 	file >> NS;
 	file >> NR;
 	file >> RRSlice;
-
+	
 	for (int i = 0; i < NF; i++)
 	{
 		FCFS *temp = new FCFS();
@@ -212,15 +213,15 @@ void Scheduler::run()
 		this->Fill_Rdy();
 		while (cpuNode)
 		{
+			stealTask();
 			proccess_complete = (cpuNode->getItem())->Execute(tmp_prcs, timestep, io_time);
 			if (proccess_complete && tmp_prcs)
 				this->TRM.enqueue(tmp_prcs);
 			if (!proccess_complete && tmp_prcs)
 				this->BLK.enqueue(tmp_prcs);
-
-			this->randomizeRUN(cpuNode->getItem());
-			this->randomizeBLK(cpuNode->getItem());
-			this->randomKill(cpuNode->getItem());
+			//this->randomizeRUN(cpuNode->getItem());
+			//this->randomizeBLK(cpuNode->getItem());
+			//this->randomKill(cpuNode->getItem());
 
 			cpuNode = cpuNode->getNext();
 		}
@@ -233,11 +234,12 @@ void Scheduler::run()
 
 void Scheduler::stealTask() //Function will be called every timestep
 {
-	if (timestep % STL != 0) {return;}
+
+	if (timestep% STL != 0 || timestep == 0) { return; }
 	
-    Node<Processor *> *cpuNode = Processors.getHead();
     int maxTime = -1;
     int minTime = (std::numeric_limits<int>::max)();
+    Node<Processor *> *cpuNode = Processors.getHead();
     Processor *minCpu = nullptr;
     Processor *maxCpu = nullptr;
 
@@ -253,18 +255,107 @@ void Scheduler::stealTask() //Function will be called every timestep
             minTime = cpuNode->getItem()->getCurrentTime();
             minCpu = cpuNode->getItem();
         }
-
         cpuNode = cpuNode->getNext();
     }
 
-    while (static_cast<float>(maxTime - minTime) / maxTime > 0.4)
+	while ((static_cast<float>(maxTime - minTime) / maxTime) > 0.4)
     {
-        if (minCpu != nullptr && maxCpu != nullptr)
+        if (minCpu != nullptr && maxCpu != nullptr && maxCpu != minCpu)
         {
             Process *process = maxCpu->getTopElem();
+			if (!process) { return; }
             minCpu->moveToRDY(process);
             maxTime = maxCpu->getCurrentTime();
             minTime = minCpu->getCurrentTime();
+			cout << "task being stolen \n\n\n\n";
         }
+		else { return; }
     }
+}
+
+//void Scheduler::stealTask() //Function will be called every timestep
+//{
+//	if (timestep % STL != 0 || timestep == 0) { return; }
+//
+//	int maxTime = -1;
+//	int minTime = (std::numeric_limits<int>::max)();
+//	Node<Processor*>* cpuNode = Processors.getHead();
+//	Processor* minCpu = nullptr;
+//	Processor* maxCpu = nullptr;
+//
+//	while (cpuNode)
+//	{
+//		Processor* currentCpu = cpuNode->getItem();
+//		if (currentCpu && currentCpu->getCurrentTime() > maxTime)
+//		{
+//			maxTime = currentCpu->getCurrentTime();
+//			maxCpu = currentCpu;
+//		}
+//		if (currentCpu && currentCpu->getCurrentTime() < minTime)
+//		{
+//			minTime = currentCpu->getCurrentTime();
+//			minCpu = currentCpu;
+//		}
+//		cpuNode = cpuNode->getNext();
+//	}
+//
+//	while (maxCpu && minCpu && (static_cast<float>(maxTime - minTime) / maxTime) > 0.4)
+//	{
+//		if (maxCpu != minCpu)
+//		{
+//			Process* process = maxCpu->getTopElem();
+//			if (process)
+//			{
+//				minCpu->moveToRDY(process);
+//				maxTime = maxCpu->getCurrentTime();
+//				minTime = minCpu->getCurrentTime();
+//				cout << "task being stolen \n\n\n\n";
+//			}
+//			else { return; }
+//		}
+//		else { return; }
+//	}
+//}
+
+bool Scheduler::migratedMaxW(Process* const& prcs)
+{
+	if (!prcs) {return false;}
+    int ct = prcs->getCT();
+	if (ct < this->MaxW) {return false;} //find a rr queue
+	bool foundRR = false;
+	Node<Processor *> *cpuNode = Processors.getHead();
+	while (cpuNode)
+	{
+		Processor* prcsr = cpuNode->getItem();
+		if (!prcsr) { return false; }
+		RR *rr_ptr = dynamic_cast<RR*>(prcsr);
+		if (!rr_ptr) { cpuNode = cpuNode->getNext(); continue; }
+		rr_ptr->moveToRDY(prcs);
+		foundRR = true;
+		break;
+	}
+	if (foundRR) { cout << "RR migration found\t" << prcs->getPID() <<"\n\n\n"; }
+	return foundRR;
+}
+
+bool Scheduler::migratedRTF(Process* const &prcs) //checks cpu_time under rft (Threshold) 
+ {
+	if (!prcs) {return false;}
+    int ct = prcs->getCT();
+	if (ct > this->RTF) {return false;} //find a sjf queue
+	bool foundSJF = false;
+
+	Node<Processor *> *cpuNode = Processors.getHead();
+ 	while (cpuNode)
+	{
+		Processor* prcsr = cpuNode->getItem();
+		if (!prcsr) { return false; }
+		SJF* sjf_ptr = dynamic_cast<SJF*>(prcsr);
+		if (!sjf_ptr) { cpuNode = cpuNode->getNext();  continue; }
+		prcsr->moveToRDY(prcs);
+		foundSJF = true;
+		break;
+	}
+	if (foundSJF) { cout << "SJF migration found \t" << prcs->getPID()<<" \n\n\n"; }
+	return foundSJF;
 }
