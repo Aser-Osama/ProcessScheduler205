@@ -12,7 +12,7 @@ public:
     void ScheduleAlgo() override; 
     void moveToRDY(Process* const &NewProcess) override;
     friend ostream& operator<<(ostream& os, const FCFS& prcsr);
-
+    void killOrphans(Process* P);
     Process* removeFromReady(int pid);
     friend ostream& operator<<(ostream& os, const FCFS& prcsr);
     

@@ -1,7 +1,7 @@
 #include "Process.h"
 
 int Process::getPID() const { return PID; }
-int Process::getChildPID()const{ return childPID; }
+LinkedList<Process*> Process::getChildren()const{ return children; }
 int Process::getAT() const { return AT; }
 int Process::getRT() const{ return RT; }
 int Process::getCT() const{ return CT; }

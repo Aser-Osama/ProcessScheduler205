@@ -7,8 +7,7 @@ using namespace std;
 class Process
 {
 private:
-	int PID, 
-		childPID, //should be -1 for childless process
+	int PID,  
 		AT,
 		RT,
 		CT,
@@ -18,10 +17,10 @@ private:
 		remainingTime, // THIS IS THE LEFT OVER TIME. DECREMENT THIS USING THE METHOD TO REDUCE TIME REMAINING IN CPU RUN
 		WT;
 	Map<int,int> IO_R_D;
-
+	LinkedList<Process*> children; //null for childless processes
 public:
 	int getPID() const;
-	int getChildPID() const;
+	LinkedList<Process*> getChildren() const;
 	int getAT() const;
 	int getRT() const;
 	int getCT() const;

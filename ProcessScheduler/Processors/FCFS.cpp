@@ -17,8 +17,17 @@ void FCFS::ScheduleAlgo(){
     }
 }
 
-
-  
+void FCFS::killOrphans(Process* P) {
+    if (P->getChildren().getHead() == nullptr) //the process does not have a child
+    {
+        return;
+    }
+    else //the process has children
+    {
+        SigKill(P->getChildren().getHead()->getItem());
+        killOrphans(P->getChildren().getHead()->getNext()->getItem());
+    }
+}
 
 Process* FCFS::removeFromReady(int pid)
 {
