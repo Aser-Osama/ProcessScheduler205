@@ -2,7 +2,10 @@
 
 void RR::ScheduleAlgo() {
     Process* nR;
-    if (RDY.dequeue(nR)) { setRUN(nR); }
+    if (RDY.dequeue(nR)) {
+		QueueTime -= nR->getCT();
+		setRUN(nR);
+	}
     else {
         setRUN(nullptr); 
     }
@@ -15,9 +18,15 @@ RR::RR(int RRnum){
 void RR::moveToRDY(Process* const& NewProcess)
 {
     RDY.enqueue(NewProcess);
+	QueueTime += NewProcess->getCT();
 	current_rr_ts = 0;
 }
 
+
+int RR::GetQueueTime()
+{
+	return QueueTime;
+}
 ostream& operator<<(ostream& os, const RR& prcsr)
 {
     os << "[RR]: " << prcsr.RDY.getCount() << " RDY: ";

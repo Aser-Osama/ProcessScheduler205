@@ -3,6 +3,7 @@
 void FCFS::SigKill(Process* P){
     //search for the the process in  the RUN or RDY list then move it TRM 
     //then calculate the statistics of the process like CT, etc.
+    TotalTime -= P->getCT();
 }
 
 void FCFS::ScheduleAlgo(){
@@ -10,6 +11,7 @@ void FCFS::ScheduleAlgo(){
     nR = RDY.getHead();
     if (nR) {
         setRUN(nR->getItem());
+        TotalTime -= RDY.getHead()->getItem()->getCT();
         RDY.DeleteFirst();
     }
     else {
