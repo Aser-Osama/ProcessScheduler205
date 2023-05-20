@@ -47,9 +47,23 @@ FCFS::FCFS(){
 
 }
 
+//int FCFS::GetMinCT()
+//{
+//    int totalCT = 0;
+//    Node<Process*> *process = RDY.getHead();
+//    if (!RDY.getHead()) return 0;
+//    while (process->getNext())
+//    {
+//        totalCT += process->getItem()->getCT();
+//        process = process->getNext();
+//    }
+//    totalCT += process->getItem()->getCT();
+//}
+
 void FCFS::moveToRDY(Process* const& NewProcess)
 {
     RDY.InsertEnd(NewProcess);
+    TotalTime += NewProcess->getCT();
 }
 
 ostream& operator<<(ostream& os, const FCFS& prcsr)
