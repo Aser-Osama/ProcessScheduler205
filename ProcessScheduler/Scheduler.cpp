@@ -433,7 +433,6 @@ bool Scheduler::migratedMaxW(Process* const& prcs)
 			continue;
 		}
 		rr_ptr->moveToRDY(prcs);
-		rr_ptr->incrementCurrentTime(prcs->getCT());
 		foundRR = true;
 		break;
 	}
@@ -472,7 +471,6 @@ bool Scheduler::migratedRTF(Process* const& prcs) // checks processor_time under
 			continue;
 		}
 		prcsr->moveToRDY(prcs);
-		prcsr->incrementCurrentTime(prcs->getCT());
 		foundSJF = true;
 		break;
 	}

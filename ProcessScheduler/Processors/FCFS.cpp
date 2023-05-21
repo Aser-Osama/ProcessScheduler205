@@ -13,11 +13,13 @@ void FCFS::ScheduleAlgo(){
     {
         while (sch->migratedMaxW(nR->getItem()))
         {
+            this->currentBusyTime -= nR->getItem()->getCT();
             RDY.DeleteFirst();
             nR = RDY.getHead();
             if (!nR) {setRUN(nullptr); return;}
         }
         setRUN(nR->getItem());
+        this->currentBusyTime -= nR->getItem()->getCT();
         RDY.DeleteFirst();
     }
     else {
@@ -94,18 +96,6 @@ FCFS::FCFS()
 {
 }
 
-//int FCFS::GetMinCT()
-//{
-//    int totalCT = 0;
-//    Node<Process*> *process = RDY.getHead();
-//    if (!RDY.getHead()) return 0;
-//    while (process->getNext())
-//    {
-//        totalCT += process->getItem()->getCT();
-//        process = process->getNext();
-//    }
-//    totalCT += process->getItem()->getCT();
-//}
 
 void FCFS::moveToRDY(Process* const& NewProcess)
 {

@@ -13,7 +13,7 @@ class Processor
     protected:
     static Scheduler* sch;
     Process* RUN;
-    int currentBusyTime = 0;
+    int currentBusyTime = 0; // Total time of each queue
     int totalIdleTime;
     int totalBusyTime;
 public:
@@ -27,7 +27,6 @@ public:
     void setRUN(Process*);
     virtual bool Execute(Process*&, int, int&);
     virtual int getCurrentTime();
-    virtual int incrementCurrentTime(int);
     Process* clearRUN();
     static Scheduler* getScheduler();
 
