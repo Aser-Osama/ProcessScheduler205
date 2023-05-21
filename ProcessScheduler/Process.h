@@ -9,14 +9,14 @@ class Process
 private:
 	bool ForkedProcess = false;
 	int PID, 
-		AT,
-		RT,
-		CT,
-		TT,
-		TRT,
+		AT, // Arrival time
+		RT, // Response time
+		CT, // CPU time
+		TT, // Termination time
+		TRT, // The total time a process spends in the system from its arrival to termination. TRT = TT - AT
 		cpuArrivalTime, //THIS IS THE FIRST TIME ARRIVAL to cpu VARIABLE. SET THIS WHEN THE PROCESS FIRST ARRIVES AT A CPU 
 		remainingTime, // THIS IS THE LEFT OVER TIME. DECREMENT THIS USING THE METHOD TO REDUCE TIME REMAINING IN CPU RUN
-		WT;
+		WT; // WT = TRT - CT
 	Map<int,int> IO_R_D;
 	LinkedList<Process*> children; //null for childless processes
 public:
