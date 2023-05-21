@@ -29,6 +29,7 @@ class Scheduler
     void randomizeRUN(Processor* const &prcsr);
     void randomKill(Processor* const& prcsr);
     void randomizeBLK(Processor* const& prcsr);
+
     void load(string); //will be called 
     void save(string);
     void run(); //this is where the program is run

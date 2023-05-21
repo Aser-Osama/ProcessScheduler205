@@ -50,6 +50,16 @@ void Scheduler::Fill_Rdy()
 }
 
 
+void Scheduler::BLKToRun(Processor* const& prcsr)
+{
+	int rnum = (rand() % 100) + 1;
+	if (rnum > 10) return;
+
+	Process* first_elm;
+	bool dequed = BLK.dequeue(first_elm);
+	if (dequed) { prcsr->moveToRDY(first_elm); }
+}
+
 void Scheduler::randomizeRUN(Processor* const& prcsr)
 { //should be run before the SCHEDULINGALGO function so 
 	//rdy wont be left empty a whole cycle in case the
