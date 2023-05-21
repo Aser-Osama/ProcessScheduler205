@@ -32,13 +32,13 @@ bool Processor::Execute(Process*& P, int crnt_ts, int& io_length) {
 	/*
 		C1)True & PTR -> TRM (process done)
 		C2)False & PTR -> TRM (IO request)
-		C3)False & NULLPTR -> still excuting
-		ScheduleAlgo fills the RUN in case its being cleared out or is already empty
+		C3)False & NULLPTR -> still executing
+		ScheduleAlgo fills the RUN in case it's being cleared out or is already empty
 	*/
 
 	if (RUN) 
 	{
-		if (RUN->getIO_R_D().getValue(crnt_ts, io_length)) //if this is the time step when the process asks for I/O
+		if (RUN->getIO_R_D().getValue(crnt_ts, io_length)) //if this is the timestep when the process asks for I/O
 		{
 			this->currentBusyTime--;
 			P = RUN; //returns the pointer the process for the scheduler to recieve and move to BLK
@@ -81,3 +81,5 @@ Scheduler* Processor::getScheduler()
 {
 	return sch;
 }
+
+

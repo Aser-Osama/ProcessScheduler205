@@ -3,10 +3,13 @@
 
 void RR::ScheduleAlgo() {
 	Process* nR;
+	int time;
 	if (RDY.dequeue(nR))
 	{
+		time = nR->getCT();
 		while (sch->migratedRTF(nR))
 		{
+			this->currentBusyTime -= time;
 			if (!RDY.dequeue(nR))
 			{
 				setRUN(nullptr);

@@ -73,3 +73,13 @@ bool Process::isForked()
 {
 	return ForkedProcess;
 }
+
+void Process::totalTRT(int ProcessTRT)
+{
+	TRT += ProcessTRT;
+}
+
+void Process::totalWT(int ProcessWT)
+{
+	WT += ProcessWT;
+}

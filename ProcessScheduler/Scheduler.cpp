@@ -115,45 +115,67 @@ Scheduler::~Scheduler() {}
 //	}
 //}
 
+
+// A function that returns a node of the processor with the shortest queue
+Node<Processor*>* Scheduler::ProcessorWithShortestQueue()
+{
+	Node<Processor*>* ProcessorWithShortestQueue = nullptr;
+	Node<Processor*>* tempProcessor1 = Processors.getHead(); // Gets the first node of a processor from the Linked list
+	ProcessorWithShortestQueue = tempProcessor1;
+
+	Node<Processor*>* tempProcessor2 = tempProcessor1->getNext();
+	if (!tempProcessor2) return; // Checks if the list has two or more processors to compare between them
+
+	while (tempProcessor2->getNext())
+	{
+		if (ProcessorWithShortestQueue->getItem()->getCurrentTime() > tempProcessor2->getItem()->getCurrentTime())
+		{
+			ProcessorWithShortestQueue = tempProcessor2;
+		}
+		tempProcessor2 = tempProcessor2->getNext();
+	}
+	// while loop stops at the last processor.
+	// So, a comparison must be made between the last processor and ShortestQueue.
+
+	if (ProcessorWithShortestQueue->getItem()->getCurrentTime() > tempProcessor2->getItem()->getCurrentTime())
+		ProcessorWithShortestQueue = tempProcessor2;
+	return ProcessorWithShortestQueue;
+}
+
 void Scheduler::NEWToRDY()
 {
 	Process* Process = nullptr;
-	Node<Processor*>* ProcessorWithShortestQueue = nullptr;
 	// If there is a process in the NEW list and its arrival time equals the currnent timestep
 	while (NEW.peek(Process) && Process->getAT() == timestep)
 	{
 		NEW.dequeue(Process);
-		Node<Processor*>* tempProcessor1 = Processors.getHead(); // Gets the first processor from the Linked list
-		ProcessorWithShortestQueue = tempProcessor1;
-
-		Node<Processor*>* tempProcessor2 = tempProcessor1->getNext();
-		if (!tempProcessor2) return; // Checks if the list has two or more processors to compare between them
-
-		while (tempProcessor2->getNext())
-		{
-			if (ProcessorWithShortestQueue->getItem()->getCurrentTime() > tempProcessor2->getItem()->getCurrentTime())
-			{
-				ProcessorWithShortestQueue = tempProcessor2;
-			}
-			tempProcessor2 = tempProcessor2->getNext();
-		}
-		// while loop stops at the last processor.
-		// So, a comparison must be made between the last processor and ShortestQueue
-
-		if (ProcessorWithShortestQueue->getItem()->getCurrentTime() > tempProcessor2->getItem()->getCurrentTime())
-			ProcessorWithShortestQueue = tempProcessor2;
-
+		
+		Node<Processor*>* ProcessorWithShortestQueue = this->ProcessorWithShortestQueue();
 		ProcessorWithShortestQueue->getItem()->moveToRDY(Process);
 		Process = nullptr;
 	}
 }
 
-void Scheduler::BLKToRDY(Processor* const& prcsr)
+//void Scheduler::BLKToRDY(Process*& P, int crnt_ts, int& io_length)
+//{
+//	/*Process* IO;
+//	if (IO->getIO_R_D().getValue(crnt_ts, io_length))
+//	{
+//		this->
+//	}*/
+//	
+//}
+
+void Scheduler::RUNToTRM(Process* Prc)
 {
-	Process* first_elm;
-	bool dequed = BLK.dequeue(first_elm);
-	if (dequed) { 
-		prcsr->moveToRDY(first_elm);
+	if (Prc) {
+		Prc->setTT(timestep);
+		Prc->totalTRT(Prc->getTRT()); // For output file
+
+		int WT = Prc->getTRT() - Prc->getCT();
+		Prc->totalWT(WT); // For output file
+		
+		TRM.enqueue(Prc);
 	}
 }
 

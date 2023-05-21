@@ -28,11 +28,13 @@ class Scheduler
     void Initialize_RDY();
     void simulator();
     //void Fill_Rdy();
+    Node<Processor*>* ProcessorWithShortestQueue();
     void NEWToRDY();
+    void RUNToTRM(Process P);
+    //  void BLKToRDY(Process*& P, int crnt_ts, int& io_length);
     void randomizeRUN(Processor* const &prcsr);
     void randomKill(Processor* const& prcsr);
     void randomizeBLK(Processor* const& prcsr);
-    void BLKToRDY(Processor* const& prcsr);
     void load(string); //will be called 
     void save(string);
     void run(); //this is where the program is run

@@ -18,8 +18,8 @@ void FCFS::ScheduleAlgo(){
             nR = RDY.getHead();
             if (!nR) {setRUN(nullptr); return;}
         }
-        setRUN(nR->getItem());
         this->currentBusyTime -= nR->getItem()->getCT();
+        setRUN(nR->getItem());
         RDY.DeleteFirst();
     }
     else {
