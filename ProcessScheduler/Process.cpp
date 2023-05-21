@@ -17,7 +17,7 @@ void Process::setWT() { WT = TRT - CT; } // Wait time should be set once
 bool Process::find_by_pid(int pid) { return this->PID == pid; }
 int Process::getRemainingTime() const
 {
-	{ return remainingTime; };
+	 return remainingTime;
 }
 bool Process::subRemainingTime()
 {

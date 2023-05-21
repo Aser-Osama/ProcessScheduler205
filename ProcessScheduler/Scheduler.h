@@ -30,7 +30,7 @@ class Scheduler
     //void Fill_Rdy();
     Node<Processor*>* ProcessorWithShortestQueue();
     void NEWToRDY();
-    void RUNToTRM(Process P);
+    void RUNToTRM(Process* P);
     //  void BLKToRDY(Process*& P, int crnt_ts, int& io_length);
     void randomizeRUN(Processor* const &prcsr);
     void randomKill(Processor* const& prcsr);

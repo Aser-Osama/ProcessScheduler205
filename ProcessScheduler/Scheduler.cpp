@@ -156,25 +156,25 @@ void Scheduler::NEWToRDY()
 	}
 }
 
-//void Scheduler::BLKToRDY(Process*& P, int crnt_ts, int& io_length)
-//{
-//	/*Process* IO;
-//	if (IO->getIO_R_D().getValue(crnt_ts, io_length))
-//	{
-//		this->
-//	}*/
-//	
-//}
+void Scheduler::BLKToRDY(int crnt_ts, int& io_length)
+{
+	
+}
 
 void Scheduler::RUNToTRM(Process* Prc)
 {
-	if (Prc) {
+	if (!Prc->subRemainingTime()) // If CT is equal to zero
+	{
 		Prc->setTT(timestep);
+		Prc->setTRT();
 		Prc->totalTRT(Prc->getTRT()); // For output file
 
 		int WT = Prc->getTRT() - Prc->getCT();
-		Prc->totalWT(WT); // For output file
-		
+		if (Prc->getWT() == 0 && WT > 0) // TRT - CT can be negative. For example, when it receives a signal kill.
+		{
+			Prc->setWT();
+			Prc->totalWT(WT); // For output file
+		}
 		TRM.enqueue(Prc);
 	}
 }
@@ -350,10 +350,11 @@ void Scheduler::run()
 			proccess_complete = (processorNode->getItem())->Execute(tmp_prcs, timestep, io_time);
 			if (proccess_complete && tmp_prcs)
 			{
-				tmp_prcs->setTT(timestep);
+				this->RUNToTRM(tmp_prcs);
+				/*tmp_prcs->setTT(timestep);
 				tmp_prcs->setTRT();
 				tmp_prcs->setWT();
-				this->TRM.enqueue(tmp_prcs);
+				this->TRM.enqueue(tmp_prcs);*/
 			}
 			if (!proccess_complete && tmp_prcs) {
 

@@ -40,6 +40,8 @@ public:
 	void setWT();
 	bool find_by_pid(int pid);
 	int getRemainingTime() const;
+	void totalTRT(int ProcessTRT);
+	void totalWT(int ProcessWT);
 	friend ostream& operator<<(ostream& os, const Process& prcs);
 	bool operator==(const Process &);
 	bool operator< (const Process& other) const;
