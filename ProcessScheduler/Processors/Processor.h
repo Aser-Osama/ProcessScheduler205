@@ -27,6 +27,7 @@ public:
     void setRUN(Process*);
     virtual bool Execute(Process*&, int, int&);
     virtual int getCurrentTime();
+    virtual int incrementCurrentTime(int);
     Process* clearRUN();
     static Scheduler* getScheduler();
 

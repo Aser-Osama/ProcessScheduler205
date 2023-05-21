@@ -18,7 +18,6 @@ void FCFS::ScheduleAlgo(){
             if (!nR) {setRUN(nullptr); return;}
         }
         setRUN(nR->getItem());
-        TotalTime -= RDY.getHead()->getItem()->getCT();
         RDY.DeleteFirst();
     }
     else {

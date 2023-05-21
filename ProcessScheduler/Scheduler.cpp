@@ -118,26 +118,32 @@ Scheduler::~Scheduler() {}
 void Scheduler::NEWToRDY()
 {
 	Process* Process = nullptr;
-	Node<Processor*>* ShortestQueue = nullptr;
+	Node<Processor*>* ProcessorWithShortestQueue = nullptr;
 	// If there is a process in the NEW list and its arrival time equals the currnent timestep
 	while (NEW.peek(Process) && Process->getAT() == timestep)
 	{
 		NEW.dequeue(Process);
 		Node<Processor*>* tempProcessor1 = Processors.getHead(); // Gets the first processor from the Linked list
-		ShortestQueue = tempProcessor1;
+		ProcessorWithShortestQueue = tempProcessor1;
 
 		Node<Processor*>* tempProcessor2 = tempProcessor1->getNext();
 		if (!tempProcessor2) return; // Checks if the list has two or more processors to compare between them
 
 		while (tempProcessor2->getNext())
 		{
-			if (ShortestQueue->getItem()->getCurrentTime() > tempProcessor2->getItem()->getCurrentTime())
+			if (ProcessorWithShortestQueue->getItem()->getCurrentTime() > tempProcessor2->getItem()->getCurrentTime())
 			{
-				ShortestQueue = tempProcessor2;
+				ProcessorWithShortestQueue = tempProcessor2;
 			}
 			tempProcessor2 = tempProcessor2->getNext();
 		}
-		ShortestQueue->getItem()->moveToRDY(Process);
+		// while loop stops at the last processor.
+		// So, a comparison must be made between the last processor and ShortestQueue
+
+		if (ProcessorWithShortestQueue->getItem()->getCurrentTime() > tempProcessor2->getItem()->getCurrentTime())
+			ProcessorWithShortestQueue = tempProcessor2;
+
+		ProcessorWithShortestQueue->getItem()->moveToRDY(Process);
 		Process = nullptr;
 	}
 }
@@ -427,6 +433,7 @@ bool Scheduler::migratedMaxW(Process* const& prcs)
 			continue;
 		}
 		rr_ptr->moveToRDY(prcs);
+		rr_ptr->incrementCurrentTime(prcs->getCT());
 		foundRR = true;
 		break;
 	}
@@ -465,6 +472,7 @@ bool Scheduler::migratedRTF(Process* const& prcs) // checks processor_time under
 			continue;
 		}
 		prcsr->moveToRDY(prcs);
+		prcsr->incrementCurrentTime(prcs->getCT());
 		foundSJF = true;
 		break;
 	}

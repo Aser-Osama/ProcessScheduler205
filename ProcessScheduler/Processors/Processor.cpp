@@ -73,6 +73,10 @@ bool Processor::Execute(Process*& P, int crnt_ts, int& io_length) {
 int Processor::getCurrentTime() {
 	return this->currentBusyTime;
 }
+int Processor::incrementCurrentTime(int ct)
+{
+	this->currentBusyTime += ct;
+}
 
 Scheduler* Processor::sch = new Scheduler("./testfile");
 

@@ -104,6 +104,5 @@ Process* RR::getTopElem()
 	if (!RDY.dequeue(top)) { return nullptr; }
 	cout << top->getPID();
 	this->currentBusyTime -= top->getCT();
-
 	return top;
 }
