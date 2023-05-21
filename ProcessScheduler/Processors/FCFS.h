@@ -17,6 +17,7 @@ public:
     friend ostream& operator<<(ostream& os, const FCFS& prcsr);
     bool Execute(Process*&, int, int&) override;
     void attemptFork();
+    Process* findProcess(int);
     FCFS();
 };
 

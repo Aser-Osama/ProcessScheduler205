@@ -65,6 +65,31 @@ void FCFS::attemptFork()
     RUN->addChild(Child);
 }
 
+Process* FCFS::findProcess(int pid)
+{
+    if (pid == RUN->getPID())
+    {
+        return clearRUN();;
+        //ScheduleAlgo();
+    }
+    else 
+    {
+        Node<Process*>* tmp = RDY.getHead();
+        bool found = false;
+        while (tmp) 
+        {
+            if (tmp->getItem()->getPID() == pid)
+            {
+                Process* item = tmp->getItem();
+                RDY.DeleteNode(item);
+                return item;
+            }
+            tmp = tmp->getNext();
+        }
+        return nullptr;
+    }
+}
+
 FCFS::FCFS()
 {
 }

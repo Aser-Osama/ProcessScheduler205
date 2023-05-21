@@ -117,14 +117,14 @@ void Scheduler::Fill_Rdy()
 
 
 
-void Scheduler::randomizeRUN(Processor *const &prcsr)
+void Scheduler::randomizeRUN(Processor* const& prcsr)
 { // should be run before the SCHEDULINGALGO function so
 	// rdy wont be left empty a whole cycle in case the
 	// function activates.
 	int rnum = (rand() % 100) + 1;
 	if (rnum >= 1 && rnum <= 15)
 	{
-		Process *ptr = prcsr->clearRUN();
+		Process* ptr = prcsr->clearRUN();
 		if (ptr)
 		{
 			BLK.enqueue(ptr);
@@ -132,7 +132,7 @@ void Scheduler::randomizeRUN(Processor *const &prcsr)
 	}
 	else if (rnum >= 20 && rnum <= 30)
 	{
-		Process *ptr = prcsr->clearRUN();
+		Process* ptr = prcsr->clearRUN();
 		if (ptr)
 		{
 			prcsr->moveToRDY(ptr);
@@ -140,7 +140,7 @@ void Scheduler::randomizeRUN(Processor *const &prcsr)
 	}
 	else if (rnum >= 50 && rnum <= 60)
 	{
-		Process *ptr = prcsr->clearRUN();
+		Process* ptr = prcsr->clearRUN();
 		if (ptr)
 		{
 			TRM.enqueue(ptr);
@@ -148,26 +148,26 @@ void Scheduler::randomizeRUN(Processor *const &prcsr)
 	}
 }
 
-void Scheduler::randomKill(Processor *const &prcsr)
+void Scheduler::randomKill(Processor* const& prcsr)
 {
-	FCFS *fcfs_ptr = dynamic_cast<FCFS *>(prcsr);
+	FCFS* fcfs_ptr = dynamic_cast<FCFS*>(prcsr);
 	if (!fcfs_ptr)
 		return;
 
 	int rnum = (rand() % total_nprocess) + 1;
-	Process *tmp = fcfs_ptr->removeFromReady(rnum);
+	Process* tmp = fcfs_ptr->removeFromReady(rnum);
 
 	if (tmp)
 		TRM.enqueue(tmp);
 }
 
-void Scheduler::randomizeBLK(Processor *const &prcsr)
+void Scheduler::randomizeBLK(Processor* const& prcsr)
 {
 	int rnum = (rand() % 100) + 1;
 	if (rnum > 10)
 		return;
 
-	Process *first_elm;
+	Process* first_elm;
 	bool dequed = BLK.dequeue(first_elm);
 	if (dequed)
 	{
@@ -219,18 +219,18 @@ void Scheduler::load(string fileName)
 
 	for (int i = 0; i < NF; i++)
 	{
-		FCFS *temp = new FCFS();
+		FCFS* temp = new FCFS();
 		Processors.InsertEnd(temp);
 	}
 	for (int i = 0; i < NS; i++)
 	{
-		SJF *temp = new SJF();
+		SJF* temp = new SJF();
 		Processors.InsertEnd(temp);
 	}
 
 	for (int i = 0; i < NR; i++)
 	{
-		RR *temp = new RR(RRSlice);
+		RR* temp = new RR(RRSlice);
 		Processors.InsertEnd(temp);
 	}
 	file >> RTF;
@@ -253,7 +253,7 @@ void Scheduler::load(string fileName)
 			file >> IO_R_D_unparsed;
 		Map<int, int> IO_R_D;
 		IO_R_D = parseIO_R_D(IO_R_D_unparsed);
-		Process *temp = new Process(PID, AT, CT, IO_R_D);
+		Process* temp = new Process(PID, AT, CT, IO_R_D);
 		NEW.enqueue(temp);
 	}
 
@@ -272,20 +272,21 @@ void Scheduler::load(string fileName)
 
 void Scheduler::run()
 {
+
 	bool proccess_complete;
-	Process *tmp_prcs;
+	Process* tmp_prcs;
 	int io_time = -1;						// there is no io in this phase
 	while (TRM.getCount() < total_nprocess) // will be "while all not in trm"
 	{
-		cout << "nprocessor: \n\n\n\n\n" << total_nprocess;
-		Node<Processor *> *processorNode = Processors.getHead();
+		Node<Processor*>* processorNode = Processors.getHead();
 		this->Fill_Rdy();
 		int i = 1;
 		while (processorNode)
 		{
 			stealTask();
+			killSignal();
 			proccess_complete = (processorNode->getItem())->Execute(tmp_prcs, timestep, io_time);
-			if (proccess_complete && tmp_prcs) 
+			if (proccess_complete && tmp_prcs)
 			{
 				tmp_prcs->setTT(timestep);
 				tmp_prcs->setTRT();
@@ -318,9 +319,9 @@ void Scheduler::stealTask() // Function will be called every timestep
 
 	int maxTime = INT_MIN;
 	int minTime = INT_MAX;
-	Node<Processor *> *processorNode = Processors.getHead();
-	Processor *minprocessor = nullptr;
-	Processor *maxprocessor = nullptr;
+	Node<Processor*>* processorNode = Processors.getHead();
+	Processor* minprocessor = nullptr;
+	Processor* maxprocessor = nullptr;
 
 	while (processorNode)
 	{
@@ -341,7 +342,7 @@ void Scheduler::stealTask() // Function will be called every timestep
 	{
 		if (minprocessor != nullptr && maxprocessor != nullptr && maxprocessor != minprocessor)
 		{
-			Process *process = maxprocessor->getTopElem();
+			Process* process = maxprocessor->getTopElem();
 			if (!process)
 			{
 				return;
@@ -364,7 +365,7 @@ void Scheduler::stealTask() // Function will be called every timestep
 	}
 }
 
-bool Scheduler::migratedMaxW(Process *const &prcs)
+bool Scheduler::migratedMaxW(Process* const& prcs)
 {
 	if (!prcs || prcs->isForked())
 	{
@@ -377,15 +378,15 @@ bool Scheduler::migratedMaxW(Process *const &prcs)
 		return false;
 	} // find a rr queue
 	bool foundRR = false;
-	Node<Processor *> *processorNode = Processors.getHead();
+	Node<Processor*>* processorNode = Processors.getHead();
 	while (processorNode)
 	{
-		Processor *prcsr = processorNode->getItem();
+		Processor* prcsr = processorNode->getItem();
 		if (!prcsr)
 		{
 			return false;
 		}
-		RR *rr_ptr = dynamic_cast<RR *>(prcsr);
+		RR* rr_ptr = dynamic_cast<RR*>(prcsr);
 		if (!rr_ptr)
 		{
 			processorNode = processorNode->getNext();
@@ -402,7 +403,7 @@ bool Scheduler::migratedMaxW(Process *const &prcs)
 	return foundRR;
 }
 
-bool Scheduler::migratedRTF(Process *const &prcs) // checks processor_time under rft (Threshold)
+bool Scheduler::migratedRTF(Process* const& prcs) // checks processor_time under rft (Threshold)
 {
 	if (!prcs || prcs->isForked())
 	{
@@ -415,15 +416,15 @@ bool Scheduler::migratedRTF(Process *const &prcs) // checks processor_time under
 	} // find a sjf queue
 	bool foundSJF = false;
 
-	Node<Processor *> *processorNode = Processors.getHead();
+	Node<Processor*>* processorNode = Processors.getHead();
 	while (processorNode)
 	{
-		Processor *prcsr = processorNode->getItem();
+		Processor* prcsr = processorNode->getItem();
 		if (!prcsr)
 		{
 			return false;
 		}
-		SJF *sjf_ptr = dynamic_cast<SJF *>(prcsr);
+		SJF* sjf_ptr = dynamic_cast<SJF*>(prcsr);
 		if (!sjf_ptr)
 		{
 			processorNode = processorNode->getNext();
@@ -445,36 +446,77 @@ int Scheduler::getForkProb()
 	return forkProb;
 }
 
-Process *Scheduler::ForkProcess(int child_ct)
+void Scheduler::killSignal()
+{
+	Node<Pair<int, int>>* mapHead = SIGKILL_MAP.getHead();
+	bool found = false;
+	while (mapHead) {
+		if (mapHead->getItem().getKey() == timestep)
+		{
+			int pid = mapHead->getItem().getValue();
+			Node<Processor*>* headProcessor = Processors.getHead();
+			bool found_process = false;
+			Process* tmpProcess = nullptr;
+			while (headProcessor)
+			{
+				FCFS* tempFCFS = dynamic_cast<FCFS*>(headProcessor->getItem());
+				if (!tempFCFS)
+				{
+					headProcessor = headProcessor->getNext();
+					continue;
+				}
+
+				tmpProcess = tempFCFS->findProcess(pid);
+				if (tmpProcess)
+				{
+					found_process = true;
+					break;
+				}
+				headProcessor = headProcessor->getNext();
+			}
+
+			if (found_process)
+			{
+				// tmpProcess->killOrph();
+				TRM.enqueue(tmpProcess);
+				cout << "Killsig found! \n\n\n\n";
+			}
+		}
+		mapHead = mapHead->getNext();
+	}
+}
+
+
+Process* Scheduler::ForkProcess(int child_ct)
 {
 	// generating the child:
 	// assuming the pids max out the number of proccesses as shown in sample test file
 	int child_pid = ((rand() % total_nprocess) + 1) + total_nprocess;
 	Map<int, int> empty_io_map;
 	empty_io_map.addPair(0, 0);
-	Process *Child = new Process(child_pid, timestep, child_ct, empty_io_map);
+	Process* Child = new Process(child_pid, timestep, child_ct, empty_io_map);
 	Child->setForked();
 	// scheduling the child:
-	Node<Processor *> *processorNode = this->Processors.getHead();
-    if (!processorNode)
-    {
-        delete Child;
-        return nullptr;
-    }
+	Node<Processor*>* processorNode = this->Processors.getHead();
+	if (!processorNode)
+	{
+		delete Child;
+		return nullptr;
+	}
 
-	Processor *minProcessor = nullptr;
+	Processor* minProcessor = nullptr;
 	int minTime = INT_MAX;
 
 	while (processorNode)
 	{
-		Processor *tempProcessor = processorNode->getItem();
+		Processor* tempProcessor = processorNode->getItem();
 		if (!tempProcessor)
 		{
 			processorNode = processorNode->getNext();
 			continue;
 		}
 
-		FCFS *tempFCFS = dynamic_cast<FCFS *>(tempProcessor);
+		FCFS* tempFCFS = dynamic_cast<FCFS*>(tempProcessor);
 
 		if (tempFCFS && (processorNode->getItem()->getCurrentTime() < minTime))
 		{
@@ -485,16 +527,16 @@ Process *Scheduler::ForkProcess(int child_ct)
 		processorNode = processorNode->getNext();
 	}
 
-    if (minProcessor)
-    {
+	if (minProcessor)
+	{
 		total_nprocess++;
-        minProcessor->moveToRDY(Child);
-        return Child;
-    }
-    else
-    {
-        delete Child;
-        return nullptr;
-    }
+		minProcessor->moveToRDY(Child);
+		return Child;
+	}
+	else
+	{
+		delete Child;
+		return nullptr;
+	}
 
 }

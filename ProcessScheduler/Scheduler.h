@@ -38,6 +38,7 @@ class Scheduler
     bool migratedMaxW(Process* const &prcs);
     bool migratedRTF(Process*const &prcs);
     int getForkProb();
+    void killSignal();
     Process* ForkProcess(int child_ct);
     Scheduler(string);
     ~Scheduler();
