@@ -51,70 +51,96 @@ Scheduler::~Scheduler() {}
 //	StartingPoint = processorNode;
 //}
 
-void Scheduler::Fill_Rdy()
+//void Scheduler::Fill_Rdy()
+//{
+//	Queue<Process*> Arrived;
+//	Process* tmp;
+//	Process* tmpa;
+//
+//	if (NEW.isEmpty())
+//		return;
+//
+//	int notArrivedCount = NEW.getCount();  // Store the initial count of processes in NEW queue
+//
+//	for (int i = 0; i < notArrivedCount; i++)
+//	{
+//		Process* tmpa;
+//		if (NEW.dequeue(tmpa))
+//		{
+//			if (tmpa->getAT() == timestep)
+//			{
+//				Arrived.enqueue(tmpa);
+//			}
+//			else
+//			{
+//				NEW.enqueue(tmpa);
+//			}
+//		}
+//	}
+//
+//
+//	while (Arrived.dequeue(tmp))
+//	{
+//		if (!tmp) { break; }
+//		Node<Processor*>* processorNode = Processors.getHead();
+//		Processor* minProcessor = nullptr;
+//		int minTime = INT_MAX;
+//
+//		while (processorNode)
+//		{
+//			Processor* tempProcessor = processorNode->getItem();
+//			if (!tempProcessor)
+//			{
+//				processorNode = processorNode->getNext();
+//				continue;
+//			}
+//
+//			if ((processorNode->getItem()->getCurrentTime() < minTime))
+//			{
+//				minTime = processorNode->getItem()->getCurrentTime();
+//				minProcessor = processorNode->getItem();
+//			}
+//
+//			processorNode = processorNode->getNext();
+//		}
+//
+//		if (minProcessor) {
+//			tmp->setRT(timestep);
+//			tmp->setCpuArrivalTime(timestep);
+//			minProcessor->moveToRDY(tmp);
+//		}
+//		else {
+//			Arrived.enqueue(tmp);
+//		}
+//	}
+//}
+
+void Scheduler::NEWToRDY()
 {
-	Queue<Process*> Arrived;
-	Process* tmp;
-	Process* tmpa;
-
-	if (NEW.isEmpty())
-		return;
-
-	int notArrivedCount = NEW.getCount();  // Store the initial count of processes in NEW queue
-
-	for (int i = 0; i < notArrivedCount; i++)
+	Process* Process = nullptr;
+	Node<Processor*>* ShortestQueue = nullptr;
+	// If there is a process in the NEW list and its arrival time equals the currnent timestep
+	while (NEW.peek(Process) && Process->getAT() == timestep)
 	{
-		Process* tmpa;
-		if (NEW.dequeue(tmpa))
+		NEW.dequeue(Process);
+		Node<Processor*>* tempProcessor1 = Processors.getHead(); // Gets the first processor from the Linked list
+		ShortestQueue = tempProcessor1;
+
+		Node<Processor*>* tempProcessor2 = tempProcessor1->getNext();
+		if (!tempProcessor2) return; // Checks if the list has two or more processors to compare between them
+
+		while (tempProcessor2->getNext())
 		{
-			if (tmpa->getAT() == timestep)
+			if (ShortestQueue->getItem()->getCurrentTime() > tempProcessor2->getItem()->getCurrentTime())
 			{
-				Arrived.enqueue(tmpa);
+				ShortestQueue = tempProcessor2;
 			}
-			else
-			{
-				NEW.enqueue(tmpa);
-			}
+			tempProcessor2 = tempProcessor2->getNext();
 		}
-	}
-
-
-	while (Arrived.dequeue(tmp))
-	{
-		if (!tmp) { break; }
-		Node<Processor*>* processorNode = Processors.getHead();
-		Processor* minProcessor = nullptr;
-		int minTime = INT_MAX;
-
-		while (processorNode)
-		{
-			Processor* tempProcessor = processorNode->getItem();
-			if (!tempProcessor)
-			{
-				processorNode = processorNode->getNext();
-				continue;
-			}
-
-			if ((processorNode->getItem()->getCurrentTime() < minTime))
-			{
-				minTime = processorNode->getItem()->getCurrentTime();
-				minProcessor = processorNode->getItem();
-			}
-
-			processorNode = processorNode->getNext();
-		}
-
-		if (minProcessor) {
-			tmp->setRT(timestep);
-			tmp->setCpuArrivalTime(timestep);
-			minProcessor->moveToRDY(tmp);
-		}
-		else {
-			Arrived.enqueue(tmp);
-		}
+		ShortestQueue->getItem()->moveToRDY(Process);
+		Process = nullptr;
 	}
 }
-
 
 void Scheduler::BLKToRDY(Processor* const& prcsr)
 {
@@ -287,7 +313,7 @@ void Scheduler::run()
 	while (TRM.getCount() < total_nprocess) // will be "while all not in trm"
 	{
 		Node<Processor*>* processorNode = Processors.getHead();
-		this->Fill_Rdy();
+		this->NEWToRDY();
 		int i = 1;
 		while (processorNode)
 		{
