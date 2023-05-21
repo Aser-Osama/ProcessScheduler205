@@ -32,7 +32,7 @@ class Scheduler
     void load(string); //will be called 
     void save(string);
     void run(); //this is where the program is run
-    void killOrphansSch(Process*);
+    void killOrphans(Process*);
     Scheduler(string);
     ~Scheduler();
 

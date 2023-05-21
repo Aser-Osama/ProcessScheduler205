@@ -16,12 +16,12 @@ void FCFS::SigKill(Process* P){
     //search for the the process in  the RUN or RDY list then move it TRM 
     //then calculate the statistics of the process like CT, etc.
 }
-Process* FCFS::findP(Process* P)
+Process* FCFS::findProcess(int pid)
 {
-    if (P->getPID() == RUN->getPID())
+    if (pid == RUN->getPID())
     {
-        //return clearRUN();
-        return RUN;
+        return clearRUN();;
+        //ScheduleAlgo();
     }
     else
     {
@@ -29,10 +29,10 @@ Process* FCFS::findP(Process* P)
         bool found = false;
         while (tmp)
         {
-            if (tmp->getItem()->getPID() == P->getPID())
+            if (tmp->getItem()->getPID() == pid)
             {
                 Process* item = tmp->getItem();
-                //RDY.DeleteNode(item);
+                RDY.DeleteNode(item);
                 return item;
             }
             tmp = tmp->getNext();
@@ -40,24 +40,6 @@ Process* FCFS::findP(Process* P)
         return nullptr;
     }
 }
-
-Queue<Process*> FCFS::killOrphans(Process* P) {
-    //P is the parent process that is already about to terminate
-    Node<Process*>* Head = (P->getChildren()).getHead(); //the first child of P
-    Node<Process*>* R = Head;
-    Queue<Process*> Orphans;
-        while (Head)
-        {
-            Orphans.enqueue(Head->getItem()); //add the child to orphans queue
-            R = Head->getNext(); //get the next child 
-            killOrphans(Head->getItem()); //now that the first child is about to be terminated we need to test if it has any children
-            Head = R;
-        } //kills all orphans
-        
-        //killOrphans should be called whenever any process is about to terminate
-        // killOrphans should be always be called at sigKill to ensure that children, grandchildren,... are all killed recursively
-}
-
 
 Process* FCFS::removeFromReady(int pid)
 {

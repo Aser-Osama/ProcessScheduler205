@@ -12,10 +12,9 @@ public:
     void ScheduleAlgo() override; 
     void moveToRDY(Process* const &NewProcess) override;
     friend ostream& operator<<(ostream& os, const FCFS& prcsr);
-    Queue<Process*> killOrphans(Process* P);
     Process* removeFromReady(int pid);
     friend ostream& operator<<(ostream& os, const FCFS& prcsr);
-    Process* findP(Process* P);
+    Process* findProcess(int pid);
     FCFS();
 };
 
