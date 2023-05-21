@@ -65,7 +65,6 @@ FCFS::FCFS(){
 void FCFS::moveToRDY(Process* const& NewProcess)
 {
     RDY.InsertEnd(NewProcess);
-    TotalTime += NewProcess->getCT();
 }
 
 ostream& operator<<(ostream& os, const FCFS& prcsr)
