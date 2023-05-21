@@ -15,7 +15,8 @@ public:
     Process* getTopElem() override; 
     Process* removeFromReady(int pid);
     friend ostream& operator<<(ostream& os, const FCFS& prcsr);
-    
+    bool Execute(Process*&, int, int&) override;
+    void attemptFork();
     FCFS();
 };
 
