@@ -7,7 +7,33 @@ Scheduler::Scheduler(string filename) {
 Scheduler::~Scheduler() {}
 
 
+void Scheduler::killOrphansSch(Process* P) {
+	Node<Processor*>* headProcessor = Processors.getHead();
+	Process* tmpProcess = nullptr;
+	while (headProcessor)
+	{
+		FCFS* tempFCFS = dynamic_cast<FCFS*>(headProcessor->getItem());
+		if (!tempFCFS)
+		{
+			headProcessor = headProcessor->getNext();
+			continue;
+		}
 
+		tmpProcess = tempFCFS->findP(P);
+		//
+		if (tmpProcess)
+		{
+			Queue<Process*> Orphans = tempFCFS->killOrphans(P);
+			Process* t;
+			while (Orphans.dequeue(t)) {
+				TRM.enqueue(t);
+			}
+			break;
+		}
+		headProcessor = headProcessor->getNext();
+	}
+
+}
 void Scheduler::Fill_Rdy()
 {
 	Queue<Process*> Arrived;
