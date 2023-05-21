@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "iostream": "cpp",
-        "memory": "cpp"
+        "limits": "cpp",
+        "iosfwd": "cpp",
+        "xstring": "cpp"
     }
 }
