@@ -4,6 +4,7 @@ void FCFS::SigKill(Process* P){
     
     //search for the the process in  the RUN or RDY list then move it TRM 
     //then calculate the statistics of the process like CT, etc.
+    TotalTime -= P->getCT();
 }
 
 void FCFS::ScheduleAlgo(){
@@ -18,6 +19,7 @@ void FCFS::ScheduleAlgo(){
             if (!nR) {setRUN(nullptr); return;}
         }
         setRUN(nR->getItem());
+        TotalTime -= RDY.getHead()->getItem()->getCT();
         RDY.DeleteFirst();
     }
     else {
@@ -94,10 +96,24 @@ FCFS::FCFS()
 {
 }
 
+//int FCFS::GetMinCT()
+//{
+//    int totalCT = 0;
+//    Node<Process*> *process = RDY.getHead();
+//    if (!RDY.getHead()) return 0;
+//    while (process->getNext())
+//    {
+//        totalCT += process->getItem()->getCT();
+//        process = process->getNext();
+//    }
+//    totalCT += process->getItem()->getCT();
+//}
+
 void FCFS::moveToRDY(Process* const& NewProcess)
 {
     this->currentBusyTime += NewProcess->getCT();
     RDY.InsertEnd(NewProcess);
+    TotalTime += NewProcess->getCT();
 }
 
 ostream& operator<<(ostream& os, const FCFS& prcsr)

@@ -30,9 +30,15 @@ void RR::moveToRDY(Process* const& NewProcess)
 {
     this->currentBusyTime += NewProcess->getCT();
     RDY.enqueue(NewProcess);
+	QueueTime += NewProcess->getCT();
 	current_rr_ts = 0;
 }
 
+
+int RR::GetQueueTime()
+{
+	return QueueTime;
+}
 ostream& operator<<(ostream& os, const RR& prcsr)
 {
     os << "[RR]: " << prcsr.RDY.getCount() << " RDY: ";
