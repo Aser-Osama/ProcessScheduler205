@@ -1,11 +1,5 @@
 #include "FCFS.h"
 #include "../Scheduler.h"
-void FCFS::SigKill(Process* P){
-    
-    //search for the the process in  the RUN or RDY list then move it TRM 
-    //then calculate the statistics of the process like CT, etc.
-    TotalTime -= P->getCT();
-}
 
 void FCFS::ScheduleAlgo(){
     Node<Process*>* nR;
@@ -28,7 +22,36 @@ void FCFS::ScheduleAlgo(){
 }
 
 
-  
+void FCFS::SigKill(Process* P){
+    
+    //search for the the process in  the RUN or RDY list then move it TRM 
+    //then calculate the statistics of the process like CT, etc.
+    TotalTime -= P->getCT();
+}
+Process* FCFS::findProcess(int pid)
+{
+    if (pid == RUN->getPID())
+    {
+        return clearRUN();;
+        //ScheduleAlgo();
+    }
+    else
+    {
+        Node<Process*>* tmp = RDY.getHead();
+        bool found = false;
+        while (tmp)
+        {
+            if (tmp->getItem()->getPID() == pid)
+            {
+                Process* item = tmp->getItem();
+                RDY.DeleteNode(item);
+                return item;
+            }
+            tmp = tmp->getNext();
+        }
+        return nullptr;
+    }
+}
 
 Process* FCFS::removeFromReady(int pid)
 {

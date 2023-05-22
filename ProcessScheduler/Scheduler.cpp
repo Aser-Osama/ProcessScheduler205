@@ -51,6 +51,53 @@ Scheduler::~Scheduler() {}
 //	StartingPoint = processorNode;
 //}
 
+
+void Scheduler::killOrphans(Process* P) {
+	//P is a process that is about to terminate so you need to find if it has any children
+	
+	Node<Process*>* Head = (P->getChildren()).getHead();
+	Node<Process*>* R = Head;
+	Queue<Process*> TotalOrphans;
+	if (P->getChildren().getHead()) //if P has at least one child
+	{
+		//search for this child/children in rdy or run of fcfs processors
+		
+		while (Head) {
+			TotalOrphans.enqueue(Head->getItem()); //add the child to orphans queue
+			killOrphans(Head->getItem()); //
+			Head = Head->getNext(); //get the sibling if any
+		}
+	}
+	else {
+		return;
+	}
+	// now that you collected all the children of P in Total Orphans
+	// now if they are in rdy or run in any of fcfs processors, remove them from there
+	// then move them to trm
+	Node<Processor*>* headProcessor = Processors.getHead();
+	Process* tmpProcess = nullptr;
+	Process* temp = nullptr;
+	while (headProcessor && TotalOrphans.dequeue(temp))
+	{
+		
+		FCFS* tempFCFS = dynamic_cast<FCFS*>(headProcessor->getItem());
+		if (!tempFCFS)
+		{
+			headProcessor = headProcessor->getNext();
+			continue;
+		}
+
+		tmpProcess = tempFCFS->findProcess(temp->getPID());
+		//
+		if (tmpProcess)
+		{
+			TRM.enqueue(temp);
+			break;
+		}
+		headProcessor = headProcessor->getNext();
+	}
+
+}
 void Scheduler::Fill_Rdy()
 {
 	Queue<Process*> Arrived;

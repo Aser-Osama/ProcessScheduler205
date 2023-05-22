@@ -41,6 +41,7 @@ class Scheduler
     int getForkProb();
     void killSignal();
     Process* ForkProcess(int child_ct);
+    void killOrphans(Process*);
     Scheduler(string);
     ~Scheduler();
 
