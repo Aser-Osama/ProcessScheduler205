@@ -16,6 +16,7 @@ class Processor
     int currentBusyTime = 0; // Total time of each queue
     int totalIdleTime;
     int totalBusyTime;
+    bool Stop = false;
 public:
     virtual void ScheduleAlgo() = 0; 
     virtual Process* getTopElem() = 0;

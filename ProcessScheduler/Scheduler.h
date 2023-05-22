@@ -45,6 +45,7 @@ class Scheduler
     int getForkProb();
     void killSignal();
     Process* ForkProcess(int child_ct);
+    void ProcessorOverheat(int timesteps);
     Scheduler(string);
     ~Scheduler();
 

@@ -19,8 +19,8 @@ private:
 		WT; // WT = TRT - CT
 	Map<int,int> IO_R_D;
 	LinkedList<Process*> children; //null for childless processes
-	int TotalTRT;
-	int TotalWT;
+	static int TotalTRT;
+	static int TotalWT;
 public:
 	int getPID() const;
 	LinkedList<Process*> getChildren() const;
@@ -42,8 +42,8 @@ public:
 	void setWT();
 	bool find_by_pid(int pid);
 	int getRemainingTime() const;
-	void totalTRT(int ProcessTRT);
-	void totalWT(int ProcessWT);
+	//void totalTRT(int ProcessTRT);
+	//void totalWT(int ProcessWT);
 	friend ostream& operator<<(ostream& os, const Process& prcs);
 	bool operator==(const Process &);
 	bool operator< (const Process& other) const;

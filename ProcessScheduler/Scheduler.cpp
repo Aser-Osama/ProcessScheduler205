@@ -156,14 +156,24 @@ void Scheduler::NEWToRDY()
 	}
 }
 
-void Scheduler::BLKToRDY(int crnt_ts, int& io_length)
+void Scheduler::BLKToRDY()
 {
-	Process* IO;
-	IO->getIO_R_D().getValue(crnt_ts, io_length);
-	while (io_length) 
-		io_length--;
+	Process* temp;
+	if (!RUN_BLK && BLK.isEmpty()) return;
+	if (!RUN_BLK)
+	{
+		BLK.dequeue(temp);
+		RUN_BLK = temp;
+	}
+	if (RUN_BLK->decrementIO(timestep))
+		return;
+	else
+	{
+		Node<Processor*>* tempProcessor;
+		tempProcessor = this->ProcessorWithShortestQueue();
+		tempProcessor->getItem()->moveToRDY(temp);
+	}
 }
-
 void Scheduler::RUNToTRM(Process* Prc)
 {
 	if (!Prc->subRemainingTime()) // Move the left to TRM when its CT reaches zero 
@@ -600,21 +610,7 @@ Process* Scheduler::ForkProcess(int child_ct)
 
 }
 
-void Scheduler::ExecuteRUN_BLK()
+void Scheduler::ProcessorOverheat(int timesteps)
 {
-	Process* temp;
-	if (!RUN_BLK && BLK.isEmpty()) return;
-	if (!RUN_BLK)
-	{
-		BLK.dequeue(temp);
-		RUN_BLK = temp;
-	}
-	if (RUN_BLK->decrementIO(timestep))
-		return;
-	else
-	{
-		Node<Processor*>* tempProcessor;
-		tempProcessor = this->ProcessorWithShortestQueue();
-		tempProcessor->getItem()->moveToRDY(temp);
-	}
+
 }
