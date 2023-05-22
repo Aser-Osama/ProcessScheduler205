@@ -75,15 +75,18 @@ bool Process::isForked()
 bool Process::decrementIO(int timestep) // Assumption: Processes IO are ordered in IO_R recieval asc in the input file 
 {
 	Node<Pair<int, int>>* ProcessIO = IO_R_D.getHead();
+	while (ProcessIO->getItem().getKey() <= timestep) // loops on the map to get the process ready for IO
+	{
+		ProcessIO = ProcessIO->getNext();
+	}
 	if (ProcessIO->getItem().getValue() > 1) // When the process' IO is greater than 1
 	{
-		IO_R_D.updateValue(ProcessIO->getItem().getKey(), ProcessIO->getItem().getValue() - 1);
+		ProcessIO->getItem().setValue(ProcessIO->getItem().getValue() - 1); // Decrement IO time 
 		return true; // The process does not finish IO 
 	}
 	else
 	{
-		IO_R_D.updateValue(ProcessIO->getItem().getKey(), ProcessIO->getItem().getValue() - 1);
-		IO_R_D.deletePair(ProcessIO->getItem().getKey(), 0);
+		ProcessIO->getItem().setValue(ProcessIO->getItem().getValue() - 1); // Decrement IO time 
 		return false; // The process finished its IO 
 	}
 }
