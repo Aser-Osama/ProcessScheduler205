@@ -1,8 +1,5 @@
 #include "Process.h"
 
-int Process::TotalTRT = 0;
-int Process::TotalWT = 0;
-
 int Process::getPID() const { return PID; }
 LinkedList<Process*> Process::getChildren()const{ return children; }
 int Process::getAT() const { return AT; }
@@ -74,15 +71,6 @@ bool Process::isForked()
 	return ForkedProcess;
 }
 
-void Process::totalTRT(int ProcessTRT)
-{
-	TotalTRT += ProcessTRT;
-}
-
-void Process::totalWT(int ProcessWT)
-{
-	TotalWT += ProcessWT;
-}
 
 bool Process::decrementIO(int timestep) // Assumption: Processes IO are ordered in IO_R recieval asc in the input file 
 {

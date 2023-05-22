@@ -11,7 +11,7 @@ class Scheduler
     private:
     int timestep;
     int total_nprocess;
-    int total_nprocess_forked;
+    int total_nprocess_forked=0;
     int total_notarrived;
     int nprocessor;
 	int NF, NS, NR, RRSlice;

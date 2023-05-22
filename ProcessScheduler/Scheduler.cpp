@@ -1,6 +1,5 @@
 #include "Scheduler.h"
 
-int Scheduler::total_nprocess_forked=0;
 
 Scheduler::Scheduler(string filename)
 {
@@ -404,7 +403,7 @@ void Scheduler::save(string name){
 		sumTRT+=nTRT;sumWT+=nWT;sumRT+=nRT;
 
 		file<<n->getTT()<<"\t"<<n->getPID()<<"\t"<<n->getAT();
-		file<<n->getCTstored()<<"\t"<<n->getIO_R_D().sumMap() <<"\t"<<nWT<<"\t"<<nRT<<"\t"<<TRT<<endl;
+		file<<n->getCTstored()<<"\t"<<n->getIO_R_D().sumMap() <<"\t"<<nWT<<"\t"<<nRT<<"\t"<<nTRT<<endl;
 	}
 
 
@@ -419,9 +418,9 @@ void Scheduler::save(string name){
 	file<<"Avg WT = "<<sumWT/total_nprocess <<",\tAvg RT = "<<sumRT/total_nprocess <<",\tAvg TRT = "<<sumTRT/total_nprocess<<endl;
 	file<<"Migration %:"<<"RTF= "<< RTF <<"%,\t" <<"MaxW = "<<MaxW<<"%"<<endl;
 
-	file<<"Work Steal %: "<< <<"%"<<endl;
+	file<<"Work Steal %: "<< "value " << "%" << endl;
 	file<<"Forked Process: "<<(total_nprocess_forked/total_nprocess)*100 <<"%"<<endl;
-	file<<"Killed Process: "<< <<"%"<<endl<<endl;
+	file<<"Killed Process: "<< "value" << "%" << endl << endl;
 
 	double Pnum=Processors.getCount();
 	file<<"Processors: "<< Pnum<<" ["<< NF <<" FCFS, " << NS <<" SJF, "<< NR << " RR]"<<endl;
@@ -429,7 +428,7 @@ void Scheduler::save(string name){
 
 	Node<Processor *> * p=Processors.getHead();
 	for(int i=0;Pnum>i;i++){
-		file<<"p"<<j<<"="<<p->getItem()->getBusyTime()/p->getItem()->getTotalTRT() <<"%";
+		file<<"p"<<i<<"="<<p->getItem()->getBusyTime()/p->getItem()->getTotalTRT() <<"%";
 		if(i%5!=0){
 			file<<",\t";
 		}
@@ -446,7 +445,7 @@ void Scheduler::save(string name){
 	for(int i=0;Pnum>i;i++){
 		int Utiliz=p->getItem()->getBusyTime()/(p->getItem()->getBusyTime()+p->getItem()->getIdleTime());
 		sumUtiliz+=Utiliz ;
-		file<<"p"<<j<<"="<<Utiliz<<"%";
+		file<<"p"<<i<<"="<<Utiliz<<"%";
 
 		if(i%5!=0){
 			file<<",\t";

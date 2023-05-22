@@ -25,11 +25,14 @@ Process* Processor::clearRUN() {
 	return temp;
 }
 
-int Processor::addTotalTRT(int add){
+void Processor::addTotalTRT(int add){
 	totalTRT+=add;
 }
 
 
+int Processor::getTotalTRT() {
+	return totalTRT;
+}
 bool Processor::Execute(Process*& P, int crnt_ts, int& io_length) {
 	/*
 		C1)True & PTR -> TRM (process done)
