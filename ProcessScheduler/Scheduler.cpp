@@ -240,7 +240,7 @@ void Scheduler::save(string name){
 		nTRT=n->getTRT();nWT=n->getWT();nRT=n->getRT();
 		sumTRT+=nTRT;sumWT+=nWT;sumRT+=nRT;
 
-		file<<n->getTT()<<"\t"<<n->getPID()<<"\t"<<n->getAT();
+		file<<n->getTT()<<"\t"<<n->getPID()<<"\t"<<n->getAT()<<"\t";
 		file<<n->getCTstored()<<"\t"<<n->getIO_R_D().sumMap() <<"\t\t"<<nWT<<"\t"<<nRT<<"\t"<<nTRT<<endl;
 	}
 
@@ -253,6 +253,7 @@ void Scheduler::save(string name){
 	file<<endl;
 	file<<"Processes: "<<total_nprocess;
 
+	file<<endl;
 	file<<"Avg WT = "<<sumWT/total_nprocess <<",\tAvg RT = "<<sumRT/total_nprocess <<",\tAvg TRT = "<<sumTRT/total_nprocess<<endl;
 	file<<"Migration %:"<<"RTF= "<< RTF <<"%,\t" <<"MaxW = "<<MaxW<<"%"<<endl;
 
@@ -261,13 +262,20 @@ void Scheduler::save(string name){
 	file<<"Killed Process: "<< "value" << "%" << endl << endl;
 
 	double Pnum=Processors.getCount();
-	file<<"Processors: "<< Pnum<<" ["<< NF <<" FCFS, " << NS <<" SJF, "<< NR << " RR]"<<endl;
+	file<<"Processors: "<< Pnum<<" ["<< NF <<" FCFS, " << NS <<" SJF, "<< NR << " RR]"<<endl<<endl;
 	file<<"Processors Load"<<endl;
 
 	Node<Processor *> * p=Processors.getHead();
 	for(int i=0;Pnum>i;i++){
-		file<<"p"<<i<<"="<<p->getItem()->getBusyTime()/p->getItem()->getTotalTRT() <<"%";
-		if(i%5!=0){
+		
+		if (p->getItem()->getTotalTRT() != 0) {
+			double load = (double(p->getItem()->getBusyTime() )/double( p->getItem()->getTotalTRT()))*100;
+			file << "p" << i + 1 << "=" << load << "%";
+		}
+		else {
+			file << "p" << i + 1 << "=" << 0 << "%";
+		}
+		if((i+1)%5!=0){
 			file<<",\t";
 		}
 		else{
@@ -275,17 +283,18 @@ void Scheduler::save(string name){
 		}
 
 		p=p->getNext();
-		file<<endl;
 	}
-	file<<"Processors Utiliz"<<endl;
+	
+	file<<endl<<endl<<"Processors Utiliz"<<endl;
 
+	p=Processors.getHead();
 	double sumUtiliz=0;
 	for(int i=0;Pnum>i;i++){
-		int Utiliz=p->getItem()->getBusyTime()/(p->getItem()->getBusyTime()+p->getItem()->getIdleTime());
+		double Utiliz=double(double(p->getItem()->getBusyTime())/(double(p->getItem()->getBusyTime())+double(p->getItem()->getIdleTime())))*100;
 		sumUtiliz+=Utiliz ;
-		file<<"p"<<i<<"="<<Utiliz<<"%";
+		file<<"p"<<i+1<<"="<<Utiliz<<"%";
 
-		if(i%5!=0){
+		if((i+1)%5!=0){
 			file<<",\t";
 		}
 		else{
@@ -293,8 +302,8 @@ void Scheduler::save(string name){
 		}
 
 		p=p->getNext();
-		file<<endl;
 	}
+	file<<endl;
 
 	file<<"Avg utilization = "<< sumUtiliz/Pnum <<"%";
 
@@ -332,8 +341,20 @@ void Scheduler::run()
 
 				this->BLK.enqueue(tmp_prcs);
 			}
+			if (processorNode->getItem()->getRUN()) {
+				processorNode->getItem()->addBusyTime();
+
+			}
+			else {
+				processorNode->getItem()->addIdleTime();
+			}
+
 
 			processorNode = processorNode->getNext();
+
+
+
+
 		}
 
 		MAIN_UI.UI_PICKER(true, timestep, Processors, BLK, TRM); // the print type will be based on user choice in phase 2

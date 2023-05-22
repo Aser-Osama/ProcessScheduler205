@@ -92,6 +92,7 @@ class Map{
             while (head){
 
                 sum+=head->getItem().getValue();
+                head=head->getNext();
             }
             return sum;
         }

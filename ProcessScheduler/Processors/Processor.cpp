@@ -7,6 +7,13 @@ int Processor::getIdleTime() {
 	return totalIdleTime;
 }
 
+void Processor::addBusyTime() {
+	totalBusyTime++;
+}
+void Processor::addIdleTime() {
+	totalIdleTime++;
+}
+
 bool Processor::isBusy() {
 	return !(RUN == nullptr);
 }

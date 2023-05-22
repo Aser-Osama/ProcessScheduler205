@@ -26,6 +26,9 @@ public:
     int getIdleTime();
     int getBusyTime();
     void addTotalTRT(int);
+    
+    void addIdleTime();
+    void addBusyTime();
     int getTotalTRT();
     bool isBusy(); 
     Process* getRUN();
