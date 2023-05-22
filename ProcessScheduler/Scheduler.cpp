@@ -92,6 +92,7 @@ void Scheduler::NEWToRDY()
 	{
 		NEW.dequeue(Process);
 		Node<Processor*>* ProcessorWithShortestQueue = this->ProcessorWithShortestQueue();
+		Process->setFT(timestep);
 		ProcessorWithShortestQueue->getItem()->moveToRDY(Process);
 		Process = nullptr;
 	}
@@ -254,11 +255,11 @@ void Scheduler::save(string name){
 	file<<"Processes: "<<total_nprocess;
 
 	file<<endl;
-	file<<"Avg WT = "<<sumWT/total_nprocess <<",\tAvg RT = "<<sumRT/total_nprocess <<",\tAvg TRT = "<<sumTRT/total_nprocess<<endl;
+	file<<"Avg WT = "<<double(sumWT)/double(total_nprocess) <<",\tAvg RT = "<<double(sumRT)/double(total_nprocess) <<",\tAvg TRT = "<<double(sumTRT)/double(total_nprocess)<<endl;
 	file<<"Migration %:"<<"RTF= "<< RTF <<"%,\t" <<"MaxW = "<<MaxW<<"%"<<endl;
 
 	file<<"Work Steal %: "<< "value " << "%" << endl;
-	file<<"Forked Process: "<<(total_nprocess_forked/total_nprocess)*100 <<"%"<<endl;
+	file<<"Forked Process: "<<double(double(total_nprocess_forked)/double(total_nprocess))*100 <<"%"<<endl;
 	file<<"Killed Process: "<< "value" << "%" << endl << endl;
 
 	double Pnum=Processors.getCount();

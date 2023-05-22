@@ -12,6 +12,7 @@ private:
 		AT, // Arrival time
 		RT, // Response time
 		CT, // CPU time
+		FT, // CPU time
 		TT, // Termination time
 		TRT, // The total time a process spends in the system from its arrival to termination. TRT = TT - AT
 		cpuArrivalTime, //THIS IS THE FIRST TIME ARRIVAL to cpu VARIABLE. SET THIS WHEN THE PROCESS FIRST ARRIVES AT A CPU 
@@ -35,7 +36,7 @@ public:
 
 	void setTT(int);
 
-	void setRT(int);
+	void setFT(int ft);
 	void setCpuArrivalTime(int);
 	bool subRemainingTime(); 
 	void setTRT();
