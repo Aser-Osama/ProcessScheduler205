@@ -32,7 +32,6 @@
     <ClInclude Include="ADT\PriorityQueue.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="testfile" />
     <None Include="Processors\testfile" />
   </ItemGroup>
 </Project>
