@@ -1,5 +1,8 @@
 #include "Process.h"
 
+int Process::TotalTRT = 0;
+int Process::TotalWT = 0;
+
 int Process::getPID() const { return PID; }
 LinkedList<Process*> Process::getChildren()const{ return children; }
 int Process::getAT() const { return AT; }
@@ -13,20 +16,16 @@ Map<int,int> Process::getIO_R_D() const { return IO_R_D; }
 void Process::setRT(int ft) { RT = ft - AT; } // FT stands for first time. for the timestep it enters the CPU
 void Process::setTT(int tt) { TT = tt; } // Termination Time should be set once
 void Process::setTRT(){ TRT = TT - AT; } // Turn around time should be set once
-void Process::setWT() { WT = TRT - CT; } // Wait time should be set once
+void Process::setWT() { WT = TRT - CTstored; } // Wait time should be set once
 bool Process::find_by_pid(int pid) { return this->PID == pid; }
-int Process::getRemainingTime() const
-{
-	 return remainingTime;
-}
+int Process::getCTstored() const {return CTstored;}
 bool Process::subRemainingTime()
 {
-	if (this->CT > 1) {
+	if (this->CT > 0) {
 		this->CT--;
 		return true;
 	}
 	else {
-		this->CT--;
 		return false;
 	}
 } // subtract from left over time. This returns false to show you when process is done
@@ -34,7 +33,7 @@ void Process::setCpuArrivalTime(int ft) { cpuArrivalTime=ft; } // first time sho
 
 
 Process::Process(int pid, int at, int ct, Map<int,int> io_r_d):PID(pid),AT(at),CT(ct),IO_R_D(io_r_d), //initializer list to use while reading from file
-													  TRT(0),WT(0),TT(0),RT(0),cpuArrivalTime(0),remainingTime(ct) //values that are set as something initially
+													  TRT(0),WT(0),TT(0),RT(0),cpuArrivalTime(0),CTstored(ct) //values that are set as something initially
 {
 }
 

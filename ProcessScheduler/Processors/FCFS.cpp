@@ -27,34 +27,32 @@ void FCFS::ScheduleAlgo(){
     }
 }
 
-
-void FCFS::SigKill(Process* P){
-    
-    //search for the the process in  the RUN or RDY list then move it TRM 
-    //then calculate the statistics of the process like CT, etc.
-    TotalTime -= P->getCT();
-}
 Process* FCFS::findProcess(int pid)
 {
-    if (pid == RUN->getPID())
-    {
-        return clearRUN();;
-        //ScheduleAlgo();
-    }
-    else
-    {
-        Node<Process*>* tmp = RDY.getHead();
-        bool found = false;
-        while (tmp)
+    if (RUN) {
+        if (pid == RUN->getPID())
         {
-            if (tmp->getItem()->getPID() == pid)
-            {
-                Process* item = tmp->getItem();
-                RDY.DeleteNode(item);
-                return item;
-            }
-            tmp = tmp->getNext();
+            return clearRUN();;
+            //ScheduleAlgo();
         }
+        else
+        {
+            Node<Process*>* tmp = RDY.getHead();
+            bool found = false;
+            while (tmp)
+            {
+                if (tmp->getItem()->getPID() == pid)
+                {
+                    Process* item = tmp->getItem();
+                    RDY.DeleteNode(item);
+                    return item;
+                }
+                tmp = tmp->getNext();
+            }
+            return nullptr;
+        }
+    }
+    else {
         return nullptr;
     }
 }
@@ -96,31 +94,6 @@ void FCFS::attemptFork()
     RUN->addChild(Child);
 }
 
-Process* FCFS::findProcess(int pid)
-{
-    if (pid == RUN->getPID())
-    {
-        return clearRUN();;
-        //ScheduleAlgo();
-    }
-    else 
-    {
-        Node<Process*>* tmp = RDY.getHead();
-        bool found = false;
-        while (tmp) 
-        {
-            if (tmp->getItem()->getPID() == pid)
-            {
-                Process* item = tmp->getItem();
-                RDY.DeleteNode(item);
-                return item;
-            }
-            tmp = tmp->getNext();
-        }
-        return nullptr;
-    }
-}
-
 FCFS::FCFS()
 {
 }
@@ -141,12 +114,17 @@ ostream& operator<<(ostream& os, const FCFS& prcsr)
 
 Process* FCFS::getTopElem() 
 {
-    Process* first = RDY.getHead()->getItem();
-    if (!first) { return nullptr; }
-    cout << first->getPID();
-    this->currentBusyTime -= first->getCT();
-    RDY.DeleteFirst();
-    return first; 
+    if (RDY.getHead()) {
+        Process* first = RDY.getHead()->getItem();
+        if (!first) { return nullptr; }
+        cout << first->getPID();
+        this->currentBusyTime -= first->getCT();
+        RDY.DeleteFirst();
+        return first;
+    }
+    else {
+        return nullptr;
+    }
 }
 
 bool FCFS::Execute(Process*& P, int crnt_ts, int& io_length) {

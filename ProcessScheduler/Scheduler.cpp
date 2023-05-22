@@ -171,7 +171,7 @@ Node<Processor*>* Scheduler::ProcessorWithShortestQueue()
 	ProcessorWithShortestQueue = tempProcessor1;
 
 	Node<Processor*>* tempProcessor2 = tempProcessor1->getNext();
-	if (!tempProcessor2) return; // Checks if the list has two or more processors to compare between them
+	if (!tempProcessor2) return tempProcessor1; // Checks if the list has two or more processors to compare between them
 
 	while (tempProcessor2->getNext())
 	{

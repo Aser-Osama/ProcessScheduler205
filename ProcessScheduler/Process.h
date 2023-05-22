@@ -15,8 +15,10 @@ private:
 		TT, // Termination time
 		TRT, // The total time a process spends in the system from its arrival to termination. TRT = TT - AT
 		cpuArrivalTime, //THIS IS THE FIRST TIME ARRIVAL to cpu VARIABLE. SET THIS WHEN THE PROCESS FIRST ARRIVES AT A CPU 
-		remainingTime, // THIS IS THE LEFT OVER TIME. DECREMENT THIS USING THE METHOD TO REDUCE TIME REMAINING IN CPU RUN
+		CTstored, // THIS IS THE LEFT OVER TIME. DECREMENT THIS USING THE METHOD TO REDUCE TIME REMAINING IN CPU RUN
 		WT; // WT = TRT - CT
+
+	
 	Map<int,int> IO_R_D;
 	LinkedList<Process*> children; //null for childless processes
 	static int TotalTRT;
@@ -35,13 +37,16 @@ public:
 
 	void setTT(int);
 
+	void totalTRT(int ProcessTRT);
+	void totalWT(int ProcessWT);
+
 	void setRT(int);
 	void setCpuArrivalTime(int);
 	bool subRemainingTime(); 
 	void setTRT();
 	void setWT();
 	bool find_by_pid(int pid);
-	int getRemainingTime() const;
+	int getCTstored() const;
 	//void totalTRT(int ProcessTRT);
 	//void totalWT(int ProcessWT);
 	friend ostream& operator<<(ostream& os, const Process& prcs);
