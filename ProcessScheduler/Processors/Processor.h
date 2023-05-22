@@ -16,6 +16,8 @@ class Processor
     int currentBusyTime = 0; // Total time of each queue
     int totalIdleTime;
     int totalBusyTime;
+    int totalTRT;
+    bool gotfirstelem = false;
     bool Stop = false;
 public:
     virtual void ScheduleAlgo() = 0; 
@@ -23,6 +25,11 @@ public:
     virtual void moveToRDY(Process* const& NewProcess) = 0;
     int getIdleTime();
     int getBusyTime();
+    void addTotalTRT(int);
+    
+    void addIdleTime();
+    void addBusyTime();
+    int getTotalTRT();
     bool isBusy(); 
     Process* getRUN();
     void setRUN(Process*);
@@ -30,6 +37,7 @@ public:
     virtual int getCurrentTime();
     Process* clearRUN();
     static Scheduler* getScheduler();
+    virtual bool readyIsEmpty() = 0;
 
 
 };  

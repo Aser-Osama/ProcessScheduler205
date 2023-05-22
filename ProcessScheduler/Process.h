@@ -12,6 +12,7 @@ private:
 		AT, // Arrival time
 		RT, // Response time
 		CT, // CPU time
+		FT, // CPU time
 		TT, // Termination time
 		TRT, // The total time a process spends in the system from its arrival to termination. TRT = TT - AT
 		cpuArrivalTime, //THIS IS THE FIRST TIME ARRIVAL to cpu VARIABLE. SET THIS WHEN THE PROCESS FIRST ARRIVES AT A CPU 
@@ -20,12 +21,10 @@ private:
 
 	
 	Map<int,int> IO_R_D;
-	LinkedList<Process*> children; //null for childless processes
-	static int TotalTRT;
-	static int TotalWT;
+	LinkedList<Process*>* children = new LinkedList<Process*>; //null for childless processes
 public:
 	int getPID() const;
-	LinkedList<Process*> getChildren() const;
+	LinkedList<Process*>* getChildren() const;
 	int getAT() const;
 	int getRT() const;
 	int getCT() const;
@@ -37,18 +36,13 @@ public:
 
 	void setTT(int);
 
-	void totalTRT(int ProcessTRT);
-	void totalWT(int ProcessWT);
-
-	void setRT(int);
+	void setFT(int ft);
 	void setCpuArrivalTime(int);
 	bool subRemainingTime(); 
 	void setTRT();
 	void setWT();
 	bool find_by_pid(int pid);
 	int getCTstored() const;
-	//void totalTRT(int ProcessTRT);
-	//void totalWT(int ProcessWT);
 	friend ostream& operator<<(ostream& os, const Process& prcs);
 	bool operator==(const Process &);
 	bool operator< (const Process& other) const;

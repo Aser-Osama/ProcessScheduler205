@@ -1,19 +1,16 @@
 #include "Process.h"
 
-int Process::TotalTRT = 0;
-int Process::TotalWT = 0;
-
 int Process::getPID() const { return PID; }
-LinkedList<Process*> Process::getChildren()const{ return children; }
+LinkedList<Process*>* Process::getChildren()const{ return children; }
 int Process::getAT() const { return AT; }
-int Process::getRT() const{ return RT; }
+int Process::getRT() const{ return FT- AT; }
 int Process::getCT() const{ return CT; }
 int Process::getTT() const{ return TT; }
 int Process::getTRT()const{ return TRT; }
 int Process::getWT() const{ return WT; }
 Map<int,int> Process::getIO_R_D() const { return IO_R_D; }
 
-void Process::setRT(int ft) { RT = ft - AT; } // FT stands for first time. for the timestep it enters the CPU
+void Process::setFT(int ft) { FT = ft; } // FT stands for first time. for the timestep it enters the CPU
 void Process::setTT(int tt) { TT = tt; } // Termination Time should be set once
 void Process::setTRT(){ TRT = TT - AT; } // Turn around time should be set once
 void Process::setWT() { WT = TRT - CTstored; } // Wait time should be set once
@@ -41,7 +38,7 @@ Process::Process(){}
 
 ostream& operator<<(ostream& os, const Process& prcs)
 {
-	os << prcs.PID <<"[" << prcs.CT << "]";
+	os << prcs.PID << " ";
 	return os;
 }
 
@@ -62,7 +59,7 @@ bool Process::operator>(const Process& Process) const {
 
 void Process::addChild(Process* const& Child)
 {
-	children.InsertEnd(Child);
+	children->InsertEnd(Child);
 }
 
 void Process::setForked()
@@ -74,15 +71,6 @@ bool Process::isForked()
 	return ForkedProcess;
 }
 
-void Process::totalTRT(int ProcessTRT)
-{
-	TotalTRT += ProcessTRT;
-}
-
-void Process::totalWT(int ProcessWT)
-{
-	TotalWT += ProcessWT;
-}
 
 bool Process::decrementIO(int timestep) // Assumption: Processes IO are ordered in IO_R recieval asc in the input file 
 {

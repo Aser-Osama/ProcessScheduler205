@@ -7,6 +7,13 @@ int Processor::getIdleTime() {
 	return totalIdleTime;
 }
 
+void Processor::addBusyTime() {
+	totalBusyTime++;
+}
+void Processor::addIdleTime() {
+	totalIdleTime++;
+}
+
 bool Processor::isBusy() {
 	return !(RUN == nullptr);
 }
@@ -25,9 +32,14 @@ Process* Processor::clearRUN() {
 	return temp;
 }
 
+void Processor::addTotalTRT(int add){
+	totalTRT+=add;
+}
 
 
-
+int Processor::getTotalTRT() {
+	return totalTRT;
+}
 bool Processor::Execute(Process*& P, int crnt_ts, int& io_length) {
 	/*
 		C1)True & PTR -> TRM (process done)

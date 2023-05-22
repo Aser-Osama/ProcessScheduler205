@@ -86,4 +86,15 @@ class Map{
             return map.DeleteNode(pair);
         }
 
+        int sumMap(){
+            int sum=0;
+            Node<Pair<T,U>>* head=map.getHead(); 
+            while (head){
+
+                sum+=head->getItem().getValue();
+                head=head->getNext();
+            }
+            return sum;
+        }
+
 };
