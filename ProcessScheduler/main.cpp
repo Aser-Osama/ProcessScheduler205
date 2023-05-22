@@ -2,9 +2,10 @@
 #include "ADT/PriorityQueue.h"
 
 int main() {
-	//	Scheduler ProcessScheduler;
-	//	ProcessScheduler.load("testfile");
-	//	ProcessScheduler.save();
+	Scheduler* ProcessScheduler = Processor::getScheduler();
+	ProcessScheduler->run();
+	//	ProcessScheduler.run();
+	//	ProcessScheduler.
 
 	return 0;
 }

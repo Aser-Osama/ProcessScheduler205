@@ -69,7 +69,6 @@ public:
 	Queue(const Queue<T>& LQ);
 
 	//copy constructor
-	//Queue(const Queue<T> & LQ);
 };
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -235,10 +234,9 @@ inline void Queue<Process*>::Print() const
 
 	while (tmpPtr)
 	{
-		cout << *(tmpPtr->getItem()) << ",\t";
+		cout << *(tmpPtr->getItem()) << ", \t";
 		tmpPtr = tmpPtr->getNext();
 	}
-	cout << endl;
 }
 
 template <typename T>
@@ -255,7 +253,6 @@ void Queue<T>::Print() const
 		cout << tmpPtr->getItem() << ",\t";
 		tmpPtr = tmpPtr->getNext();
 	}
-	cout << endl;
 }
 
 

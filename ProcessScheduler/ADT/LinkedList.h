@@ -140,16 +140,21 @@ public:
 		//Deletes the first node in the list
 
 	void DeleteFirst() {
-
 		if (Head) {
 			Node<T>* P = Head;
 			Head = Head->getNext();
 			delete P;
-
 		}
 		if(count>0)count--;
 	}
 
+	void RemoveFirst() {
+		if (Head) {
+			Node<T>* P = Head;
+			Head = Head->getNext();
+		}
+		if (count > 0) count--;
+	}
 	//
 	//	//[6] DeleteNode
 	//
@@ -174,13 +179,13 @@ public:
 				if (N->getItem() == data) {
 					P->setNext(N->getNext());
 					delete N;
+					if (count > 0)count--;
 					return true;
 				}
 
 			}
 
 		}
-		if(count>0)count--;
 		return false;
 	}
 

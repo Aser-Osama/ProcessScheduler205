@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="ADT\PriorityQueue.cpp" />
     <ClCompile Include="Process.cpp" />
     <ClCompile Include="Processors\FCFS.cpp" />
     <ClCompile Include="main.cpp" />
@@ -22,15 +21,18 @@
     <ClInclude Include="ADT\Pair.h" />
     <ClInclude Include="ADT\Linked_Queue\QueueADT.h" />
     <ClInclude Include="ADT\Node.h" />
-    <ClInclude Include="ADT\PriorityQueue.h" />
     <ClInclude Include="Process.h" />
     <ClInclude Include="Processors\FCFS.h" />
     <ClInclude Include="Processors\Processor.h" />
     <ClInclude Include="Processors\RR.h" />
     <ClInclude Include="Processors\SJF.h" />
-    <ClInclude Include="ADT\Queue.h" />
     <ClInclude Include="Scheduler.h" />
-    <ClInclude Include="ADT\Stack.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="ADT\MinHeap.h" />
+    <ClInclude Include="ADT\PriorityQueue.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="testfile" />
+    <None Include="Processors\testfile" />
   </ItemGroup>
 </Project>

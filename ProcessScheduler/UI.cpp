@@ -1,21 +1,21 @@
 #include "UI.h"
 
-void UI::print_interactive(int c_ts, LinkedList<Processor*> processors, Queue<Process> BLK, Queue<Process> TRM)
+void UI::print_interactive(bool clr_scrn,int c_ts, LinkedList<Processor*>& processors, Queue<Process*>& BLK, Queue<Process*>& TRM)
 {
 	general_template(c_ts, processors, BLK, TRM);
 	system("pause");
-	system("cls");
+	if (clr_scrn) system("cls");
 }
 
-void UI::print_sbs(int c_ts, LinkedList<Processor*> processors, Queue<Process> BLK, Queue<Process> TRM)
+void UI::print_sbs(bool clr_scrn, int c_ts, LinkedList<Processor*>& processors, Queue<Process*>& BLK, Queue<Process*>& TRM)
 {
 	general_template(c_ts, processors, BLK, TRM);
 	Sleep(1000);
-	system("cls");
+	if (clr_scrn) system("cls");
 	
 }
 
-void UI::general_template(int c_ts, LinkedList<Processor*>processors, Queue<Process> BLK, Queue<Process> TRM)
+void UI::general_template(int c_ts, LinkedList<Processor*>& processors, Queue<Process*>& BLK, Queue<Process*>& TRM)
 {	
 	cout << "Current Timestep: " << c_ts << endl;
 	cout << "----------------- RDY processes ----------------" << endl;
@@ -45,7 +45,7 @@ void UI::general_template(int c_ts, LinkedList<Processor*>processors, Queue<Proc
 	cout << "----------------- BLK processes ----------------" << endl;
 	cout << BLK.getCount() << " BLK: ";
 	BLK.Print();
-
+	cout << endl;
 
 	cout << "----------------- RUN processes ----------------" << endl;
 	
@@ -68,7 +68,7 @@ void UI::general_template(int c_ts, LinkedList<Processor*>processors, Queue<Proc
 	{
 		if (tmp_p->getItem()->isBusy())
 		{
-			cout << tmp_p->getItem()->getRUN() << "(P" << i << ")" << "\t";
+			cout <<  "(P" << i << ")" << *(tmp_p->getItem()->getRUN()) << "," << "\t";
 
 		}
 		i++;
@@ -79,4 +79,6 @@ void UI::general_template(int c_ts, LinkedList<Processor*>processors, Queue<Proc
 	cout << "----------------- TRM processes ----------------" << endl;
 	cout << TRM.getCount() << " TRM:" << "\t";
 	TRM.Print();
+	cout << endl;
+
 }

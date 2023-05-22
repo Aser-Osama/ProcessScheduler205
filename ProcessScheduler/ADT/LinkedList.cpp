@@ -21,10 +21,9 @@ template<>
 
     while (p)
     {
-        cout << *(p->getItem()) << "\t";
+        cout << *(p->getItem()) << ", \t";
         p = p->getNext();
     }
-    cout << "\n";
 }
 
  template<typename T>
@@ -44,13 +43,15 @@ template<>
  template<>
  bool LinkedList<Process*>::Find(Process* const &data) {
 
-     Node<Process*>* P = Head;
+     if (!Head) { return false; }
+     if (Head->getItem() == data) return true;
 
+     Node<Process*>* P = Head;
      while (P->getNext()) {
-         P = P->getNext();
          if (*(P->getItem()) == *(data)) {
              return true;
          }
+         P = P->getNext();
      }
      return false;
  }
