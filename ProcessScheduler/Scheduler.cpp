@@ -1,5 +1,7 @@
 #include "Scheduler.h"
 
+int Scheduler::total_nprocess_forked=0;
+
 Scheduler::Scheduler(string filename)
 {
 	this->load(filename);
@@ -392,7 +394,7 @@ void Scheduler::save(string name){
 
 	int sumWT(0), sumRT(0), sumTRT(0);
 
-	Process * = n;
+	Process * n;
 	while(!TRM.isEmpty()){
 		TRM.dequeue(n);
 		n->setWT();
@@ -402,7 +404,7 @@ void Scheduler::save(string name){
 		sumTRT+=nTRT;sumWT+=nWT;sumRT+=nRT;
 
 		file<<n->getTT()<<"\t"<<n->getPID()<<"\t"<<n->getAT();
-		file<<n->getCTstored()<<"\t"<</*IORD*/ <<"\t"<<nWT<<"\t"<<nRT<<"\t"<<TRT<<endl;
+		file<<n->getCTstored()<<"\t"<<n->getIO_R_D().sumMap() <<"\t"<<nWT<<"\t"<<nRT<<"\t"<<TRT<<endl;
 	}
 
 
@@ -415,10 +417,10 @@ void Scheduler::save(string name){
 	file<<"Processes: "<<total_nprocess;
 
 	file<<"Avg WT = "<<sumWT/total_nprocess <<",\tAvg RT = "<<sumRT/total_nprocess <<",\tAvg TRT = "<<sumTRT/total_nprocess<<endl;
-	file<<"Migration %"<<":"<<  <<"RTF= "<< RTF <<"%,\t" <<"MaxW = "<<MaxW<<"%"<<endl;
+	file<<"Migration %:"<<"RTF= "<< RTF <<"%,\t" <<"MaxW = "<<MaxW<<"%"<<endl;
 
 	file<<"Work Steal %: "<< <<"%"<<endl;
-	file<<"Forked Process: "<< <<"%"<<endl;
+	file<<"Forked Process: "<<(total_nprocess_forked/total_nprocess)*100 <<"%"<<endl;
 	file<<"Killed Process: "<< <<"%"<<endl<<endl;
 
 	double Pnum=Processors.getCount();
@@ -726,6 +728,7 @@ Process* Scheduler::ForkProcess(int child_ct)
 	if (minProcessor)
 	{
 		total_nprocess++;
+		total_nprocess_forked++;
 		minProcessor->moveToRDY(Child);
 		return Child;
 	}
