@@ -227,7 +227,7 @@ void Scheduler::load(string fileName)
 void Scheduler::save(string name){
 	ofstream file;
 	file.open(name);
-	file<<"TT\tPID\tAT\tCT\tIO_D\tWT\tRT\tTRT";
+	file<<"TT\tPID\tAT\tCT\tIO_D\tWT\tRT\tTRT"<<endl;
 
 	int sumWT(0), sumRT(0), sumTRT(0);
 
@@ -241,7 +241,7 @@ void Scheduler::save(string name){
 		sumTRT+=nTRT;sumWT+=nWT;sumRT+=nRT;
 
 		file<<n->getTT()<<"\t"<<n->getPID()<<"\t"<<n->getAT();
-		file<<n->getCTstored()<<"\t"<<n->getIO_R_D().sumMap() <<"\t"<<nWT<<"\t"<<nRT<<"\t"<<nTRT<<endl;
+		file<<n->getCTstored()<<"\t"<<n->getIO_R_D().sumMap() <<"\t\t"<<nWT<<"\t"<<nRT<<"\t"<<nTRT<<endl;
 	}
 
 
@@ -578,7 +578,6 @@ Process* Scheduler::ForkProcess(int child_ct)
 		total_nprocess++;
 		total_nprocess_forked++;
 		minProcessor->moveToRDY(Child);
-		total_nprocess++;
 		return Child;
 	}
 	else
