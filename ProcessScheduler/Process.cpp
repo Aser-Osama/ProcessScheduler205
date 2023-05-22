@@ -31,24 +31,7 @@ bool Process::subRemainingTime()
 } // subtract from left over time. This returns false to show you when process is done
 void Process::setCpuArrivalTime(int ft) { cpuArrivalTime=ft; } // first time should be set during scheduler loop
 
-/*
-bool Process::subRemainingTime()
-{
-	if (this->CT > 0) {
-		this->CT--;
-		if (this->CT > 0) {
-			return true;
-		}
-		else {
 
-			return false;
-		}
-	}
-	else {
-		return false;
-	}
-}
-*/
 Process::Process(int pid, int at, int ct, Map<int,int> io_r_d):PID(pid),AT(at),CT(ct),IO_R_D(io_r_d), //initializer list to use while reading from file
 													  TRT(0),WT(0),TT(0),RT(0),cpuArrivalTime(0),CTstored(ct) //values that are set as something initially
 {
@@ -58,7 +41,7 @@ Process::Process(){}
 
 ostream& operator<<(ostream& os, const Process& prcs)
 {
-	os << prcs.PID <<"[" << prcs.CT << "]";
+	os << prcs.PID << " ";
 	return os;
 }
 

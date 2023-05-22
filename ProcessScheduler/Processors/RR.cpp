@@ -118,7 +118,6 @@ Process* RR::getTopElem()
 	Process* top;
 	
 	if (!RDY.dequeue(top)) { return nullptr; }
-	cout << top->getPID();
 	this->currentBusyTime -= top->getCT();
 	return top;
 }

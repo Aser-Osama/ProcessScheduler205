@@ -250,10 +250,8 @@ public:
 	//        //
 	//        //
 	void Reverse() {
-		cout << "im in here";
 		if (Head) {
 
-			cout << "im in main!";
 			Node<T>* i = Head;
 			Node<T>* p = Head->getNext();
 			Node<T>* o = NULL;
@@ -264,7 +262,7 @@ public:
 				p->setNext(i);
 				i = p; p = o;
 			}
-			Head = i; cout << "i did this";
+			Head = i; 
 		}
 
 	}

@@ -165,3 +165,22 @@ void Scheduler::randomizeBLK(Processor* const& prcsr)
 		prcsr->moveToRDY(first_elm);
 	}
 }
+
+/*
+bool Process::subRemainingTime()
+{
+	if (this->CT > 0) {
+		this->CT--;
+		if (this->CT > 0) {
+			return true;
+		}
+		else {
+
+			return false;
+		}
+	}
+	else {
+		return false;
+	}
+}
+*/

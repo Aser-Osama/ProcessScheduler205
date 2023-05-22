@@ -91,7 +91,7 @@ void FCFS::attemptFork()
     Process* Child = sch->ForkProcess(RUN->getCT());
     if (!Child) {return;}
 
-    cout << "Child has PID" << Child->getPID();
+
     RUN->addChild(Child);
 }
 
@@ -123,7 +123,6 @@ Process* FCFS::getTopElem()
     if (RDY.getHead()) {
         Process* first = RDY.getHead()->getItem();
         if (!first) { return nullptr; }
-        cout << first->getPID();
         this->currentBusyTime -= first->getCT();
         RDY.DeleteFirst();
         return first;

@@ -251,11 +251,11 @@ void Scheduler::run()
 			processorNode = processorNode->getNext();
 		}
 
-		MAIN_UI.print_interactive(true, timestep, Processors, BLK, TRM); // the print type will be based on user choice in phase 2
-		cout << total_nprocess;
+		MAIN_UI.UI_PICKER(true, timestep, Processors, BLK, TRM); // the print type will be based on user choice in phase 2
 		timestep++;
 	}
-	MAIN_UI.print_interactive(false, timestep, Processors, BLK, TRM); // the print type will be based on user choice in phase 2
+
+	MAIN_UI.UI_PICKER(false, timestep, Processors, BLK, TRM); // the print type will be based on user choice in phase 2
 }
 
 void Scheduler::stealTask() // Function will be called every timestep
@@ -316,7 +316,6 @@ void Scheduler::stealTask() // Function will be called every timestep
 				}
 
 			minprocessor->moveToRDY(process);
-			cout << "task being stolen \n";
 		}
 		else
 		{
@@ -356,10 +355,7 @@ bool Scheduler::migratedMaxW(Process* const& prcs)
 		foundRR = true;
 		break;
 	}
-	if (foundRR)
-	{
-		cout << "RR migration found\t" << prcs->getPID() << "\n";
-	}
+
 	return foundRR;
 }
 
@@ -394,10 +390,7 @@ bool Scheduler::migratedRTF(Process* const& prcs) // checks processor_time under
 		foundSJF = true;
 		break;
 	}
-	if (foundSJF)
-	{
-		cout << "SJF migration found\t" << prcs->getPID() << "\n";
-	}
+
 	return foundSJF;
 }
 
@@ -441,7 +434,6 @@ void Scheduler::killSignal()
 			{
 				this->killOrphans(tmpProcess);
 				TRM.enqueue(tmpProcess);
-				cout << "Killsig found! \n\n\n\n";
 			}
 		}
 
