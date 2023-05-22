@@ -16,6 +16,7 @@ class Processor
     int currentBusyTime = 0; // Total time of each queue
     int totalIdleTime;
     int totalBusyTime;
+    int totalTRT;
     bool gotfirstelem = false;
     bool Stop = false;
 public:
@@ -24,6 +25,8 @@ public:
     virtual void moveToRDY(Process* const& NewProcess) = 0;
     int getIdleTime();
     int getBusyTime();
+    void addTotalTRT(int);
+    int getTotalTRT();
     bool isBusy(); 
     Process* getRUN();
     void setRUN(Process*);

@@ -4,6 +4,7 @@
 int main() {
 	Scheduler* ProcessScheduler = Processor::getScheduler();
 	ProcessScheduler->run();
+	ProcessScheduler->save("output");
 	//	ProcessScheduler.run();
 	//	ProcessScheduler.
 
