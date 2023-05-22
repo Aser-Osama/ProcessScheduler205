@@ -8,6 +8,7 @@ class RR :
 {
     int RR_SLICE;
     int current_rr_ts = 0;
+    bool RR_insertion = false;
     Queue<Process *> RDY;
 public:
     void ScheduleAlgo() override; 

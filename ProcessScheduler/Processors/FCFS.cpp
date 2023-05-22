@@ -18,8 +18,8 @@ void FCFS::ScheduleAlgo(){
             nR = RDY.getHead();
             if (!nR) {setRUN(nullptr); return;}
         }
-        this->currentBusyTime -= nR->getItem()->getCT();
         setRUN(nR->getItem());
+
         RDY.DeleteFirst();
     }
     else {
@@ -86,6 +86,7 @@ void FCFS::attemptFork()
     int fork_probability = sch->getForkProb();
     
     if (fork_random_num > fork_probability || !RUN){return;}
+
 
     Process* Child = sch->ForkProcess(RUN->getCT());
     if (!Child) {return;}

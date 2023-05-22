@@ -6,6 +6,7 @@ void RR::ScheduleAlgo() {
 	int time;
 	if (RDY.dequeue(nR))
 	{
+
 		time = nR->getCT();
 		while (sch->migratedRTF(nR))
 		{
@@ -16,6 +17,7 @@ void RR::ScheduleAlgo() {
 				return;
 			}
 		}
+
 		setRUN(nR);
 	}
 	else {
@@ -31,7 +33,10 @@ RR::RR(int RRnum){
 
 void RR::moveToRDY(Process* const& NewProcess)
 {
-    this->currentBusyTime += NewProcess->getCT();
+	if (!RR_insertion)
+	{
+		this->currentBusyTime += NewProcess->getCT();
+	}
     RDY.enqueue(NewProcess);
 	current_rr_ts = 0;
 }
@@ -66,15 +71,20 @@ bool RR::Execute(Process*& P, int crnt_ts, int& io_length) {
 			bool isDone = !(RUN->subRemainingTime());
             if (current_rr_ts == RR_SLICE)
             {
-				this->currentBusyTime--;				
+				RR_insertion = true;
                 moveToRDY(RUN);
                 ScheduleAlgo();
+				RR_insertion = false;
+				this->currentBusyTime--;
+
                 P = nullptr;
                 current_rr_ts = 0;
                 return false;
             }
 			else if (isDone)
 			{
+				//this->currentBusyTime--;
+
 				P = RUN;
 				ScheduleAlgo();
                 current_rr_ts++;
@@ -83,7 +93,8 @@ bool RR::Execute(Process*& P, int crnt_ts, int& io_length) {
 			}
 			else
 			{
-				this->currentBusyTime--;				
+				this->currentBusyTime--;
+
 				P = nullptr;
                 current_rr_ts++;
 				return false; //C3 (still excuting)
@@ -92,6 +103,7 @@ bool RR::Execute(Process*& P, int crnt_ts, int& io_length) {
 	}
 	else //no process currently running
 	{
+		//currentBusyTime--;
 		P = nullptr;
 		ScheduleAlgo();
         current_rr_ts++;

@@ -4,7 +4,10 @@
 void SJF::ScheduleAlgo(){
     Process* nR;
     if (RDY.dequeue(nR)) {
-        this->currentBusyTime -= nR->getCT();
+        if (!gotfirstelem) {
+            gotfirstelem = true;
+            //currentBusyTime += nR->getCT();
+        }//fixed fcfs and rr is fine   tmm
         setRUN(nR);
     }
     else {
