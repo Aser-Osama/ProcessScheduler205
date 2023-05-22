@@ -17,6 +17,7 @@ public:
     Process* findProcess(int);
     Process* removeFromReady(int pid);
     friend ostream& operator<<(ostream& os, const FCFS& prcsr);
+    bool readyIsEmpty() override;
     FCFS();
 };
 

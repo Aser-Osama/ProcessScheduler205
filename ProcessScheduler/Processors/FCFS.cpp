@@ -18,8 +18,8 @@ void FCFS::ScheduleAlgo(){
             nR = RDY.getHead();
             if (!nR) {setRUN(nullptr); return;}
         }
-        this->currentBusyTime -= nR->getItem()->getCT();
         setRUN(nR->getItem());
+
         RDY.DeleteFirst();
     }
     else {
@@ -43,6 +43,7 @@ Process* FCFS::findProcess(int pid)
             {
                 if (tmp->getItem()->getPID() == pid)
                 {
+                    currentBusyTime -= tmp->getItem()->getCT();
                     Process* item = tmp->getItem();
                     RDY.DeleteNode(item);
                     return item;
@@ -92,6 +93,11 @@ void FCFS::attemptFork()
 
     cout << "Child has PID" << Child->getPID();
     RUN->addChild(Child);
+}
+
+bool FCFS::readyIsEmpty()
+{
+    return RDY.getCount() <= 0;
 }
 
 FCFS::FCFS()

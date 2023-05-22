@@ -27,13 +27,13 @@ void UI::general_template(int c_ts, LinkedList<Processor*>& processors, Queue<Pr
 		SJF* SJFPtr = dynamic_cast<SJF*>(tmp_p->getItem()); 
 		RR* RRPtr = dynamic_cast<RR*>(tmp_p->getItem());  
 		if (FCFSPtr) {
-			cout << "Processor " << i << ": \t" << *(FCFSPtr) << endl;
+			cout << "Processor : " << FCFSPtr->getCurrentTime() << " : " <<  i << ": \t" << *(FCFSPtr) << endl;
 		}
 		else if (SJFPtr) {
-			cout << "Processor " << i << ": \t" << *(SJFPtr) << endl;
+			cout << "Processor : " << SJFPtr->getCurrentTime() << " : " <<  i << ": \t" << *(SJFPtr) << endl;
 		}
 		else if (RRPtr) {
-			cout << "Processor " << i << ": \t" << *(RRPtr) << endl;
+			cout << "Processor : " << RRPtr->getCurrentTime() << " : " <<  i << ": \t" << *(RRPtr) << endl;
 		}
 
 		i++;

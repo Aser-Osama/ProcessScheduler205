@@ -8,58 +8,15 @@ Scheduler::Scheduler(string filename)
 }
 Scheduler::~Scheduler() {}
 
-//void Scheduler::Fill_Rdy()
-//{
-//	Queue<Process *> Arrived;
-//	if (NEW.isEmpty())
-//		return;
-//
-//	for (int i = 0; i < total_nprocess; i++)
-//	{
-//		Process *tmp;
-//		if (NEW.dequeue(tmp))
-//		{
-//			if (tmp->getAT() == timestep)
-//			{
-//				Arrived.enqueue(tmp);
-//			}
-//			else
-//			{
-//				NEW.enqueue(tmp);
-//			}
-//		}
-//	}
-//
-//	Node<Processor *> *processorNode = StartingPoint;
-//	while (!Arrived.isEmpty())
-//	{
-//		Process *tmp;
-//		Arrived.dequeue(tmp);
-//		if (tmp) {
-//			tmp->setCpuArrivalTime(timestep);
-//			(processorNode->getItem())->moveToRDY(tmp);
-//		}
-//
-//		if (processorNode->getNext())
-//		{
-//			processorNode = processorNode->getNext();
-//		}
-//		else // If there is no next node, set the node to the head of the list
-//		{
-//			processorNode = Processors.getHead();
-//		}
-//	}
-//	StartingPoint = processorNode;
-//}
+
 
 
 void Scheduler::killOrphans(Process* P) {
 	//P is a process that is about to terminate so you need to find if it has any children
-	
-	Node<Process*>* Head = (P->getChildren()).getHead();
+	Node<Process*>* Head = (P->getChildren())->getHead();
 	Node<Process*>* R = Head;
 	Queue<Process*> TotalOrphans;
-	if (P->getChildren().getHead()) //if P has at least one child
+	if (P->getChildren()->getHead()) //if P has at least one child
 	{
 		//search for this child/children in rdy or run of fcfs processors
 		
@@ -99,69 +56,6 @@ void Scheduler::killOrphans(Process* P) {
 	}
 
 }
-//void Scheduler::Fill_Rdy()
-//{
-//	Queue<Process*> Arrived;
-//	Process* tmp;
-//	Process* tmpa;
-//
-//	if (NEW.isEmpty())
-//		return;
-//
-//	int notArrivedCount = NEW.getCount();  // Store the initial count of processes in NEW queue
-//
-//	for (int i = 0; i < notArrivedCount; i++)
-//	{
-//		Process* tmpa;
-//		if (NEW.dequeue(tmpa))
-//		{
-//			if (tmpa->getAT() == timestep)
-//			{
-//				Arrived.enqueue(tmpa);
-//			}
-//			else
-//			{
-//				NEW.enqueue(tmpa);
-//			}
-//		}
-//	}
-//
-//
-//	while (Arrived.dequeue(tmp))
-//	{
-//		if (!tmp) { break; }
-//		Node<Processor*>* processorNode = Processors.getHead();
-//		Processor* minProcessor = nullptr;
-//		int minTime = INT_MAX;
-//
-//		while (processorNode)
-//		{
-//			Processor* tempProcessor = processorNode->getItem();
-//			if (!tempProcessor)
-//			{
-//				processorNode = processorNode->getNext();
-//				continue;
-//			}
-//
-//			if ((processorNode->getItem()->getCurrentTime() < minTime))
-//			{
-//				minTime = processorNode->getItem()->getCurrentTime();
-//				minProcessor = processorNode->getItem();
-//			}
-//
-//			processorNode = processorNode->getNext();
-//		}
-//
-//		if (minProcessor) {
-//			tmp->setRT(timestep);
-//			tmp->setCpuArrivalTime(timestep);
-//			minProcessor->moveToRDY(tmp);
-//		}
-//		else {
-//			Arrived.enqueue(tmp);
-//		}
-//	}
-//}
 
 
 // A function that returns a node of the processor with the shortest queue
@@ -228,65 +122,9 @@ void Scheduler::RUNToTRM(Process* Prc)
 		Prc->setTT(timestep);
 		Prc->setTRT();
 		Prc->setWT();
+		this->killOrphans(Prc);
+
 		TRM.enqueue(Prc);
-	}
-}
-
-void Scheduler::randomizeRUN(Processor* const& prcsr)
-{ // should be run before the SCHEDULINGALGO function so
-	// rdy wont be left empty a whole cycle in case the
-	// function activates.
-	int rnum = (rand() % 100) + 1;
-	if (rnum >= 1 && rnum <= 15)
-	{
-		Process* ptr = prcsr->clearRUN();
-		if (ptr)
-		{
-			BLK.enqueue(ptr);
-		}
-	}
-	else if (rnum >= 20 && rnum <= 30)
-	{
-		Process* ptr = prcsr->clearRUN();
-		if (ptr)
-		{
-			prcsr->moveToRDY(ptr);
-		}
-	}
-	else if (rnum >= 50 && rnum <= 60)
-	{
-		Process* ptr = prcsr->clearRUN();
-		if (ptr)
-		{
-			TRM.enqueue(ptr);
-		}
-	}
-}
-
-void Scheduler::randomKill(Processor* const& prcsr)
-{
-	FCFS* fcfs_ptr = dynamic_cast<FCFS*>(prcsr);
-	if (!fcfs_ptr)
-		return;
-
-	int rnum = (rand() % total_nprocess) + 1;
-	Process* tmp = fcfs_ptr->removeFromReady(rnum);
-
-	if (tmp)
-		TRM.enqueue(tmp);
-}
-
-void Scheduler::randomizeBLK(Processor* const& prcsr)
-{
-	int rnum = (rand() % 100) + 1;
-	if (rnum > 10)
-		return;
-
-	Process* first_elm;
-	bool dequed = BLK.dequeue(first_elm);
-	if (dequed)
-	{
-		prcsr->moveToRDY(first_elm);
 	}
 }
 
@@ -494,13 +332,12 @@ void Scheduler::run()
 
 				this->BLK.enqueue(tmp_prcs);
 			}
-			// this->randomizeRUN(processorNode->getItem());
-			// this->randomizeBLK(processorNode->getItem());
-			// this->randomKill(processorNode->getItem());
+
 			processorNode = processorNode->getNext();
 		}
 
 		MAIN_UI.print_interactive(true, timestep, Processors, BLK, TRM); // the print type will be based on user choice in phase 2
+		cout << total_nprocess;
 		timestep++;
 	}
 	MAIN_UI.print_interactive(false, timestep, Processors, BLK, TRM); // the print type will be based on user choice in phase 2
@@ -519,7 +356,7 @@ void Scheduler::stealTask() // Function will be called every timestep
 	Node<Processor*>* processorNode = Processors.getHead();
 	Processor* minprocessor = nullptr;
 	Processor* maxprocessor = nullptr;
-
+	Queue<Process*> tmp;
 	while (processorNode)
 	{
 		if (processorNode->getItem()->getCurrentTime() > maxTime)
@@ -544,15 +381,26 @@ void Scheduler::stealTask() // Function will be called every timestep
 			{
 				return;
 			}
-			while (process->isForked())
+
+			if (process->isForked())
 			{
-				maxprocessor->moveToRDY(process);
-				process = maxprocessor->getTopElem();
+				while (!maxprocessor->readyIsEmpty())
+				{
+					tmp.enqueue(process);
+					process = maxprocessor->getTopElem();
+					if (!process->isForked()) {
+						break;
+					}
+				}
+					//tmp.enqueue(process);
+
 			}
+			Process* temp_process;
+				while (tmp.dequeue(temp_process)) {
+						maxprocessor->moveToRDY(temp_process);
+				}
 
 			minprocessor->moveToRDY(process);
-			maxTime = maxprocessor->getCurrentTime();
-			minTime = minprocessor->getCurrentTime();
 			cout << "task being stolen \n";
 		}
 		else
@@ -647,10 +495,11 @@ void Scheduler::killSignal()
 {
 	Node<Pair<int, int>>* mapHead = SIGKILL_MAP.getHead();
 	bool found = false;
+	int pid = -1;
 	while (mapHead) {
 		if (mapHead->getItem().getKey() == timestep)
 		{
-			int pid = mapHead->getItem().getValue();
+			pid = mapHead->getItem().getValue();
 			Node<Processor*>* headProcessor = Processors.getHead();
 			bool found_process = false;
 			Process* tmpProcess = nullptr;
@@ -660,12 +509,13 @@ void Scheduler::killSignal()
 				if (!tempFCFS)
 				{
 					headProcessor = headProcessor->getNext();
-					continue;
+					break;
 				}
 
 				tmpProcess = tempFCFS->findProcess(pid);
 				if (tmpProcess)
 				{
+					
 					found_process = true;
 					break;
 				}
@@ -674,12 +524,17 @@ void Scheduler::killSignal()
 
 			if (found_process)
 			{
-				// tmpProcess->killOrph();
+				this->killOrphans(tmpProcess);
 				TRM.enqueue(tmpProcess);
 				cout << "Killsig found! \n\n\n\n";
 			}
 		}
-		mapHead = mapHead->getNext();
+
+			Node<Pair<int,int>>* next_node = mapHead->getNext();
+			if (pid != -1)
+				SIGKILL_MAP.deletePair(timestep, pid);
+			mapHead = next_node;
+			pid = -1;
 	}
 }
 
@@ -688,7 +543,9 @@ Process* Scheduler::ForkProcess(int child_ct)
 {
 	// generating the child:
 	// assuming the pids max out the number of proccesses as shown in sample test file
-	int child_pid = ((rand() % total_nprocess) + 1) + total_nprocess;
+	//int child_pid = ((rand() % total_nprocess) + 1) + total_nprocess;
+	int child_pid = ((rand()) + 1);
+
 	Map<int, int> empty_io_map;
 	empty_io_map.addPair(0, 0);
 	Process* Child = new Process(child_pid, timestep, child_ct, empty_io_map);
@@ -729,6 +586,7 @@ Process* Scheduler::ForkProcess(int child_ct)
 		total_nprocess++;
 		total_nprocess_forked++;
 		minProcessor->moveToRDY(Child);
+		total_nprocess++;
 		return Child;
 	}
 	else

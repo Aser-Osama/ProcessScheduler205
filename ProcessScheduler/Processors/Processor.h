@@ -17,6 +17,7 @@ class Processor
     int totalIdleTime;
     int totalBusyTime;
     int totalTRT;
+    bool gotfirstelem = false;
     bool Stop = false;
 public:
     virtual void ScheduleAlgo() = 0; 
@@ -33,6 +34,7 @@ public:
     virtual int getCurrentTime();
     Process* clearRUN();
     static Scheduler* getScheduler();
+    virtual bool readyIsEmpty() = 0;
 
 
 };  

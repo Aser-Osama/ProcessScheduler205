@@ -4,7 +4,10 @@
 void SJF::ScheduleAlgo(){
     Process* nR;
     if (RDY.dequeue(nR)) {
-        this->currentBusyTime -= nR->getCT();
+        if (!gotfirstelem) {
+            gotfirstelem = true;
+            //currentBusyTime += nR->getCT();
+        }//fixed fcfs and rr is fine   tmm
         setRUN(nR);
     }
     else {
@@ -38,4 +41,9 @@ Process* SJF::getTopElem()
     cout << top->getPID();
     this->currentBusyTime -= top->getCT();
 	return top;
+}
+
+bool SJF::readyIsEmpty()
+{
+    return RDY.isEmpty();
 }
