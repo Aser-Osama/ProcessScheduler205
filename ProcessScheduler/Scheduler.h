@@ -23,6 +23,7 @@ class Scheduler
     UI MAIN_UI;
     int RTF, MaxW, STL, forkProb;
     int ncpu;
+    Process* RUN_BLK;
 
     public:
     void Initialize_RDY();
@@ -31,7 +32,7 @@ class Scheduler
     Node<Processor*>* ProcessorWithShortestQueue();
     void NEWToRDY();
     void RUNToTRM(Process* P);
-    //  void BLKToRDY(Process*& P, int crnt_ts, int& io_length);
+    void BLKToRDY();
     void randomizeRUN(Processor* const &prcsr);
     void randomKill(Processor* const& prcsr);
     void randomizeBLK(Processor* const& prcsr);
@@ -46,6 +47,7 @@ class Scheduler
     Process* ForkProcess(int child_ct);
     Scheduler(string);
     ~Scheduler();
+
 
 };
 

@@ -19,6 +19,8 @@ private:
 		WT; // WT = TRT - CT
 	Map<int,int> IO_R_D;
 	LinkedList<Process*> children; //null for childless processes
+	int TotalTRT;
+	int TotalWT;
 public:
 	int getPID() const;
 	LinkedList<Process*> getChildren() const;
@@ -47,6 +49,7 @@ public:
 	bool operator< (const Process& other) const;
 	bool operator> (const Process& other) const;
 	void addChild(Process* const& Child);
+	bool decrementIO(int timestep);
 
 	Process(int pid, int at, int ct, Map<int,int> io_r_d);
 	Process();

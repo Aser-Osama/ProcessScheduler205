@@ -158,23 +158,19 @@ void Scheduler::NEWToRDY()
 
 void Scheduler::BLKToRDY(int crnt_ts, int& io_length)
 {
-	
+	Process* IO;
+	IO->getIO_R_D().getValue(crnt_ts, io_length);
+	while (io_length) 
+		io_length--;
 }
 
 void Scheduler::RUNToTRM(Process* Prc)
 {
-	if (!Prc->subRemainingTime()) // If CT is equal to zero
+	if (!Prc->subRemainingTime()) // Move the left to TRM when its CT reaches zero 
 	{
 		Prc->setTT(timestep);
 		Prc->setTRT();
-		Prc->totalTRT(Prc->getTRT()); // For output file
-
-		int WT = Prc->getTRT() - Prc->getCT();
-		if (Prc->getWT() == 0 && WT > 0) // TRT - CT can be negative. For example, when it receives a signal kill.
-		{
-			Prc->setWT();
-			Prc->totalWT(WT); // For output file
-		}
+		Prc->setWT();
 		TRM.enqueue(Prc);
 	}
 }
@@ -602,4 +598,23 @@ Process* Scheduler::ForkProcess(int child_ct)
 		return nullptr;
 	}
 
+}
+
+void Scheduler::ExecuteRUN_BLK()
+{
+	Process* temp;
+	if (!RUN_BLK && BLK.isEmpty()) return;
+	if (!RUN_BLK)
+	{
+		BLK.dequeue(temp);
+		RUN_BLK = temp;
+	}
+	if (RUN_BLK->decrementIO(timestep))
+		return;
+	else
+	{
+		Node<Processor*>* tempProcessor;
+		tempProcessor = this->ProcessorWithShortestQueue();
+		tempProcessor->getItem()->moveToRDY(temp);
+	}
 }
