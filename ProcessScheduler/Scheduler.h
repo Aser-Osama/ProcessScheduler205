@@ -23,15 +23,19 @@ class Scheduler
     UI MAIN_UI;
     int RTF, MaxW, STL, forkProb;
     int ncpu;
+    Process* RUN_BLK;
 
     public:
     void Initialize_RDY();
     void simulator();
-    void Fill_Rdy();
+    //void Fill_Rdy();
+    Node<Processor*>* ProcessorWithShortestQueue();
+    void NEWToRDY();
+    void RUNToTRM(Process* P);
+    void BLKToRDY();
     void randomizeRUN(Processor* const &prcsr);
     void randomKill(Processor* const& prcsr);
     void randomizeBLK(Processor* const& prcsr);
-
     void load(string); //will be called 
     void save(string);
     void run(); //this is where the program is run
@@ -42,8 +46,10 @@ class Scheduler
     void killSignal();
     Process* ForkProcess(int child_ct);
     void killOrphans(Process*);
+    void ProcessorOverheat(int timesteps);
     Scheduler(string);
     ~Scheduler();
+
 
 };
 

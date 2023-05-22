@@ -4,6 +4,7 @@
 void SJF::ScheduleAlgo(){
     Process* nR;
     if (RDY.dequeue(nR)) {
+        this->currentBusyTime -= nR->getCT();
         setRUN(nR);
     }
     else {

@@ -17,15 +17,16 @@ void Process::setWT() { WT = TRT - CT; } // Wait time should be set once
 bool Process::find_by_pid(int pid) { return this->PID == pid; }
 int Process::getRemainingTime() const
 {
-	{ return remainingTime; };
+	 return remainingTime;
 }
 bool Process::subRemainingTime()
 {
-	if (this->CT > 0) {
+	if (this->CT > 1) {
 		this->CT--;
 		return true;
 	}
 	else {
+		this->CT--;
 		return false;
 	}
 } // subtract from left over time. This returns false to show you when process is done
@@ -72,4 +73,33 @@ void Process::setForked()
 bool Process::isForked()
 {
 	return ForkedProcess;
+}
+
+void Process::totalTRT(int ProcessTRT)
+{
+	TotalTRT += ProcessTRT;
+}
+
+void Process::totalWT(int ProcessWT)
+{
+	TotalWT += ProcessWT;
+}
+
+bool Process::decrementIO(int timestep) // Assumption: Processes IO are ordered in IO_R recieval asc in the input file 
+{
+	Node<Pair<int, int>>* ProcessIO = IO_R_D.getHead();
+	while (ProcessIO->getItem().getKey() <= timestep) // loops on the map to get the process ready for IO
+	{
+		ProcessIO = ProcessIO->getNext();
+	}
+	if (ProcessIO->getItem().getValue() > 1) // When the process' IO is greater than 1
+	{
+		ProcessIO->getItem().setValue(ProcessIO->getItem().getValue() - 1); // Decrement IO time 
+		return true; // The process does not finish IO 
+	}
+	else
+	{
+		ProcessIO->getItem().setValue(ProcessIO->getItem().getValue() - 1); // Decrement IO time 
+		return false; // The process finished its IO 
+	}
 }

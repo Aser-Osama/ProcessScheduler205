@@ -3,10 +3,13 @@
 
 void RR::ScheduleAlgo() {
 	Process* nR;
+	int time;
 	if (RDY.dequeue(nR))
 	{
+		time = nR->getCT();
 		while (sch->migratedRTF(nR))
 		{
+			this->currentBusyTime -= time;
 			if (!RDY.dequeue(nR))
 			{
 				setRUN(nullptr);
@@ -30,15 +33,11 @@ void RR::moveToRDY(Process* const& NewProcess)
 {
     this->currentBusyTime += NewProcess->getCT();
     RDY.enqueue(NewProcess);
-	QueueTime += NewProcess->getCT();
 	current_rr_ts = 0;
 }
 
 
-int RR::GetQueueTime()
-{
-	return QueueTime;
-}
+
 ostream& operator<<(ostream& os, const RR& prcsr)
 {
     os << "[RR]: " << prcsr.RDY.getCount() << " RDY: ";
@@ -108,6 +107,5 @@ Process* RR::getTopElem()
 	if (!RDY.dequeue(top)) { return nullptr; }
 	cout << top->getPID();
 	this->currentBusyTime -= top->getCT();
-
 	return top;
 }
