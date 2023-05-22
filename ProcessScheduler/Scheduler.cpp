@@ -196,7 +196,6 @@ void Scheduler::NEWToRDY()
 	while (NEW.peek(Process) && Process->getAT() == timestep)
 	{
 		NEW.dequeue(Process);
-		
 		Node<Processor*>* ProcessorWithShortestQueue = this->ProcessorWithShortestQueue();
 		ProcessorWithShortestQueue->getItem()->moveToRDY(Process);
 		Process = nullptr;
@@ -326,7 +325,7 @@ void Scheduler::load(string fileName)
 {
 	ifstream file;
 	file.open(fileName);
-	int NF, NS, NR, RRSlice;
+
 	file >> NF;
 	file >> NS;
 	file >> NR;
@@ -385,6 +384,84 @@ void Scheduler::load(string fileName)
 	nprocessor = NR + NF + NS;
 }
 
+
+void Scheduler::save(string name){
+	ofstream file;
+	file.open(name);
+	file<<"TT\tPID\tAT\tCT\tIO_D\tWT\tRT\tTRT";
+
+	int sumWT(0), sumRT(0), sumTRT(0);
+
+	Process * = n;
+	while(!TRM.isEmpty()){
+		TRM.dequeue(n);
+		n->setWT();
+
+		int nTRT,nWT,nRT;
+		nTRT=n->getTRT();nWT=n->getWT();nRT=n->getRT();
+		sumTRT+=nTRT;sumWT+=nWT;sumRT+=nRT;
+
+		file<<n->getTT()<<"\t"<<n->getPID()<<"\t"<<n->getAT();
+		file<<n->getCTstored()<<"\t"<</*IORD*/ <<"\t"<<nWT<<"\t"<<nRT<<"\t"<<TRT<<endl;
+	}
+
+
+
+
+	// loop through values
+
+
+	file<<endl;
+	file<<"Processes: "<<total_nprocess;
+
+	file<<"Avg WT = "<<sumWT/total_nprocess <<",\tAvg RT = "<<sumRT/total_nprocess <<",\tAvg TRT = "<<sumTRT/total_nprocess<<endl;
+	file<<"Migration %"<<":"<<  <<"RTF= "<< RTF <<"%,\t" <<"MaxW = "<<MaxW<<"%"<<endl;
+
+	file<<"Work Steal %: "<< <<"%"<<endl;
+	file<<"Forked Process: "<< <<"%"<<endl;
+	file<<"Killed Process: "<< <<"%"<<endl<<endl;
+
+	double Pnum=Processors.getCount();
+	file<<"Processors: "<< Pnum<<" ["<< NF <<" FCFS, " << NS <<" SJF, "<< NR << " RR]"<<endl;
+	file<<"Processors Load"<<endl;
+
+	Node<Processor *> * p=Processors.getHead();
+	for(int i=0;Pnum>i;i++){
+		file<<"p"<<j<<"="<<p->getItem()->getBusyTime()/p->getItem()->getTotalTRT() <<"%";
+		if(i%5!=0){
+			file<<",\t";
+		}
+		else{
+			file<<endl;
+		}
+
+		p=p->getNext();
+		file<<endl;
+	}
+	file<<"Processors Utiliz"<<endl;
+
+	double sumUtiliz=0;
+	for(int i=0;Pnum>i;i++){
+		int Utiliz=p->getItem()->getBusyTime()/(p->getItem()->getBusyTime()+p->getItem()->getIdleTime());
+		sumUtiliz+=Utiliz ;
+		file<<"p"<<j<<"="<<Utiliz<<"%";
+
+		if(i%5!=0){
+			file<<",\t";
+		}
+		else{
+			file<<endl;
+		}
+
+		p=p->getNext();
+		file<<endl;
+	}
+
+	file<<"Avg utilization = "<< sumUtiliz/Pnum <<"%";
+
+
+}
+
 void Scheduler::run()
 {
 
@@ -403,7 +480,10 @@ void Scheduler::run()
 			proccess_complete = (processorNode->getItem())->Execute(tmp_prcs, timestep, io_time);
 			if (proccess_complete && tmp_prcs)
 			{
+
 				this->RUNToTRM(tmp_prcs);
+				tmp_prcs->setTRT();
+				processorNode->getItem()->addTotalTRT(tmp_prcs->getTRT());
 				/*tmp_prcs->setTT(timestep);
 				tmp_prcs->setTRT();
 				tmp_prcs->setWT();

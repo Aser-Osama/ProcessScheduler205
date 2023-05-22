@@ -21,8 +21,6 @@ private:
 	
 	Map<int,int> IO_R_D;
 	LinkedList<Process*> children; //null for childless processes
-	static int TotalTRT;
-	static int TotalWT;
 public:
 	int getPID() const;
 	LinkedList<Process*> getChildren() const;
@@ -36,9 +34,6 @@ public:
 
 
 	void setTT(int);
-
-	void totalTRT(int ProcessTRT);
-	void totalWT(int ProcessWT);
 
 	void setRT(int);
 	void setCpuArrivalTime(int);
