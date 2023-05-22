@@ -14,7 +14,7 @@ public:
     void moveToRDY(Process* const& NewProcess)  override;
     bool Execute(Process*& P, int crnt_ts, int& io_length) override;
     friend ostream& operator<<(ostream& os, const RR& prcsr);
-
+    Process* getTopElem() override;
     RR(int);
 };
 

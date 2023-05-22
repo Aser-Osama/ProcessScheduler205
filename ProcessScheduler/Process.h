@@ -7,21 +7,25 @@ using namespace std;
 class Process
 {
 private:
+	bool ForkedProcess = false;
 	int PID, 
-		childPID, //should be -1 for childless process
-		AT,
-		RT,
-		CT,
-		TT,
-		TRT,
+		AT, // Arrival time
+		RT, // Response time
+		CT, // CPU time
+		TT, // Termination time
+		TRT, // The total time a process spends in the system from its arrival to termination. TRT = TT - AT
 		cpuArrivalTime, //THIS IS THE FIRST TIME ARRIVAL to cpu VARIABLE. SET THIS WHEN THE PROCESS FIRST ARRIVES AT A CPU 
-		remainingTime, // THIS IS THE LEFT OVER TIME. DECREMENT THIS USING THE METHOD TO REDUCE TIME REMAINING IN CPU RUN
-		WT;
-	Map<int,int> IO_R_D;
+		CTstored, // THIS IS THE LEFT OVER TIME. DECREMENT THIS USING THE METHOD TO REDUCE TIME REMAINING IN CPU RUN
+		WT; // WT = TRT - CT
 
+	
+	Map<int,int> IO_R_D;
+	LinkedList<Process*> children; //null for childless processes
+	static int TotalTRT;
+	static int TotalWT;
 public:
 	int getPID() const;
-	int getChildPID() const;
+	LinkedList<Process*> getChildren() const;
 	int getAT() const;
 	int getRT() const;
 	int getCT() const;
@@ -33,21 +37,29 @@ public:
 
 	void setTT(int);
 
-	void setRT();
+	void totalTRT(int ProcessTRT);
+	void totalWT(int ProcessWT);
+
+	void setRT(int);
 	void setCpuArrivalTime(int);
 	bool subRemainingTime(); 
 	void setTRT();
 	void setWT();
 	bool find_by_pid(int pid);
-	int getRemainingTime() const;
+	int getCTstored() const;
+	//void totalTRT(int ProcessTRT);
+	//void totalWT(int ProcessWT);
 	friend ostream& operator<<(ostream& os, const Process& prcs);
 	bool operator==(const Process &);
 	bool operator< (const Process& other) const;
 	bool operator> (const Process& other) const;
+	void addChild(Process* const& Child);
+	bool decrementIO(int timestep);
 
 	Process(int pid, int at, int ct, Map<int,int> io_r_d);
 	Process();
 	Process(int pid) : PID(pid) {}
-
+	void setForked();
+	bool isForked();
 };
 
