@@ -20,12 +20,12 @@ private:
 
 	
 	Map<int,int> IO_R_D;
-	LinkedList<Process*> children; //null for childless processes
+	LinkedList<Process*>* children = new LinkedList<Process*>; //null for childless processes
 	static int TotalTRT;
 	static int TotalWT;
 public:
 	int getPID() const;
-	LinkedList<Process*> getChildren() const;
+	LinkedList<Process*>* getChildren() const;
 	int getAT() const;
 	int getRT() const;
 	int getCT() const;

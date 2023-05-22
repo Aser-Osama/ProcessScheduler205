@@ -42,3 +42,8 @@ Process* SJF::getTopElem()
     this->currentBusyTime -= top->getCT();
 	return top;
 }
+
+bool SJF::readyIsEmpty()
+{
+    return RDY.isEmpty();
+}

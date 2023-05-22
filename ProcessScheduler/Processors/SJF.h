@@ -12,6 +12,7 @@ public:
     void moveToRDY(Process* const& NewProcess)  override;
     friend ostream& operator<<(ostream& os, const SJF& prcsr);
     Process* getTopElem() override;
+    bool readyIsEmpty() override;
     SJF();
 };
 

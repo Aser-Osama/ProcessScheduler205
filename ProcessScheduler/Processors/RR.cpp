@@ -10,6 +10,7 @@ void RR::ScheduleAlgo() {
 		time = nR->getCT();
 		while (sch->migratedRTF(nR))
 		{
+			
 			this->currentBusyTime -= time;
 			if (!RDY.dequeue(nR))
 			{
@@ -120,4 +121,9 @@ Process* RR::getTopElem()
 	cout << top->getPID();
 	this->currentBusyTime -= top->getCT();
 	return top;
+}
+
+bool RR::readyIsEmpty()
+{
+	return RDY.isEmpty();
 }

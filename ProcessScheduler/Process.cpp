@@ -4,7 +4,7 @@ int Process::TotalTRT = 0;
 int Process::TotalWT = 0;
 
 int Process::getPID() const { return PID; }
-LinkedList<Process*> Process::getChildren()const{ return children; }
+LinkedList<Process*>* Process::getChildren()const{ return children; }
 int Process::getAT() const { return AT; }
 int Process::getRT() const{ return RT; }
 int Process::getCT() const{ return CT; }
@@ -79,7 +79,7 @@ bool Process::operator>(const Process& Process) const {
 
 void Process::addChild(Process* const& Child)
 {
-	children.InsertEnd(Child);
+	children->InsertEnd(Child);
 }
 
 void Process::setForked()

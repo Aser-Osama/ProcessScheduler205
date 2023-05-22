@@ -254,4 +254,8 @@ public:
 	int getCount() const {
 		return heap_size;
 	}
+	bool isEmpty() const
+	{
+		return heap_size == 0;
+	}
 };

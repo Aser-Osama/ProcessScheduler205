@@ -12,11 +12,10 @@ Scheduler::~Scheduler() {}
 
 void Scheduler::killOrphans(Process* P) {
 	//P is a process that is about to terminate so you need to find if it has any children
-	
-	Node<Process*>* Head = (P->getChildren()).getHead();
+	Node<Process*>* Head = (P->getChildren())->getHead();
 	Node<Process*>* R = Head;
 	Queue<Process*> TotalOrphans;
-	if (P->getChildren().getHead()) //if P has at least one child
+	if (P->getChildren()->getHead()) //if P has at least one child
 	{
 		//search for this child/children in rdy or run of fcfs processors
 		
@@ -123,6 +122,8 @@ void Scheduler::RUNToTRM(Process* Prc)
 		Prc->setTT(timestep);
 		Prc->setTRT();
 		Prc->setWT();
+		this->killOrphans(Prc);
+
 		TRM.enqueue(Prc);
 	}
 }
@@ -241,10 +242,6 @@ void Scheduler::run()
 			if (proccess_complete && tmp_prcs)
 			{
 				this->RUNToTRM(tmp_prcs);
-				/*tmp_prcs->setTT(timestep);
-				tmp_prcs->setTRT();
-				tmp_prcs->setWT();
-				this->TRM.enqueue(tmp_prcs);*/
 			}
 			if (!proccess_complete && tmp_prcs) {
 
@@ -255,6 +252,7 @@ void Scheduler::run()
 		}
 
 		MAIN_UI.print_interactive(true, timestep, Processors, BLK, TRM); // the print type will be based on user choice in phase 2
+		cout << total_nprocess;
 		timestep++;
 	}
 	MAIN_UI.print_interactive(false, timestep, Processors, BLK, TRM); // the print type will be based on user choice in phase 2
@@ -273,7 +271,7 @@ void Scheduler::stealTask() // Function will be called every timestep
 	Node<Processor*>* processorNode = Processors.getHead();
 	Processor* minprocessor = nullptr;
 	Processor* maxprocessor = nullptr;
-
+	Queue<Process*> tmp;
 	while (processorNode)
 	{
 		if (processorNode->getItem()->getCurrentTime() > maxTime)
@@ -298,15 +296,26 @@ void Scheduler::stealTask() // Function will be called every timestep
 			{
 				return;
 			}
-			while (process->isForked())
+
+			if (process->isForked())
 			{
-				maxprocessor->moveToRDY(process);
-				process = maxprocessor->getTopElem();
+				while (!maxprocessor->readyIsEmpty())
+				{
+					tmp.enqueue(process);
+					process = maxprocessor->getTopElem();
+					if (!process->isForked()) {
+						break;
+					}
+				}
+					//tmp.enqueue(process);
+
 			}
+			Process* temp_process;
+				while (tmp.dequeue(temp_process)) {
+						maxprocessor->moveToRDY(temp_process);
+				}
 
 			minprocessor->moveToRDY(process);
-			maxTime = maxprocessor->getCurrentTime();
-			minTime = minprocessor->getCurrentTime();
 			cout << "task being stolen \n";
 		}
 		else
@@ -430,7 +439,7 @@ void Scheduler::killSignal()
 
 			if (found_process)
 			{
-				// tmpProcess->killOrph();
+				this->killOrphans(tmpProcess);
 				TRM.enqueue(tmpProcess);
 				cout << "Killsig found! \n\n\n\n";
 			}
@@ -449,7 +458,9 @@ Process* Scheduler::ForkProcess(int child_ct)
 {
 	// generating the child:
 	// assuming the pids max out the number of proccesses as shown in sample test file
-	int child_pid = ((rand() % total_nprocess) + 1) + total_nprocess;
+	//int child_pid = ((rand() % total_nprocess) + 1) + total_nprocess;
+	int child_pid = ((rand()) + 1);
+
 	Map<int, int> empty_io_map;
 	empty_io_map.addPair(0, 0);
 	Process* Child = new Process(child_pid, timestep, child_ct, empty_io_map);
@@ -487,8 +498,8 @@ Process* Scheduler::ForkProcess(int child_ct)
 
 	if (minProcessor)
 	{
-		total_nprocess++;
 		minProcessor->moveToRDY(Child);
+		total_nprocess++;
 		return Child;
 	}
 	else

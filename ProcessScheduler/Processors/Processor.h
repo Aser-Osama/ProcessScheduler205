@@ -31,6 +31,7 @@ public:
     virtual int getCurrentTime();
     Process* clearRUN();
     static Scheduler* getScheduler();
+    virtual bool readyIsEmpty() = 0;
 
 
 };  
