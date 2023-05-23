@@ -72,7 +72,7 @@ bool Process::isForked()
 }
 
 
-bool Process::decrementIO(int timestep) // Assumption: Processes IO are ordered in IO_R recieval asc in the input file 
+bool Process::decrementIO(int timestep) 
 {
 	Node<Pair<int, int>>* ProcessIO = IO_R_D.getHead();
 	while (ProcessIO->getItem().getKey() <= timestep) // loops on the map to get the process ready for IO
